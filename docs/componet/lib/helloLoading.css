@@ -1,0 +1,57 @@
+.__hello {
+    position: fixed;
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    background: white;
+}
+
+.__hello_logo_box {
+    position: relative;
+    width: 2.48rem;
+    height: 0.75rem;
+    left: 50%;
+    margin-left: -1.24rem;
+    top: 40%
+}
+
+.__hello_logo {
+    position: absolute;
+    width: 2.48rem;
+    height: 0.75rem;
+    background: url('data:image/png;base64,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') no-repeat;
+    background-size: cover;
+}
+
+.__hello_mask {
+    position: absolute;
+    height: 1rem;
+    width: .2rem;
+    top: 0;
+    left: -10px;
+    background-color: rgba(255, 255, 255, 0.5);
+    transform: skew(20deg) translateZ(0);
+    -webkit-transform: skew(20deg) translateZ(0);
+    animation: 1s loadingframe infinite;
+    -webkit-animation: 1s loadingframe infinite;
+}
+
+@keyframes loadingframe {
+    0% {
+        left: -5px;
+    }
+
+    100% {
+        left: 140px;
+    }
+}
+
+@-webkit-keyframes loadingframe {
+    0% {
+        left: -5px;
+    }
+
+    100% {
+        left: 140px;
+    }
+}
