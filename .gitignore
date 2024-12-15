@@ -3,8 +3,8 @@
 
 node_modules
 
-out
 dist
+cache
 
 npm-debug.log*
 yarn-error.log
@@ -18,3 +18,4 @@ yarn.lock
 .eslintcache
 .history
 *.tgz
+myConfig.js

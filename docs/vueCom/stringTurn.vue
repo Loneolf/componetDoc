@@ -1,7 +1,6 @@
 <template>
     <div className="stringChangeBox">
 			<div className="topOprateBox">
-				<!-- <Button className="marginBtn" type="primary" @click="copyString(showData)">复制结果</Button> -->
                 <el-button class="marginBtn" type="primary" @click="$copyString(showData)">复制结果</el-button>
 			</div>
 			<div className="stringChangeContent">
