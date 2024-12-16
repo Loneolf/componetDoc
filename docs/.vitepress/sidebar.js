@@ -35,6 +35,10 @@ export default {
 			// text: "方法文档",
 			items: [
 				{
+					text: "TZT.js",
+					link: "/toolmd/TZTJS",
+				},
+				{
 					text: "时间处理相关",
 					link: "/toolmd/time",
 				},

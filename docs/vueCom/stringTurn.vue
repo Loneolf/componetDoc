@@ -20,7 +20,7 @@
   import { ref } from "vue";
   const taValue = ref('')
   const showData = ref()
-  const tipText = ref('请粘贴正确的请求数据')
+  const tipText = ref('请在左侧输入框粘贴要解析的数据')
   const showPre = ref(false)
   
   function changeHandle(e) {

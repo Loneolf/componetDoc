@@ -5,9 +5,9 @@ import {
 } from "vitepress-theme-demoblock";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import path from "path";
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+// import AutoImport from 'unplugin-auto-import/vite'
+// import Components from 'unplugin-vue-components/vite'
+// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 
 import sidebar from "./sidebar";
@@ -26,12 +26,12 @@ export default defineConfig({
 		plugins: [
 			demoblockVitePlugin(), 
 			vueJsx(),
-			AutoImport({
-				resolvers: [ElementPlusResolver()],
-			}),
-			Components({
-				resolvers: [ElementPlusResolver()],
-			}),
+			// AutoImport({
+			// 	resolvers: [ElementPlusResolver()],
+			// }),
+			// Components({
+			// 	resolvers: [ElementPlusResolver()],
+			// }),
 		],
 		resolve: {
 			alias: {
@@ -64,7 +64,7 @@ export default defineConfig({
 			{ text: "组件", link: "/componetmd/timeSelect", activeMatch: "/componetmd/" },
 			{ text: "工具", link: "/tools/filedsIndex", activeMatch: "/tools/" },
 			{ text: "文档", link: "/toolmd/time", activeMatch: "/toolmd/" },
-			{ text: "建议与反馈", link: '/Feedback' },
+			{ text: "建议与反馈", link: '/FeedBack' },
 		],
 
 		sidebar,
