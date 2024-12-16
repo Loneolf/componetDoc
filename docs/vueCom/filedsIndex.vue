@@ -48,7 +48,7 @@
     function getServerDataIndex(rawData) {
         const lines = rawData.split('\n');
         // 提取表头行
-        const headerLine = lines.find(line => line.startsWith('GRID=') || line.startsWith('Grid='));
+        const headerLine = lines.find(line => line.startsWith('GRID0=') || line.startsWith('Grid='));
         // 用于存储各字段对应索引的对象
         const indexMap = {};
         lines.forEach(line => {
@@ -57,7 +57,7 @@
                 indexMap[key] = value;
             }
         });
-        indexMap['GRID0'] = [headerLine.replace(/^GRID=|^Grid=/, '')]
+        indexMap['GRID0'] = [headerLine.replace(/^GRID0=|^Grid=/, '')]
         return getFieldIndex(indexMap);
     }
 
