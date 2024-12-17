@@ -51,7 +51,7 @@
 </script>
   
   
-<style lang="less">
+<style lang="less" scoped>
   .stringChangeBox{
     height: 100%;
     .topOprateBox{

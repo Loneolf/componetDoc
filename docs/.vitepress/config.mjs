@@ -4,10 +4,8 @@ import {
 	demoblockVitePlugin,
 } from "vitepress-theme-demoblock";
 import vueJsx from "@vitejs/plugin-vue-jsx";
+import vitePluginRaw from 'vite-plugin-raw';
 import path from "path";
-// import AutoImport from 'unplugin-auto-import/vite'
-// import Components from 'unplugin-vue-components/vite'
-// import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 
 import sidebar from "./sidebar";
@@ -23,16 +21,15 @@ export default defineConfig({
 	returnToTopLabel: '返回顶部', // 自定义返回顶部文字
 
 	vite: {
+		assetsInclude: ['**/*.html'],
 		plugins: [
 			demoblockVitePlugin(), 
 			vueJsx(),
-			// AutoImport({
-			// 	resolvers: [ElementPlusResolver()],
-			// }),
-			// Components({
-			// 	resolvers: [ElementPlusResolver()],
-			// }),
+			vitePluginRaw({
+				match: /\.html$/,
+			})
 		],
+
 		resolve: {
 			alias: {
 				"@c": path.resolve(__dirname, "../componet"),
@@ -59,7 +56,6 @@ export default defineConfig({
 	// cleanUrls: true,
 
 	themeConfig: {
-		
 		nav: [
 			{ text: "组件", link: "/componetmd/timeSelect", activeMatch: "/componetmd/" },
 			{ text: "工具", link: "/tools/filedsIndex", activeMatch: "/tools/" },

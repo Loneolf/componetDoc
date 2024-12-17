@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css转化</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        html,
+        body,
+        .app {
+            height: 100%;
+        }
+
+        .app {
+            display: flex;
+        }
+
+        .leftBox {
+            width: 36%;
+            min-width: 36%;
+            overflow: auto;
+            /* background-color: aqua; */
+            padding: 100px 10px 0;
+        }
+
+        textarea {
+            height: 80%;
+            width: calc(100% - 20px);
+            border: none;
+            resize: none;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: aliceblue;
+        }
+
+        .operate {
+            width: 200px;
+            min-width: 200px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        .btn {
+            min-width: 80px;
+            padding: 10px 20px;
+            border-radius: 4px;
+            border: none;
+            background-color: aquamarine;
+            font-size: 16px;
+            margin-top: 20px;
+            cursor: pointer;
+            /* display: none; */
+        }
+        .typebtn {
+            border: 1px solid #ccc;
+            background: none;
+        }
+        .btn.active{
+            background-color: red;
+        }
+        .text {
+            font-size: 14px;
+            margin-top: 20px;
+        }
+
+        .unitInput {
+            padding: 5px;
+            padding-left: 15px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            margin-top: 10px;
+            width: 100px;
+        }
+
+        .usualUse {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .tag {
+            background-color: burlywood;
+            padding: 5px 10px;
+            display: inline-block;
+            margin-left: 10px;
+            margin-top: 10px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        .rightBox {
+            flex: 1;
+            word-break: break-all;
+            white-space: break-spaces;
+            padding: 20px;
+            height: 100%;
+            overflow: auto;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+<div class="app">
+    <div class="leftBox">
+        <textarea id="textarea"></textarea>
+    </div>
+    <div class="operate">
+        <button class="btn turn" id="turn">转化</button><br />
+        <button class="btn typebtn" id="pxTurn">px转rem</button><br />
+        <button class="btn typebtn active" id="remTurn">rem转px</button>
+        <br />
+        <p class="text">基准单位</p>
+        <input type="text" class="unitInput" id="unitInput" value="50">
+        <div class="usualUse" id="usualUse">
+            <span>常用单位: </span>
+            <span class="tag">20</span>
+            <span class="tag">50</span>
+            <span class="tag">100</span>
+            <span class="tag">37.5</span>
+        </div>
+        <button class="btn copy" id="copy">复制结果</button>
+
+    </div>
+    <pre class="rightBox" id="rightBox">
+    </pre>
+</div>
+
+<body>
+    <script>
+        // 匹配px的正则
+        const pxRegex = /(\d+)px/g;
+        const remRegex = /(\d*\.?\d+)rem/g;
+        let type = 'rem'
+        // 点击转化按钮，转化CSS
+        turn.onclick = () => {
+            const cssStr = textarea.value
+            if (!cssStr) return alert('请输入或粘贴要转化的css')
+            const baseFontSize = unitInput.value
+            if (!baseFontSize) return alert('请输入或选择基准单位')
+            let remCssString = cssStr.replace(type === 'px' ? pxRegex : remRegex, function (match, pixels) {
+                let remValue = ''
+                if (type === 'px') {
+                    remValue = (parseInt(pixels) / baseFontSize).toFixed(2);
+                } else {
+                    remValue = pixels * baseFontSize;
+                }
+                return remValue + (type === 'rem' ? 'px' : 'rem');
+            });
+            rightBox.innerText = remCssString
+        };
+        pxTurn.onclick = () => {
+            pxTurn.className = 'btn typebtn active'
+            type = 'px'
+            remTurn.className = 'btn typebtn'
+        }
+        remTurn.onclick = () => {
+            remTurn.className = 'btn typebtn active'
+            type = 'rem'
+            pxTurn.className = 'btn typebtn'
+        }
+        
+        // 常用单位点击切换
+        usualUse.onclick = (e) => {
+            if (e.target.className === 'tag') {
+                unitInput.value = e.target.innerText                
+            }
+        }
+        // 复制转化结果
+        copy.onclick=() => {
+            const copyStr = rightBox.innerText
+            if (!copyStr.trim()) return alert('无内容复制')
+            navigator.clipboard.writeText(copyStr).then(() => {
+                alert('已复制')
+            }).catch(() => {
+                alert('复制失败')
+            })
+        }
+
+    </script>
+</body>
+
+</html>
+

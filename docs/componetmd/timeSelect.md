@@ -61,19 +61,16 @@ data: {
 | datechange | 时间控件中的时间发生变化，给begin-data和end-data重新赋值 | beginDate, endDate |
 | tabchange | 点击tab事件 | tab | today、weekly、month、userDefined |
 
-<style>
-    .content{
-        
+<style scoped>
+    .iframeBox{
+        /* position:absolute;
+        top: 100px;
+        right: 30px; */
+        border-radius: 5px;
+        border:none;
+        background: #fff;
+        box-shadow: 0 0 10px #ccc;
     }
-.iframeBox{
-    /* position:absolute;
-    top: 100px;
-    right: 30px; */
-    border-radius: 5px;
-    border:none;
-    background: #fff;
-    box-shadow: 0 0 10px #ccc;
-}
 </style>
 
 

@@ -27,6 +27,16 @@ export default {
 					link: "/tools/stringTurn",
                     hasAside: false,
 				},
+				{
+                    text: "css转化",
+					link: "/tools/cssTurn",
+                    hasAside: false,
+				},
+				{
+                    text: "埋点excel读取",
+					link: "/tools/readExcel",
+                    hasAside: false,
+				},
 			],
 		},
 	],

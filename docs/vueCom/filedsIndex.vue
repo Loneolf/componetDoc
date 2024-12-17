@@ -57,9 +57,25 @@
                 indexMap[key] = value;
             }
         });
-        indexMap['GRID0'] = [headerLine.replace(/^GRID0=|^Grid=/, '')]
+        indexMap['GRID0'] = [headerLine.replace(/GRID0=|Grid=/, '')]
         return getFieldIndex(indexMap);
     }
+
+    function getHSDataindex(rawData) {
+        const lines = rawData.split('\n');
+        // 提取表头行
+        const headerLine = lines.find(line => line.includes('HsAns=')).replace(/HsAns=/, '').split('|');
+        const valueLine = lines.find(line => line.includes('ReturnGrid=')).replace(/ReturnGrid=/, '').split('|');
+        if (!headerLine || !valueLine) return ''
+        let res = []
+        headerLine.forEach((item, index) => {
+            if (!item) return
+            res.push([index, `${item}:${valueLine[index]}`])
+        })
+        return res
+    }
+
+    // changeHandle({ target: { value: `` }})
 
     function changeHandle(e) {
         console.log(e.target.value)
@@ -71,14 +87,20 @@
                 return
             }
 
+            let isHSData = text.includes('HsAns=') && text.includes('ReturnGrid=')
             let isServerData = text.includes('GRID0=') || text.includes('Grid=')
-            console.log('aaaaisServerDAta', isServerData)
-            if (isServerData) {
+            console.log('aaaajudgeText', isHSData, isServerData)
+            if (isHSData) {
+                let res = getHSDataindex(text)
+                console.log('aaaaisHSData', res)
+                if (!res || !res.length) throw new Error('数据异常')
+                showData.value = res
+                console.log('aaaaisHSData', getHSDataindex(text))
+            } else if (isServerData) {
                 showData.value = getServerDataIndex(text)
             } else {
                 let data = JSON.parse(text)
                 showData.value = getFieldIndex(data)
-                // console.log('showData', JSON.parse(JSON.stringify(showData.value)))
             }
 
         } catch (error) {
@@ -105,7 +127,7 @@
 </script>
   
   
-<style lang="less">
+<style lang="less" scoped>
   .getFieldIndexBox{
       display: flex;
       .leftBox {
