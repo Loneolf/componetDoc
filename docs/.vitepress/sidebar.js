@@ -1,14 +1,14 @@
 export default {
-	"/componetmd/": [
+	"/componet/": [
 		{
 			items: [
 				{
 					text: "时间选择器",
-					link: "/componetmd/timeSelect",
+					link: "/componet/TimeBar/README",
 				},
 				{
 					text: "搜索组件",
-					link: "/componetmd/search",
+					link: "/componet/search/README",
 				},
 			],
 		},
@@ -40,25 +40,25 @@ export default {
 			],
 		},
 	],
-	"/toolmd/": [
+	"/fun/": [
 		{
 			// text: "方法文档",
 			items: [
 				{
 					text: "TZT.js",
-					link: "/toolmd/TZTJS",
+					link: "/fun/TZTJS",
 				},
 				{
 					text: "时间处理相关",
-					link: "/toolmd/time",
+					link: "/fun/time",
 				},
 				{
 					text: "金额数字处理",
-					link: "/toolmd/number",
+					link: "/fun/number",
 				},
 				{
 					text: "其它",
-					link: "/toolmd/util",
+					link: "/fun/util",
 				},
 			],
 		},

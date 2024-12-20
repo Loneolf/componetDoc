@@ -8,6 +8,7 @@
 
 .searchcomBox .searchInput {
     height: 0.64rem;
+    line-height: 0.64rem;
     background: #f5f5f5;
     border-radius: 0.4rem;
     display: flex;
@@ -22,19 +23,21 @@
     height: 0.32rem;
 }
 
-.searchcomBox .searchInput input {
+.searchcomBox .searchInput span {
+    display: inline-block;
     border: none;
     background: none;
     padding-left: 0.12rem;
-    width: 2.84rem;
     font-size: 0.28rem;
-    padding-top: 0.05rem;
+    width: 100%;
+    height: 100%;
 }
-
-.searchcomBox .searchInput input::-webkit-input-placeholder {
+.searchcomBox .searchInput .placeholder {
     font-size: 0.28rem;
     color: #aaaaaa;
+    display: inline-block;
 }
+
 
 .searchcomBox .searchInput .clear {
     position: absolute;
@@ -101,7 +104,6 @@
     text-align: center;
     font-size: 0.24rem;
     font-weight: 400;
-    max-width: 0.92rem;
     margin-right: 0.36rem;
 }
 
@@ -122,7 +124,8 @@
 }
 
 .van-popup--bottom {
-    height: 530px;
+    height: 570px;
+    min-height: 80vw;
 }
 
 .van-search__action {

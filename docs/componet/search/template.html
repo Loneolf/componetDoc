@@ -1,0 +1,72 @@
+<div class="searchcomBox">
+	<div class="searchInput">
+		<img class="seachIcon" src="./img/seachIcon.png"/>
+		<span 
+			:class="topSearchValue ? '' : 'placeholder'"
+			ref="searchSpanRef"
+		>{{topSearchValue || placeholder}}</span>
+		<img v-if="topSearchValue" class="clear" src="./img/clear.png" @click.stop="clearSeach">
+	</div>
+	<van-popup
+		v-model="isShowSeachPop"
+		position="bottom"
+		:close-on-click-overlay="false"
+		@click-overlay="onCancel"
+		ref="searchPopRef"
+	>
+		<div class="search-box" ref="searchbox">
+			<div class="width-center vantSearchBox">
+				<van-search
+					v-model="searchValue"
+					:placeholder="placeholder"
+					@input="onInput"
+					@focus="onFocus"
+					shape="round"
+					clearable
+					ref="searchRef"
+				></van-search>
+				<div class="close" @click="onCancel">关闭</div>
+			</div>
+		</div>
+		<div class="search-list width-center">
+			<div class="empty" v-show="isEmpty && searchValue != ''">
+				<img src="./img/noData.png" alt="" />
+				<div class="empty-text">未找到搜索结果</div>
+				<div
+					class="empty-button"
+					v-show="searchValue.length === 6 && !isNaN(searchValue)"
+					@click="useCode"
+				>
+					直接使用此代码
+				</div>
+			</div>
+			<div v-show="!isEmpty && searchValue" ref="searchListRef">
+				<div
+					class="search-list-item"
+					v-for="(item, i) in searchList"
+					:key="i"
+					@click.stop="itemClick(item)"
+				>
+					<div class="badge" :style="{ color: item.label.color,background: item.label.bgColor}">
+						{{ item.label.value }}
+					</div>
+					<span v-html="item.stockCode" class="stock-code"></span>
+					<span v-html="item.stockName" class="stock-name"></span>
+				</div>
+			</div>
+		</div>
+		<van-popup v-model="confrimPopUp">
+			<div class='confirmContent'>
+				<div 
+					class='confirmItem'
+					v-for='item in searchList' 
+					@click='itemClick(item, true)'
+					:key='item.rawName'
+				>
+					<span class='code'>{{item.rawCode}}</span>
+					<span class='name'>{{item.rawName}}</span>
+				</div>
+			</div>
+		</van-popup>
+	</van-popup>
+</div>
