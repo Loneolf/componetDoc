@@ -7,7 +7,7 @@
             <template v-if="showData.length > 0">
                 <p v-for="(item, index) in showData" :key="index" class="item">
                     {{item[0]}} ---- <span :class="item[1].includes('需补充下标') ? 'needIndex' : ''">{{item[1]}}</span>
-                    <span @click="copy(item[1])" class="iconfont">复制</span>
+                    <span @click="$copyString(item[1])" class="iconfont">复制</span>
                 </p>
             </template>
             <p v-else :class="tipText === '请粘贴正确的请求数据' ? 'tip errorTip' : 'tip'">{{tipText}}</p>
@@ -22,6 +22,7 @@
     const showData = ref([])
     const tipText = ref('请粘贴要解析的数据')
   
+    // 解析正常的接口返回数据
     function getFieldIndex(data) {
         const grid0 = data.GRID0[0].split('|');
         let res = []
@@ -34,7 +35,12 @@
                     tem.push(index)
                 }
                 if (Number(data[key]) === index) {
-                    tem.push(`${item}:${key}`)
+                    // 如果已经有了一个下标，后面还有下标则累加
+                    if (tem[1]) {
+                        tem[1] += `---${key}`
+                    } else {
+                        tem.push(`${item}---${key}`)
+                    }
                 }
             }
             if (tem.length === 1) tem.push(`${item}:需补充下标`)
@@ -45,6 +51,7 @@
         });
     }
 
+    // 解析服务端数据
     function getServerDataIndex(rawData) {
         const lines = rawData.split('\n');
         // 提取表头行
@@ -61,6 +68,7 @@
         return getFieldIndex(indexMap);
     }
 
+    // 解析恒生返回数据
     function getHSDataindex(rawData) {
         const lines = rawData.split('\n');
         // 提取表头行
@@ -78,7 +86,7 @@
     // changeHandle({ target: { value: `` }})
 
     function changeHandle(e) {
-        console.log(e.target.value)
+        // console.log(e.target.value)
         var text = e.target.value.trim();
         try {
             if (!text) {
@@ -89,7 +97,7 @@
 
             let isHSData = text.includes('HsAns=') && text.includes('ReturnGrid=')
             let isServerData = text.includes('GRID0=') || text.includes('Grid=')
-            console.log('aaaajudgeText', isHSData, isServerData)
+            // console.log('aaaajudgeText', isHSData, isServerData)
             if (isHSData) {
                 let res = getHSDataindex(text)
                 console.log('aaaaisHSData', res)
@@ -108,20 +116,6 @@
             showData.value = []
             console.log('error', error)
         }
-    }
-    
-    function copy(params) {
-        navigator.clipboard.writeText(params).then(() => {
-            ElMessage({
-                message:`已复制内容:${params}`,
-                type:'success'
-            })
-        }).catch(() => {
-            ElMessage({
-                message:`已复制内容:${params}`,
-                type:'error'
-            })
-        })
     }
   
 </script>
