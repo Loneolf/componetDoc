@@ -5,10 +5,21 @@
         </div>
         <div class="rightBox">
             <template v-if="showData.length > 0">
-                <p v-for="(item, index) in showData" :key="index" class="item">
-                    {{item[0]}} ---- <span :class="item[1].includes('需补充下标') ? 'needIndex' : ''">{{item[1]}}</span>
-                    <span @click="$copyString(item[1])" class="iconfont">复制</span>
-                </p>
+                <div class="tableBox">
+                    <el-table :data="showData" style="width: 800px" height="350">
+                        <el-table-column 
+                            v-for="(item, index) in showData"
+                            :key="index"
+                            :prop="item.title"
+                            :label="item.title"
+                            :fit="false"
+                            width="150"
+                            min-width="150"
+                            align="center"
+                        />
+                        <el-table-column prop="zip" label="Zip" />
+                    </el-table>
+                </div>
             </template>
             <p v-else :class="tipText === '请粘贴正确的请求数据' ? 'tip errorTip' : 'tip'">{{tipText}}</p>
         </div>
@@ -16,18 +27,23 @@
 </template>
   
 <script setup>
-    import { ref } from "vue";
+    import { ref, onMounted } from "vue";
+    import { mockdata1, mockdata2 } from './mockdata.js'
     const taValue = ref('')
     const showData = ref([])
     const tipText = ref('请粘贴要解析的数据')
   
+    onMounted(() => {
+        changeHandle({ target: { value: JSON.stringify(mockdata1, null, 2) } })
+    });
     // 解析正常的接口返回数据
     function getFieldIndex(data) {
-        const grid0 = data.GRID0[0].split('|');
-        let res = []
-        grid0.forEach((item, index) => {
-            if (!item) return
-            // console.log(item, index)
+        const grid0 = data.GRID0.shift().split('|');
+        console.log('grid0', grid0)
+        let titleArr = [], res = []
+        grid0.forEach((ti, index) => {
+            if (!ti) return
+            // console.log(ti, index)
             let tem = []
             for (const key in data) {
                 if (!tem.length) {
@@ -36,18 +52,30 @@
                 if (Number(data[key]) === index) {
                     // 如果已经有了一个下标，后面还有下标则累加
                     if (tem[1]) {
-                        tem[1] += `---${key}`
+                        tem[1] += `<br />${key}`
                     } else {
-                        tem.push(`${item}---${key}`)
+                        tem.push(`---${ti}<br />${key}`)
                     }
                 }
             }
-            if (tem.length === 1) tem.push(`${item}:需补充下标`)
-            res.push(tem)
+            if (tem.length === 1) tem.push(`${ti}:需补充下标`)
+            let obj = {}
+            obj.title = tem.join('')
+            // obj.title = grid0[index]
+            res.push(obj)
+            titleArr.push(tem.join(''))
         });
-        return res.sort((a, b) => {
-            return a[0] - b[0]
-        });
+        console.log('titleArr', JSON.parse(JSON.stringify(titleArr)))
+        data.GRID0.forEach((item, i) => {
+            let temArr = item.split('|')
+            temArr.forEach((item, index) => {
+                if (res[i]) {
+                    res[i][titleArr[index]] = item
+                }
+            })
+        })
+        console.log('res', res)
+        return res;
     }
 
     // 解析服务端数据
@@ -108,6 +136,7 @@
             } else {
                 let data = JSON.parse(text)
                 showData.value = getFieldIndex(data)
+                console.log('showData', showData)
             }
 
         } catch (error) {

@@ -18,6 +18,11 @@ export default {
 			// text: "Examples",
 			items: [
 				{
+					text: "解析数据",
+					link: "/tools/parseData",
+                    hasAside: false,
+				},
+				{
 					text: "字段下标获取",
 					link: "/tools/filedsIndex",
                     hasAside: false,
