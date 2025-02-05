@@ -1,22 +1,26 @@
 <template>
     <div class="getFieldIndexBox">
-        <div class="leftBox">
+        <div class="topBox">
             <textarea v-model="taValue" class="textarea" @input="changeHandle($event)" />
         </div>
-        <div class="rightBox">
+        <div class="bottomBox">
             <template v-if="showData.length > 0">
                 <div class="tableBox">
-                    <el-table :data="showData" style="width: 800px" height="350">
+                    <el-table :data="showData" style="width: 1600px" height="500">
                         <el-table-column 
                             v-for="(item, index) in showData"
                             :key="index"
                             :prop="item.title"
                             :label="item.title"
                             :fit="false"
+                            flexible
                             width="150"
                             min-width="150"
                             align="center"
                         />
+                            <template #header>
+                                <div>henad</div>
+                            </template>
                         <el-table-column prop="zip" label="Zip" />
                     </el-table>
                 </div>
@@ -151,14 +155,12 @@
   
 <style lang="less" scoped>
   .getFieldIndexBox{
-      display: flex;
-      .leftBox {
-          width: 40%;
-          min-width: 40%;
+      .topBox {
+          height: 400px;
           padding: 20px;
           border-right: 2px solid #cccccc;
           textarea {
-              min-height: 600px;
+              min-height: 400px;
               height: 100%;
               width: calc(100% - 20px);
               border: none;
@@ -168,8 +170,7 @@
               background-color: aliceblue;
           }
       }
-      .rightBox{
-          flex: 1;
+      .bottomBox{
           overflow: auto;
           padding: 20px;
           .item{
