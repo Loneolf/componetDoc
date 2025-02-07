@@ -6,23 +6,22 @@
         <div class="bottomBox">
             <template v-if="showData.length > 0">
                 <div class="tableBox">
-                    <el-table :data="showData" style="width: 1600px" height="500">
-                        <el-table-column 
-                            v-for="(item, index) in showData"
+                    <vxe-table 
+                        height="600" 
+                        :data="showData" 
+                    >
+                        <vxe-column type="seq" width="100" fixed="left"></vxe-column>
+                        <vxe-column 
+                            v-for="(item, index) in titleArr"
                             :key="index"
-                            :prop="item.title"
-                            :label="item.title"
-                            :fit="false"
-                            flexible
-                            width="150"
-                            min-width="150"
-                            align="center"
-                        />
+                            :field="item"
+                            width="auto"
+                        >
                             <template #header>
-                                <div>henad</div>
+                                <span v-html="item"></span>
                             </template>
-                        <el-table-column prop="zip" label="Zip" />
-                    </el-table>
+                        </vxe-column>
+                    </vxe-table>
                 </div>
             </template>
             <p v-else :class="tipText === '请粘贴正确的请求数据' ? 'tip errorTip' : 'tip'">{{tipText}}</p>
@@ -32,21 +31,21 @@
   
 <script setup>
     import { ref, onMounted } from "vue";
-    import { mockdata1, mockdata2 } from './mockdata.js'
+    // import { mockdata1, mockdata2 } from './mockdata.js'
     const taValue = ref('')
     const showData = ref([])
+    const titleArr = ref([])
     const tipText = ref('请粘贴要解析的数据')
   
     onMounted(() => {
-        changeHandle({ target: { value: JSON.stringify(mockdata1, null, 2) } })
+        // changeHandle({ target: { value: JSON.stringify(mockdata1, null, 2) } })
     });
     // 解析正常的接口返回数据
     function getFieldIndex(data) {
-        const grid0 = data.GRID0.shift().split('|');
-        console.log('grid0', grid0)
-        let titleArr = [], res = []
+        const grid0 = data.GRID0.shift().split('|').filter(item => item.trim());
+        // console.log('grid0', grid0)
+        let temTa = [], res = []
         grid0.forEach((ti, index) => {
-            if (!ti) return
             // console.log(ti, index)
             let tem = []
             for (const key in data) {
@@ -66,19 +65,22 @@
             let obj = {}
             obj.title = tem.join('')
             // obj.title = grid0[index]
-            res.push(obj)
-            titleArr.push(tem.join(''))
+            // res.push(obj)
+            temTa.push(tem.join(''))
         });
-        console.log('titleArr', JSON.parse(JSON.stringify(titleArr)))
+        titleArr.value = temTa
+        // console.log('temTa', JSON.parse(JSON.stringify(temTa)))
+        // console.log('res', JSON.parse(JSON.stringify(res)))
         data.GRID0.forEach((item, i) => {
-            let temArr = item.split('|')
+            let temArr = item.replace(/\|$/, '').split('|')
+            let obj = {title: temTa[i]}
+            res.push(obj)
+            // console.log('temArr', i, temArr)
             temArr.forEach((item, index) => {
-                if (res[i]) {
-                    res[i][titleArr[index]] = item
-                }
+                res[i][temTa[index]] = item
             })
         })
-        console.log('res', res)
+        // console.log('res', res)
         return res;
     }
 
@@ -153,7 +155,13 @@
 </script>
   
   
-<style lang="less" scoped>
+<style lang="less" >
+  .vxe-table--header{
+    margin: 0!important;
+  }
+  .vxe-header--gutter.col--gutter {
+    display: none;
+  }
   .getFieldIndexBox{
       .topBox {
           height: 400px;
