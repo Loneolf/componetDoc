@@ -31,14 +31,14 @@
   
 <script setup>
     import { ref, onMounted } from "vue";
-    // import { mockdata1, mockdata2 } from './mockdata.js'
+    // import { mockdata1, mockdata2, mockHsData1, mockHsData2 } from './mockdata.js'
     const taValue = ref('')
     const showData = ref([])
     const titleArr = ref([])
     const tipText = ref('请粘贴要解析的数据')
   
     onMounted(() => {
-        // changeHandle({ target: { value: JSON.stringify(mockdata1, null, 2) } })
+        // changeHandle({ target: { value: mockHsData2 } })
     });
     // 解析正常的接口返回数据
     function getFieldIndex(data) {
@@ -87,17 +87,31 @@
     // 解析服务端数据
     function getServerDataIndex(rawData) {
         const lines = rawData.split('\n');
+        console.log('aaa2333lines', lines)
         // 提取表头行
         const headerLine = lines.find(line => line.startsWith('GRID0=') || line.startsWith('Grid='));
         // 用于存储各字段对应索引的对象
-        const indexMap = {};
+        const indexMap = {GRID0: [ headerLine.replace(/GRID0=|Grid=/, '') ]};
+        console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
+        var beginPush = false
         lines.forEach(line => {
-            if (line.includes('=')) {
+            console.log('aaaaline')
+            if (beginPush && line.includes('|') && !line.includes('=')) {
+                console.log(indexMap.GRID0)
+                indexMap.GRID0.push(line)
+            } else {
+                beginPush = false
+            }
+            if (line.includes('GRID0=') || line.includes('Grid=')) {
+                beginPush = true
+            }
+            if (line.includes('=') && !line.includes('GRID0=') && !line.includes('Grid=')) {
                 const [key, value] = line.split('=');
                 indexMap[key] = value;
             }
         });
-        indexMap['GRID0'] = [headerLine.replace(/GRID0=|Grid=/, '')]
+        // console.log(indexMap)
+        // return
         return getFieldIndex(indexMap);
     }
 
@@ -119,7 +133,7 @@
     // changeHandle({ target: { value: `` }})
 
     function changeHandle(e) {
-        // console.log(e.target.value)
+        console.log(e.target.value)
         var text = e.target.value.trim();
         try {
             if (!text) {
@@ -138,8 +152,13 @@
                 showData.value = res
                 console.log('aaaaisHSData', getHSDataindex(text))
             } else if (isServerData) {
+                console.log('aaaaaserve')
+                // getServerDataIndex(text)
+                // return
                 showData.value = getServerDataIndex(text)
             } else {
+                // let data1 = eval(text)
+                // console.log('aaadata1', data1)
                 let data = JSON.parse(text)
                 showData.value = getFieldIndex(data)
                 console.log('showData', showData)
@@ -181,6 +200,7 @@
       .bottomBox{
           overflow: auto;
           padding: 20px;
+          margin-top: 20px;
           .item{
               margin-bottom: 10px;
               display: flex;

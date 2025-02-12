@@ -18,28 +18,28 @@ export default {
 			// text: "Examples",
 			items: [
 				{
+					text: "字段下标获取",
+					link: "/tools/filedsIndex",
+					hasAside: false,
+				},
+				{
 					text: "解析数据",
 					link: "/tools/parseData",
                     hasAside: false,
 				},
 				{
-					text: "字段下标获取",
-					link: "/tools/filedsIndex",
-                    hasAside: false,
+					text: "埋点excel读取",
+					link: "/tools/readExcel",
+					hasAside: false,
+				},
+				{
+					text: "css转化",
+					link: "/tools/cssTurn",
+					hasAside: false,
 				},
 				{
                     text: "字符串转换",
 					link: "/tools/stringTurn",
-                    hasAside: false,
-				},
-				{
-                    text: "css转化",
-					link: "/tools/cssTurn",
-                    hasAside: false,
-				},
-				{
-                    text: "埋点excel读取",
-					link: "/tools/readExcel",
                     hasAside: false,
 				},
 			],
