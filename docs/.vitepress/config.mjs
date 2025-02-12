@@ -57,7 +57,7 @@ export default defineConfig({
 
 	themeConfig: {
 		nav: [
-			{ text: "组件", link: "/componet/TimeBar/README", activeMatch: "/componet/" },
+			{ text: "组件", link: "/componet/TimeBar/readme", activeMatch: "/componet/" },
 			{ text: "工具", link: "/tools/filedsIndex", activeMatch: "/tools/" },
 			{ text: "文档", link: "/fun/time", activeMatch: "/fun/" },
 			{ text: "建议与反馈", link: '/FeedBack' },
