@@ -18,6 +18,11 @@ export default {
 			// text: "Examples",
 			items: [
 				{
+					text: "持仓数据解析",
+					link: "/tools/parseHold",
+					hasAside: false,
+				},
+				{
 					text: "字段下标获取",
 					link: "/tools/filedsIndex",
 					hasAside: false,

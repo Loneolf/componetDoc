@@ -15,7 +15,7 @@ console.log(process.env.base)
 export default defineConfig({
 	title: "文档库",
 	description: "组件库",
-
+	head: [['link', { rel: 'icon',  type: 'image/png', href: 'favicon.png' }]],
 	base: process.env.base || "/doc/",
 
 	returnToTopLabel: '返回顶部', // 自定义返回顶部文字
@@ -58,7 +58,7 @@ export default defineConfig({
 	themeConfig: {
 		nav: [
 			{ text: "组件", link: "/componet/TimeBar/readme", activeMatch: "/componet/" },
-			{ text: "工具", link: "/tools/filedsIndex", activeMatch: "/tools/" },
+			{ text: "工具", link: "/tools/parseHold", activeMatch: "/tools/" },
 			{ text: "文档", link: "/fun/time", activeMatch: "/fun/" },
 			{ text: "建议与反馈", link: '/FeedBack' },
 		],

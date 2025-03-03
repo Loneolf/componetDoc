@@ -1,0 +1,42 @@
+.parseHoldingData{
+    position: relative;
+    .oprateBtn {
+        position: absolute;
+        right: 100px;
+        top: 20px;
+    }
+    .sourceData {
+        // height: 400px;
+        padding: 20px;
+        border-right: 2px solid #cccccc;
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        .sourceItem {
+            margin-right: 20px;
+        }
+        textarea {
+            width: 200px;
+            height: 100px;
+            border: none;
+            border-radius: 10px;
+            background-color: aliceblue;
+        }
+    }
+    .parseContent {
+        .accountItem {
+            p {
+                margin: 0;
+                height: 20px;
+                font-size: 16px;
+                line-height: 20px;
+            } 
+        }
+    }
+    
+}
+
+.el-popper.el-popover.el-popover--plain {
+    max-height: 600px;
+    overflow: auto;
+}

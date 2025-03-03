@@ -4,10 +4,30 @@
             <textarea v-model="taValue" class="textarea" @input="changeHandle($event)" />
         </div>
         <div class="bottomBox">
+            <template v-if="showData2.length > 0">
+                <div class="tableBox">
+                    <vxe-table 
+                        height="500" 
+                        :data="showData2" 
+                    >
+                        <vxe-column type="seq" width="100" fixed="left"></vxe-column>
+                        <vxe-column 
+                            v-for="(item, index) in titleArr2"
+                            :key="index"
+                            :field="item"
+                            width="auto"
+                        >
+                            <template #header>
+                                <span v-html="item"></span>
+                            </template>
+                        </vxe-column>
+                    </vxe-table>
+                </div>
+            </template>
             <template v-if="showData.length > 0">
                 <div class="tableBox">
                     <vxe-table 
-                        height="600" 
+                        height="800" 
                         :data="showData" 
                     >
                         <vxe-column type="seq" width="100" fixed="left"></vxe-column>
@@ -24,113 +44,31 @@
                     </vxe-table>
                 </div>
             </template>
-            <p v-else :class="tipText === '请粘贴正确的请求数据' ? 'tip errorTip' : 'tip'">{{tipText}}</p>
+            
+            <p v-if="!showData.length" :class="tipText === '请粘贴正确的请求数据' ? 'tip errorTip' : 'tip'">{{tipText}}</p>
         </div>
     </div>
 </template>
   
 <script setup>
     import { ref, onMounted } from "vue";
+    import * as tUtil from './comUtil/tabelUtil'
+    import * as mockData from './holding/holdMock'
     // import { mockdata1, mockdata2, mockHsData1, mockHsData2 } from './mockdata.js'
-    const taValue = ref('')
+    const taValue = ref()
+
     const showData = ref([])
     const titleArr = ref([])
+
+    const showData2 = ref([])
+    const titleArr2 = ref([])
     const tipText = ref('请粘贴要解析的数据')
   
     onMounted(() => {
-        // changeHandle({ target: { value: mockHsData2 } })
+        // const TD = JSON.stringify(mockData.mockdata117)
+        // taValue.value = TD
+        // changeHandle({ target: { value: TD } })
     });
-    // 解析正常的接口返回数据
-    function getFieldIndex(data) {
-        const grid0 = data.GRID0.shift().split('|').filter(item => item.trim());
-        // console.log('grid0', grid0)
-        let temTa = [], res = []
-        grid0.forEach((ti, index) => {
-            // console.log(ti, index)
-            let tem = []
-            for (const key in data) {
-                if (!tem.length) {
-                    tem.push(index)
-                }
-                if (Number(data[key]) === index) {
-                    // 如果已经有了一个下标，后面还有下标则累加
-                    if (tem[1]) {
-                        tem[1] += `<br />${key}`
-                    } else {
-                        tem.push(`---${ti}<br />${key}`)
-                    }
-                }
-            }
-            if (tem.length === 1) tem.push(`${ti}:需补充下标`)
-            let obj = {}
-            obj.title = tem.join('')
-            // obj.title = grid0[index]
-            // res.push(obj)
-            temTa.push(tem.join(''))
-        });
-        titleArr.value = temTa
-        // console.log('temTa', JSON.parse(JSON.stringify(temTa)))
-        // console.log('res', JSON.parse(JSON.stringify(res)))
-        data.GRID0.forEach((item, i) => {
-            let temArr = item.replace(/\|$/, '').split('|')
-            let obj = {title: temTa[i]}
-            res.push(obj)
-            // console.log('temArr', i, temArr)
-            temArr.forEach((item, index) => {
-                res[i][temTa[index]] = item
-            })
-        })
-        // console.log('res', res)
-        return res;
-    }
-
-    // 解析服务端数据
-    function getServerDataIndex(rawData) {
-        const lines = rawData.split('\n');
-        console.log('aaa2333lines', lines)
-        // 提取表头行
-        const headerLine = lines.find(line => line.startsWith('GRID0=') || line.startsWith('Grid='));
-        // 用于存储各字段对应索引的对象
-        const indexMap = {GRID0: [ headerLine.replace(/GRID0=|Grid=/, '') ]};
-        console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
-        var beginPush = false
-        lines.forEach(line => {
-            console.log('aaaaline')
-            if (beginPush && line.includes('|') && !line.includes('=')) {
-                console.log(indexMap.GRID0)
-                indexMap.GRID0.push(line)
-            } else {
-                beginPush = false
-            }
-            if (line.includes('GRID0=') || line.includes('Grid=')) {
-                beginPush = true
-            }
-            if (line.includes('=') && !line.includes('GRID0=') && !line.includes('Grid=')) {
-                const [key, value] = line.split('=');
-                indexMap[key] = value;
-            }
-        });
-        // console.log(indexMap)
-        // return
-        return getFieldIndex(indexMap);
-    }
-
-    // 解析恒生返回数据
-    function getHSDataindex(rawData) {
-        const lines = rawData.split('\n');
-        // 提取表头行
-        const headerLine = lines.find(line => line.includes('HsAns=')).replace(/HsAns=/, '').split('|');
-        const valueLine = lines.find(line => line.includes('ReturnGrid=')).replace(/ReturnGrid=/, '').split('|');
-        if (!headerLine || !valueLine) return ''
-        let res = []
-        headerLine.forEach((item, index) => {
-            if (!item) return
-            res.push([index, `${item}:${valueLine[index]}`])
-        })
-        return res
-    }
-
-    // changeHandle({ target: { value: `` }})
 
     function changeHandle(e) {
         console.log(e.target.value)
@@ -139,6 +77,7 @@
             if (!text) {
                 tipText.value = '请粘贴要解析的数据'
                 showData.value = []
+                showData2.value = []
                 return
             }
 
@@ -146,21 +85,35 @@
             let isServerData = text.includes('GRID0=') || text.includes('Grid=')
             // console.log('aaaajudgeText', isHSData, isServerData)
             if (isHSData) {
-                let res = getHSDataindex(text)
+                let res = tUtil.getHSDataindex(text)
                 console.log('aaaaisHSData', res)
                 if (!res || !res.length) throw new Error('数据异常')
                 showData.value = res
-                console.log('aaaaisHSData', getHSDataindex(text))
+                console.log('aaaaisHSData', tUtil.getHSDataindex(text))
             } else if (isServerData) {
                 console.log('aaaaaserve')
                 // getServerDataIndex(text)
                 // return
-                showData.value = getServerDataIndex(text)
+                let res = tUtil.getServerDataIndex(text)
+                showData.value = res.showData
+                titleArr.value = res.titleArr
             } else {
                 // let data1 = eval(text)
-                // console.log('aaadata1', data1)
                 let data = JSON.parse(text)
-                showData.value = getFieldIndex(data)
+                let res = tUtil.getFieldIndex(data)
+
+                if (data.GRID2) {
+                    var data2 = JSON.parse(JSON.stringify(data))
+                    data2.GRID0 = data.GRID2
+                    let res2 = tUtil.getFieldIndex(data2)
+                    showData2.value = res2.showData
+                    titleArr2.value = res2.titleArr
+                }
+
+                console.log('aaadata1', res)
+
+                showData.value = res.showData
+                titleArr.value = res.titleArr
                 console.log('showData', showData)
             }
 
