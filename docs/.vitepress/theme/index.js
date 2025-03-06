@@ -22,7 +22,9 @@ import "./style.css";
 import "./toolsPage.less"
 
 // 精度数值加减库，注册为全局可使用
-window.Big = Big;
+if (typeof window !== 'undefined') {
+	window.Big = Big;
+}
 
 /** @type {import('vitepress').Theme} */
 export default {

@@ -2,7 +2,7 @@
 export function getFieldIndex(data) {
     const grid0 = data.GRID0.shift().split('|').filter(item => item.trim());
     // console.log('grid0', grid0)
-    let temTa = [], showData = [], titleArr = []
+    let temTa = [], showData = [], titleArr = [], fixedArr = []
     grid0.forEach((ti, index) => {
         // console.log(ti, index)
         let tem = []
@@ -20,11 +20,9 @@ export function getFieldIndex(data) {
             }
         }
         if (tem.length === 1) tem.push(`${ti}:需补充下标`)
-        let obj = {}
-        obj.title = tem.join('')
-        // obj.title = grid0[index]
         // showData.push(obj)
         temTa.push(tem.join(''))
+        fixedArr.push({text: tem.join(''), fixed: null})
     });
     titleArr = temTa
     // console.log('temTa', JSON.parse(JSON.stringify(temTa)))
@@ -39,7 +37,7 @@ export function getFieldIndex(data) {
         })
     })
     // console.log('showData', showData)
-    return {titleArr, showData};
+    return {titleArr, showData, fixedArr};
 }
 
 // 解析服务端数据

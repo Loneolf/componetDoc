@@ -36,6 +36,7 @@ export default defineConfig({
 				"@vc": path.resolve(__dirname, "../vueCom"),
 				"@t": path.resolve(__dirname, "../tools"),
 				"@com": path.resolve(__dirname, "../common"),
+				"@a": path.resolve(__dirname, "../assets"),
 			},
 		},
 	},
