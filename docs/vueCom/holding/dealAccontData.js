@@ -1,28 +1,4 @@
-export const accountTypeMap = {
-    '0': ['SHACCOUNT', 'SZACCOUNT', 'SBACCOUNT'], // 人民币A股  沪深京
-    '0_HK': ['HKACCOUNT', 'HKSZACCOUNT'],   //  人民币港股  
-    '1': ['SHBACCOUNT', 'SBBACCOUNT'],   // 美股
-    '2': ['SZBACCOUNT','R']             // 港股
-}
-
-export const moneyTypeMap = {
-    '0': '人民币账户A股',
-    '0_HK': '人民币账户港股',
-    '1': '美元账户',
-    '2': '港币账户'
-}
-
-export const bzTypeMap = {
-    'SHACCOUNT': '0',
-    'SZACCOUNT': '0',
-    'SBACCOUNT': '0',
-    'HKACCOUNT': '0_HK',
-    'HKSZACCOUNT': '0_HK',
-    'SHBACCOUNT': '1',
-    'SBBACCOUNT': '1',
-    'SZBACCOUNT': '2',
-    'R': '2'
-}
+import { accountTypeMap } from './accontMap'
 
 export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
     // console.log('aaaaacomputerAccountData', gridData, oData, oData1, OTCData, OTCStatus);
@@ -47,15 +23,15 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             var rmbHoldingList = gridData.filter((o)=>{
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
             });
-            console.log('aaa2233rembholdinglist', rmbHoldingList);
+            // console.log('aaa2233rembholdinglist', rmbHoldingList);
             try{
                 if(OTCStatus == false){
                     accountItem.total = '--';
                 }
                 else{
                     accountItem.total = new Big(oData.TOTALASSET_RMB).plus(new Big(OTCData || 0)).toFixed(2).toString();
-                    accountItem.totalEX = '从116接口获取所有子账户，过滤所有人民币账户资产进行相加  若无子账户 117接口，取值：TOTALASSET_USD'
-                    accountItem.rmbEX = oData.rmbEX
+                    accountItem.totalEX = `从116接口获取所有子账户，过滤所有人民币账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_RMB，本次取值: ${oData.rmbEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_RMB'}`
+                    accountItem.totalFrom = oData.rmbEX
                 }
             }
             catch(e){
@@ -93,16 +69,19 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             console.log('aaaarmbHoldingList', rmbHoldingList);
             // 人民币持仓为空时展示为--
+            accountItem.todayPlEX = `所有人民币A股持仓当日盈亏累加之和`
+            accountItem.todayPlFrom = '';
             if(!rmbHoldingList || !rmbHoldingList.length){ 
                 accountItem.todayPl = '--';
             } else {
                 var isTodayPlValid = false;
                 var todayPl = '0.00';
                 try{
-                    rmbHoldingList.forEach(function(o){
+                    rmbHoldingList.forEach(function(o, oi){
                         if(o.todayPl != '--'){
                             isTodayPlValid = true;
                             todayPl = new Big(todayPl).plus(new Big(o.todayPl)).toFixed(2).toString();
+                            accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${rmbHoldingList[oi + 1] ? '+' : ''} `
                         }  
                     });
                     if(!isTodayPlValid){
@@ -118,7 +97,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
 
             try{
                 accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
-                accountItem.ratioEX = `市值 / 总资产`
+                accountItem.ratioEX = `总市值 / 总资产`
             }
             catch(e){
                 accountItem.ratio = '--';
@@ -132,6 +111,8 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
             });
             accountItem.total = oData.TOTALASSET_USD;
+            accountItem.totalEX = `从116接口获取所有子账户，过滤所有美元账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_USD，本次取值: ${oData.usdEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_USD'}`
+            accountItem.totalFrom = oData.usdEX
             try{
                 // 美元持仓为空时展示为--
                 if(oData.MKTVAL_USD == 0 && (!usdHoldingList || !usdHoldingList.length)){ 
@@ -163,6 +144,8 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
 
             // 美元持仓为空时展示为--
+            accountItem.todayPlEX = `所有美元持仓当日盈亏累加之和`
+            accountItem.todayPlFrom = '';
             if(!usdHoldingList || !usdHoldingList.length){ 
                 accountItem.todayPl = '--';
             }
@@ -170,10 +153,11 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 var isTodayPlValid = false;
                 var todayPl = '0.00';
                 try{
-                    usdHoldingList.forEach(function(o){
+                    usdHoldingList.forEach(function(o, oi){
                         if(o.todayPl != '--'){
                             isTodayPlValid = true;
                             todayPl = new Big(todayPl).plus(new Big(o.todayPl)).toFixed(2).toString();
+                            accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${usdHoldingList[oi + 1] ? '+' : ''} `
                         }     
                     });
                     if(!isTodayPlValid){
@@ -188,7 +172,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         
             try{
                 accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
-                accountItem.ratioEX = `市值 / 总资产`
+                accountItem.ratioEX = `总市值 / 总资产`
             }
             catch(e){
                 accountItem.ratio = '--';
@@ -202,6 +186,8 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
             });
             accountItem.total = oData.TOTALASSET_HK;
+            accountItem.totalEX = `从116接口获取所有子账户，过滤所有美元账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_HK，本次取值: ${oData.hkEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_HK'}`
+            accountItem.totalFrom = oData.hkEX
             try{
                 // 港币持仓为空时展示为--
                 if(oData.MKTVAL_HK == 0 && (!hkHoldingList || !hkHoldingList.length)){ 
@@ -233,6 +219,9 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
 
             // 港币持仓为空时展示为--
+            accountItem.todayPlEX = `所有港币持仓当日盈亏累加之和`
+            accountItem.todayPlFrom = '';
+            console.log('aaahkHoldingList', hkHoldingList);
             if(!hkHoldingList || !hkHoldingList.length){ 
                 accountItem.todayPl = '--';
             }
@@ -240,10 +229,11 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 var isTodayPlValid = false;
                 var todayPl = '0.00';
                 try{
-                    hkHoldingList.forEach(function(o){
+                    hkHoldingList.forEach(function(o, oi){
                         if(o.todayPl != '--'){
                             isTodayPlValid = true;
                             todayPl = new Big(todayPl).plus(new Big(o.todayPl)).toFixed(2).toString();
+                            accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${hkHoldingList[oi + 1] ? '+' : ''} `
                         }      
                     });
                     if(!isTodayPlValid){
@@ -258,7 +248,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             
             try{
                 accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
-                accountItem.ratioEX = `市值 / 总资产`
+                accountItem.ratioEX = `总市值 / 总资产`
             }
             catch(e){
                 accountItem.ratio = '--';
@@ -375,18 +365,18 @@ export function getAllZongZiChan(data, zhhData) {
             return i[data['2_FUNDACCOUNTTYPEINDEX']] == '1'
         });
         if (!mzzhFlag) return data
-        console.log('zhhData', zhhData);
+        // console.log('zhhData', zhhData);
         if (zhhData?.GRID0?.length > 1) {
             zhhData.GRID0.shift();
             for (var j = 0; j < zhhData.GRID0.length; j++) {
                 var itemV = zhhData.GRID0[j].split('|');
-                console.log('itemV', itemV)
+                // console.log('itemV', itemV)
                 if (itemV[zhhData.FUNDACCOUNTTYPEINDEX] == '2') {
                     if (itemV[zhhData.MONEYTYPEINDEX] == '0') {
                         try {
                             mzZichanRmb = new Big(mzZichanRmb).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllRmb = new Big(data.TOTALASSET_RMB).plus(new Big(mzZichanRmb)).toString();
-                            rmbEX += `账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanRmb}) + `
+                            rmbEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanRmb}) ${zhhData.GRID0[j + 1] ? '+' : ''} `
                         } catch (e) {
                             mzZichanAllRmb = data.TOTALASSET_RMB || '--';
                         }
@@ -394,7 +384,7 @@ export function getAllZongZiChan(data, zhhData) {
                         try {
                             mzZichanUSD = new Big(mzZichanUSD).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllUSD = new Big(data.TOTALASSET_USD).plus(new Big(mzZichanUSD)).toString();
-                            usdEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanUSD}) + `
+                            usdEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanUSD}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
                         } catch (e) {
                             mzZichanAllUSD = data.TOTALASSET_USD || '--';
                         }
@@ -402,7 +392,7 @@ export function getAllZongZiChan(data, zhhData) {
                         try {
                             mzZichanHK = new Big(mzZichanHK).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllHK = new Big(data.TOTALASSET_USD).plus(new Big(mzZichanHK)).toString();
-                            hkEX += `账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanHK}) + `
+                            hkEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanHK}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
                         } catch (e) {
                             mzZichanAllHK = data.TOTALASSET_HK || '--';
                         }

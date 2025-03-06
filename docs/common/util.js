@@ -5,19 +5,22 @@ export function copyString(params) {
   if (!params) {
     ElMessage({
         message: '复制内容不能为空',
-        type:'warning'
+        type:'warning',
+        duration:1000
     })
     return;
   }
     navigator.clipboard.writeText(params).then(() => {
       ElMessage({
           message:`已复制内容:${params}`,
-          type:'success'
+          type:'success',
+          duration:1000
       })
     }).catch(() => {
       ElMessage({
           message:`已复制内容:${params}`,
-          type:'error'
+          type:'error',
+          duration:1000
       })
     })
 }

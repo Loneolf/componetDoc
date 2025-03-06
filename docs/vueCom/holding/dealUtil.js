@@ -1,5 +1,5 @@
 
-var format = function (num, dig,index) {
+export function format (num, dig,index) {
     //数字转换成小数两位
     //return Math.round(num*Math.pow(10,Number(dig)))/Math.pow(10,Number(dig));
     var f = parseFloat(num);
@@ -41,7 +41,7 @@ var format = function (num, dig,index) {
     }
     return s;
 }
-var unit = function (num, digit,index) {
+export function unit (num, digit,index) {
     var dig = digit || 0;
     // var dig = 2; //德邦要求保留3位
     if (num == '' || typeof num == void 0) {
@@ -63,7 +63,7 @@ var unit = function (num, digit,index) {
         return (format(num, dig,index));
     }
 }
-var zzpindex = function (str, index, ZZPINDEX) {
+export function zzpindex (str, index, ZZPINDEX) {
     if (!ZZPINDEX) {
         return str;
     }
@@ -82,7 +82,7 @@ var zzpindex = function (str, index, ZZPINDEX) {
     }
 }
 //时间日期转换
-var dateform = function (str, index, DATEFORMINDEX) {
+export function dateform (str, index, DATEFORMINDEX) {
     if (!DATEFORMINDEX || !index) {
         return str;
     }
@@ -111,7 +111,7 @@ var dateform = function (str, index, DATEFORMINDEX) {
 }
 
 //检查金额索引和日期索索引变动
-var formatZZDate = function (str, index, ZZPINDEX, DATEFORMINDEX, noUnit) {
+export function formatZZDate (str, index, ZZPINDEX, DATEFORMINDEX, noUnit) {
     if ((!ZZPINDEX && !DATEFORMINDEX) || typeof index == void 0 || typeof index == 'null') return str;
     if ((!ZZPINDEX || ZZPINDEX.indexOf(index + '|') < 0) && (!DATEFORMINDEX || DATEFORMINDEX.indexOf(index + '|') < 0)) return str;
     var aZzIndex = [], zzArrNum = [], zzArrSuo = [],
@@ -161,6 +161,80 @@ var formatZZDate = function (str, index, ZZPINDEX, DATEFORMINDEX, noUnit) {
 
 export function toPercentage(num) {
     return `${num * 100}%`;
+}
+
+
+
+export function convertToBigJsExpression(expression, decimalPlaces = 2) {
+    expression = expression.replace(/\s/g, ''); // 去除空格
+    expression = expression.replace(/(\d)\(/g, '$1*('); // 处理括号前的数字
+    const operatorMap = {
+        '+': 'plus',
+        '-': 'minus',
+        '*': 'times',
+        '/': 'div'
+    };
+
+    function parseExpression(subExpression) {
+        let stack = [];
+        let currentOperand = '';
+
+        for (let i = 0; i < subExpression.length; i++) {
+            const char = subExpression[i];
+            if (char === '(') {
+                let openCount = 1;
+                let j = i + 1;
+                while (j < subExpression.length && openCount > 0) {
+                    if (subExpression[j] === '(') {
+                        openCount++;
+                    } else if (subExpression[j] === ')') {
+                        openCount--;
+                    }
+                    j++;
+                }
+                const innerExpression = subExpression.slice(i + 1, j - 1);
+                const parsedInner = parseExpression(innerExpression);
+                stack.push(parsedInner);
+                i = j - 1;
+            } else if (Object.keys(operatorMap).includes(char)) {
+                if (currentOperand) {
+                    stack.push(`new Big('${currentOperand}')`);
+                    currentOperand = '';
+                }
+                stack.push(operatorMap[char]);
+            } else {
+                currentOperand += char;
+            }
+        }
+
+        if (currentOperand) {
+            stack.push(`new Big('${currentOperand}')`);
+        }
+
+        let resultExpression = stack[0];
+        for (let i = 1; i < stack.length; i += 2) {
+            resultExpression = `${resultExpression}.${stack[i]}(${stack[i + 1]})`;
+        }
+        return resultExpression;
+    }
+
+    let baseExpression = parseExpression(expression);
+    if (typeof decimalPlaces === 'number' && decimalPlaces >= 0) {
+        baseExpression += `.toFixed(${decimalPlaces}).toString()`;
+    }
+    return baseExpression;
+}
+
+export function formatLocalTime(data = new Date()) {
+    // 创建一个 Date 对象，它会自动获取本地时间
+
+    // 获取小时、分钟和秒数
+    const hours = String(data.getHours()).padStart(2, '0');
+    const minutes = String(data.getMinutes()).padStart(2, '0');
+    const seconds = String(data.getSeconds()).padStart(2, '0');
+
+    // 拼接成指定格式的时间字符串
+    return `${hours}${minutes}${seconds}`;
 }
 
 

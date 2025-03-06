@@ -23,57 +23,125 @@
                         </template>
                     </el-popover>
                     <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button>
-                    <el-button v-if="oprateItem.isUpBtn" @click="oprateItem.showText = ''">更新</el-button>
+                    <el-button  type="primary" v-if="oprateItem.isUpBtn" @click="oprateItem.showText = ''">更新</el-button>
                 </p>
                 <textarea v-model="oprateItem.showText" class="textarea"  />
             </div>
         </div>
+        <div class="exchange">
+            <label>请输入港币兑美元汇率</label><el-input v-model="exchangeRateHKDtoUSD" style="width:240px" placeholder="如果没有沪B转H，无需填写该值" />
+        </div>
+        <br />
         <div class="parseContent">
-            <div v-if="accountList.length > 0" class="titleArea">
-                <div class="accountItem" v-for="item in accountList" :key="item.bztype">
+            <div v-if="accountList.length" class="titleArea">
+                <div class="accontBtn">
+                    <span
+                        v-for="item in accountList" 
+                        :key="item.bztype" 
+                        class="accontBtnItem"
+                        :class="item.bztype === activeAccont ? 'active' : ''"
+                        @click="changeActiveAccount(item.bztype)"
+                    >{{ Amp.moneyTypeMap[item.bztype] }}</span>
+                </div>
+
+                <div 
+                    class="accountItem" 
+                    v-for="item in accountList" 
+                    :key="item.bztype" 
+                    v-show="item.bztype === activeAccont"
+                >
                     <p>
                         <label>账户类型</label>：
-                        <span>{{ DealAccontData.moneyTypeMap[item.bztype] }} ---(源数据：{{ item.bztype }})</span>
+                        <span>{{ Amp.moneyTypeMap[item.bztype] }} ---(源数据：{{ item.bztype }})</span>
 
                     </p>
                     <p>
                         <label>总资产</label>：
                         <span>{{ item.total }}</span>
-                        <span v-if="item.totalEX">{{ item.totalEX }}</span>
+                        <el-popover
+                            v-if="item.totalFrom"
+                            placement="bottom"
+                            :width="600"
+                            trigger="hover"
+                            :content="item.totalFrom"
+                        >
+                            <template #reference>
+                                <el-button  type="primary" class="m-2">累加标注</el-button>
+                            </template>
+                        </el-popover>
+                        <span class="explan" v-if="item.totalEX">---{{ item.totalEX }}</span>
+                        
                     </p>
                     <p>
                         <label>总市值</label>：
                         <span>{{ item.sz }}</span>
-                        <span v-if="item.szEX">---{{ item.szEX }}</span>
+                        <span class="explan" v-if="item.szEX">---{{ item.szEX }}</span>
                     </p>
                     <p>
                         <label>可取</label>：
                         <span>{{ item.kq }}</span>
-                        <span v-if="item.kqEX">---{{ item.kqEX }}</span>
+                        <span class="explan" v-if="item.kqEX">---{{ item.kqEX }}</span>
                     </p>
                     <p>
                         <label>可用</label>：
                         <span>{{ item.ky }}</span>
-                        <span v-if="item.kyEX">---{{ item.kyEX }}</span>
+                        <span class="explan" v-if="item.kyEX">---{{ item.kyEX }}</span>
                     </p>
                     <p>
                         <label>浮动盈亏</label>：
                         <span>{{ item.yl }}</span>
-                        <span v-if="item.ylEX">---{{ item.ylEX }}</span>
+                        <span class="explan" v-if="item.ylEX">---{{ item.ylEX }}</span>
                     </p>
                     <p>
                         <label>当日参考盈亏</label>：
                         <span>{{ item.todayPl }}</span>
-                        <span v-if="item.todayEX">---{{ item.todayEX }}</span>
+                        <el-popover
+                            v-if="item.todayPl !== '--'"
+                            placement="bottom"
+                            :width="600"
+                            trigger="hover"
+                            :content="item.todayPlFrom"
+                        >
+                            <template #reference>
+                                <el-button  type="primary" class="m-2">累加标注</el-button>
+                            </template>
+                        </el-popover>
+                        <span class="explan" v-if="item.todayPlEX">---{{ item.todayPlEX }}</span>
                     </p>
                     <p>
                         <label>仓位百分比</label>：
                         <span>{{ Nutil.toPercentage(item.ratio) }}</span>
-                        <span v-if="item.ratioEX">---{{ item.ratioEX }}</span>
+                        <span class="explan" v-if="item.ratioEX">---{{ item.ratioEX }} ({{ item.sz }}/{{ item.total }})</span>
                     </p>
                     <br />
                     <p>分割线--------------------------------------------------------------------------------------------------------</p>
                     <br />
+                </div>
+            </div>
+            <div v-if="dataList.length" class="listBox">
+                <div 
+                    class="listWrap" 
+                    v-for="item in dataList" 
+                    :key="item.bztype" 
+                    v-show="item.bztype === activeAccont"
+                >
+                    <div class="listItem" v-for="si in item.list" :key="si.domKey">
+                        <p>
+                            <span class="name">{{ si.name }}</span>-----
+                            <label>当日盈亏</label>：<span>{{ si.todayPl}}</span>
+                            <el-popover
+                                v-if="si.todayPlEX"
+                                placement="bottom"
+                                :width="800"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">计算过程</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.todayPlEX"></p>
+                            </el-popover>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -86,6 +154,7 @@
     import * as DealMainData from './dealMainData'
     import * as DealAccontData from './dealAccontData'
     import * as Nutil from './dealUtil'
+    import * as Amp from './accontMap'
     import * as tUtil from '../comUtil/tabelUtil'
     import * as mockData from './holdMock'
     
@@ -113,6 +182,18 @@
             showText: "",
         },
         {
+            title: '5107获取港股通汇率',
+            action: '5107',
+            data: "",
+            showText: "",
+        },
+        {
+           title: '5659港币美元汇率',
+           action: '5659',
+           data: "",
+           showText: JSON.stringify(mockData.mockdata5696, null, 4), 
+        },
+        {
             title: '60刷新',
             action: '60',
             data: "",
@@ -120,7 +201,6 @@
             isUpBtn: true,
         },
     ])
-    
     const accountList = ref([
         {
             bztype: '0',
@@ -133,14 +213,20 @@
             ratio: '--'
         }
     ])
-    
+    const dataList = ref([])
+    const activeAccont = ref('0')
     const ggtMiddleRate = ref('')
-    const exchangeRateHKDtoUSD = ref('')
+    const exchangeRateHKDtoUSD = ref('0.12813000')
+
 
 
     onMounted(() => {
         parseBtn()
     })
+
+    function changeActiveAccount(bztype) {
+        activeAccont.value = bztype
+    }
 
     function parseBtn() {
         const list = allOpratedata.value
@@ -153,7 +239,24 @@
                 try {
                     item.data = strToJson(item.showText) 
                     if (item.action === '117') {
-                        item.dealData = DealMainData.turn117ToObj(item.data)
+                        item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
+                        let accontKey = {}, sortList = []
+                        item.dealData.data.forEach((item) => {
+                            let bztype = Amp.bzTypeMap[item.wtAccountType]
+                            if (!accontKey[bztype]) {
+                                accontKey[bztype] = {
+                                    bztype,
+                                    list: [item]
+                                }
+                            } else {
+                                accontKey[bztype].list.push(item)
+                            }
+                        })
+                        for (let key in accontKey) {
+                            sortList.push(accontKey[key]) 
+                        }
+                        dataList.value = sortList
+                        console.log('dataList', JSON.parse(JSON.stringify(dataList.value)))
                     }
                 } catch (error) {
                     console.error(error)                    
@@ -224,7 +327,7 @@
         }
     }
 
-
+    // 获取对应action 输入框中的数据，可以换key获取指定的对应数据
     function getActionData(action, key = 'data') {
         if (key === 'all') return allOpratedata.value.find(item => item.action === action)
         return allOpratedata.value.find(item => item.action === action)[key] 

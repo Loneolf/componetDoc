@@ -3,15 +3,14 @@
     .oprateBtn {
         position: absolute;
         right: 100px;
-        top: 20px;
+        top: -20px;
     }
     .sourceData {
         // height: 400px;
         padding: 20px;
         border-right: 2px solid #cccccc;
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
+        flex-wrap: wrap;
         .sourceItem {
             margin-right: 20px;
         }
@@ -24,12 +23,29 @@
         }
     }
     .parseContent {
+        .accontBtn{
+            padding: 10px;
+            .accontBtnItem{
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 40px;
+                border: 1px solid #cccccc;
+                margin-right: 20px;
+            }
+            .accontBtnItem.active{
+                color: red;
+                border-color: red;
+            }
+        }
         .accountItem {
             p {
                 margin: 0;
-                height: 20px;
                 font-size: 16px;
                 line-height: 20px;
+                .explan{
+                    font-size: 14px;
+                    color: #555;
+                }
             } 
         }
     }
