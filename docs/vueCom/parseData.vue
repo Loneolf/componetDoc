@@ -9,6 +9,7 @@
                     <vxe-table 
                         height="500" 
                         :data="showData2" 
+                        :row-config="{isCurrent: true, isHover: true}"
                     >
                         <vxe-column type="seq" width="50" fixed="left"></vxe-column>
                         <vxe-column 
@@ -38,7 +39,8 @@
                 <div class="tableBox">
                     <vxe-table 
                         height="800" 
-                        :data="showData" 
+                        :data="showData"
+                        :row-config="{isCurrent: true, isHover: true}"
                     >
                         <vxe-column type="seq" width="50" fixed="left"></vxe-column>
                         <vxe-column 
