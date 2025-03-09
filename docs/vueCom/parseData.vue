@@ -10,6 +10,7 @@
                         height="500" 
                         :data="showData2" 
                         :row-config="{isCurrent: true, isHover: true}"
+                        :scroll-y="{enabled: true, gt: 10}"
                     >
                         <vxe-column type="seq" width="50" fixed="left"></vxe-column>
                         <vxe-column 
@@ -41,6 +42,7 @@
                         height="800" 
                         :data="showData"
                         :row-config="{isCurrent: true, isHover: true}"
+                        :scroll-y="{enabled: true, gt: 0}"
                     >
                         <vxe-column type="seq" width="50" fixed="left"></vxe-column>
                         <vxe-column 
@@ -158,30 +160,35 @@
   
   
 <style lang="less" >
-  .vxe-table--header{
-    margin: 0!important;
-  }
-  .vxe-header--gutter.col--gutter {
-    display: none;
-  }
-  .vxe-cell {
-    position: relative;
-    .titleContent{
-        padding-top: 10px;
-        .fixIcon{
-            position: absolute;
-            width: 15px;
-            left: 20px;
-            top: -5px;
-            cursor: pointer;
+    .vxe-table--header{
+        margin: 0!important;
+    }
+    .vxe-header--gutter.col--gutter {
+        display: none;
+    }
+    .vp-doc table {
+        border-collapse: inherit;
+        margin: 0;
+        overflow-x: initial;
+    }
+    .vxe-cell {
+        position: relative;
+        .titleContent{
+            padding-top: 10px;
+            .fixIcon{
+                position: absolute;
+                width: 15px;
+                left: 20px;
+                top: -5px;
+                cursor: pointer;
+            }
+        }
+        .vxe-cell--title {
+            display: inline-block;
+            height: 120px;
+            overflow: auto;
         }
     }
-    .vxe-cell--title {
-      display: inline-block;
-      height: 120px;
-      overflow: auto;
-    }
-  }
   .getFieldIndexBox{
       .topBox {
           height: 400px;

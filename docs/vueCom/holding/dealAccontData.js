@@ -67,7 +67,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 accountItem.yl = val;
                 accountItem.ylEX = `117接口 TOTALYK_RMB 字段值 - TOTALYK_ONEDAYBJHG(天天理财)  - TOTALYK_MULTIDAYBJHG`
             }
-            console.log('aaaarmbHoldingList', rmbHoldingList);
+            // console.log('aaaarmbHoldingList', rmbHoldingList);
             // 人民币持仓为空时展示为--
             accountItem.todayPlEX = `所有人民币A股持仓当日盈亏累加之和`
             accountItem.todayPlFrom = '';
@@ -263,12 +263,14 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         var rmbHKHoldingList = gridData.filter((o)=>{
             return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
         });
+        console.log('aaarmbHKHoldingList', JSON.parse(JSON.stringify(rmbHKHoldingList)));
         try{
             if(OTCStatus == false){
                 accountItem.total = '--';
             }
             else{
                 accountItem.total = new Big(oData.TOTALASSET_RMB).plus(new Big(OTCData || 0)).toFixed(2).toString();
+                accountItem.totalEX = `取值人民币A股总资产`
             }
         }
         catch(e){
@@ -281,6 +283,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             else{
                 accountItem.sz = new Big(oData1.MKTVAL_HK).toFixed(2).toString();
+                accountItem.szEX = `5106接口 MKTVAL_HK 字段值`
             }
         }
         catch(e){
@@ -294,6 +297,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             else{
                 var val = oData1.TOTALYK_HK;
                 accountItem.yl =  new Big(val).toFixed(2).toString();
+                accountItem.ylEX = `5106接口 TOTALYK_HK 字段值`
             }
         }
         catch(e){
@@ -301,12 +305,14 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         }
         try{
             accountItem.kq = new Big(oData1.AVAILABLE).toFixed(2).toString();
+            accountItem.kqEX = `5106接口 AVAILABLE 字段值`
         }
         catch(e){
             accountItem.kq = '--';
         }
         try{
             accountItem.ky = new Big(oData1.USABLE).toFixed(2).toString();
+            accountItem.kyEX = `5106接口 USABLE 字段值`
         }
         catch(e){
             accountItem.ky = '--';
@@ -319,11 +325,13 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         else{
             var isTodayPlValid = false;
             var todayPl = '0.00';
+            accountItem.todayPlEX = `所有人民币港股持仓当日盈亏累加之和`
             try{
                 rmbHKHoldingList.forEach(function(o){
                     if(o.todayPl != '--'){
                         isTodayPlValid = true;
                         todayPl = new Big(todayPl).plus(new Big(o.todayPl)).toFixed(2).toString();
+                        accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${rmbHKHoldingList[oi + 1] ? '+' : ''} `
                     }                             
                 });
                 if(!isTodayPlValid){
@@ -338,6 +346,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         
         try{
             accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
+            accountItem.ratioEX = `总市值 / 总资产`
         }
         catch(e){
             accountItem.ratio = '--';

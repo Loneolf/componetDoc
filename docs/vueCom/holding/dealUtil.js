@@ -63,24 +63,7 @@ export function unit (num, digit,index) {
         return (format(num, dig,index));
     }
 }
-export function zzpindex (str, index, ZZPINDEX) {
-    if (!ZZPINDEX) {
-        return str;
-    }
-    var arrIndex = ZZPINDEX.split(','), arrNum = [], arrSuo = [];
-    for (var i = 0; i < arrIndex.length; i++) {
-        arrNum[i] = arrIndex[i].split('|')[0];
-        arrSuo[i] = arrIndex[i].split('|')[1];
-    }
-    if (index) {
-        var suoindex = arrNum.indexOf(index);
-        if (suoindex >= 0) {
-            return unit(str, arrSuo[suoindex],index);
-        } else {
-            return str;
-        }
-    }
-}
+
 //时间日期转换
 export function dateform (str, index, DATEFORMINDEX) {
     if (!DATEFORMINDEX || !index) {
@@ -160,7 +143,7 @@ export function formatZZDate (str, index, ZZPINDEX, DATEFORMINDEX, noUnit) {
 }
 
 export function toPercentage(num) {
-    return `${num * 100}%`;
+    return `${(num * 100).toFixed(2)}%`;
 }
 
 
@@ -241,7 +224,6 @@ export function formatLocalTime(data = new Date()) {
 export default {
     format,
     unit,
-    zzpindex,
     dateform,
     formatZZDate
 }
