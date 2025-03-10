@@ -22,7 +22,7 @@
                             <el-button class="m-2">详情</el-button>
                         </template>
                     </el-popover>
-                    <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button>
+                    <!-- <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button> -->
                     <el-button  type="primary" v-if="oprateItem.isUpBtn" @click="up60(oprateItem.showText)">更新</el-button>
                 </p>
                 <textarea v-model="oprateItem.showText" class="textarea"  />
@@ -66,7 +66,7 @@
                             :content="item.totalFrom"
                         >
                             <template #reference>
-                                <el-button  type="primary" class="m-2">累加标注</el-button>
+                                <el-button  type="primary" class="m-2">来源</el-button>
                             </template>
                         </el-popover>
                         <span class="explan" v-if="item.totalEX">---{{ item.totalEX }}</span>
@@ -103,7 +103,7 @@
                             :content="item.todayPlFrom"
                         >
                             <template #reference>
-                                <el-button  type="primary" class="m-2">累加标注</el-button>
+                                <el-button  type="primary" class="m-2">来源</el-button>
                             </template>
                         </el-popover>
                         <span class="explan" v-if="item.todayPlEX">---{{ item.todayPlEX }}</span>
@@ -129,7 +129,7 @@
                         <p>
                             <span class="name">{{ si.name }}</span>-----
                             <span class="itemSi">
-                                <label>市值</label>：<span>{{ si.shiZhiShow}}</span>
+                                <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.shiZhiEX"
                                     placement="bottom"
@@ -159,7 +159,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>盈亏</label>：<span>{{ si.yingKuiShow}}</span>
+                                <label>盈亏</label>：<span>{{ geshiValue(si.yingKui, INDEXO.YKINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.yingKuiEX"
                                     placement="bottom"
@@ -174,7 +174,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>盈亏率</label>：<span>{{ si.yingKuiLvShow}}%</span>
+                                <label>盈亏率</label>：<span>{{ si.yingKuiLv}}%</span>
                                 <el-popover
                                     v-if="si.yingKuiLvEX"
                                     placement="bottom"
@@ -189,7 +189,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>持仓</label>：<span>{{ si.chiCangShow}}</span>
+                                <label>持仓</label>：<span>{{ geshiValue(si.chiCang, INDEXO.STOCKNUMINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.chiCangEX"
                                     placement="bottom"
@@ -204,7 +204,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>可用</label>：<span>{{ si.keYongShow}}</span>
+                                <label>可用</label>：<span>{{  geshiValue(si.keYong, INDEXO.KYINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.keYongEX"
                                     placement="bottom"
@@ -219,7 +219,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>成本</label>：<span>{{ si.chengBenShow}}</span>
+                                <label>成本</label>：<span>{{ geshiValue(si.chengBen, INDEXO.KEEPPRICEINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.chengBenEX"
                                     placement="bottom"
@@ -234,7 +234,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>市价</label>：<span>{{ si.assetPriceShow}}</span>
+                                <label>市价</label>：<span>{{  geshiValue(si.assetPrice, INDEXO.ASSETPRICEINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
                                     v-if="si.assetPriceEX"
                                     placement="bottom"
@@ -256,65 +256,20 @@
 </template>
   
 <script setup>
-    import { ref, onMounted } from "vue";
+    import { ref, onMounted, computed } from "vue";
     import { ElMessage } from 'element-plus'
     import * as DealMainData from './dealMainData'
+    import { geshiValue } from './dealMainData'
     import * as DealAccontData from './dealAccontData'
+    import { deal60Data } from './deal60Data'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
     import * as tUtil from '../comUtil/tabelUtil'
-    // import * as mockData from './holdMock'
-    import * as mockData from './holdA5Mock'
+    
     
 
-    const allOpratedata = ref([
-        {
-            title: '117持仓接口',
-            action: '117',
-            data: "",
-            // showText: "",
-            showText: JSON.stringify(mockData.mockdata117, null, 4) ,
-            dealData: {},
-        },
-        {
-            title: '116资金账号',
-            action: '116',
-            data: "",
-            showText: "",
-            // showText: JSON.stringify(mockData.mockdata116, null, 4) ,
-        },
-        {
-            title: '5106港股通持仓',
-            action: '5106',
-            data: "",
-            showText: JSON.stringify(mockData.mockdata5106, null, 4)
-        },
-        {
-            title: '5107获取港股通汇率',
-            action: '5107',
-            data: "",
-            showText: JSON.stringify(mockData.mockdata5107, null, 4),
-        },
-        {
-           title: '5659港币美元汇率',
-           action: '5659',
-           data: "",
-           showText: JSON.stringify(mockData.mockdata5696, null, 4), 
-        },
-        {
-            title: '5850客户费率',
-            action: '5850',
-            data: "",
-            showText: "",
-        },
-        {
-            title: '60刷新',
-            action: '60',
-            data: "",
-            showText: "",
-            isUpBtn: true,
-        },
-    ])
+    const allOpratedata = ref(Amp.opratedata)
+    
     const accountList = ref([
         {
             bztype: '0',
@@ -327,16 +282,41 @@
             ratio: '--'
         }
     ])
-    const dataList = ref([])
+    // const dataList = ref([])
     const activeAccont = ref('0')
     const HKStockExchangeRateList = ref({})
     const exchangeRateHKDtoUSD = ref('0.12813000')
-
+    const INDEXO = ref({})
 
 
     onMounted(() => {
         parseBtn()
     })
+
+    const dataList = computed(() => {
+        // 对数据根据账户类型进行分类
+        let data117 = getActionData('117', 'all')
+        if (!data117?.dealData?.data) {
+            return []
+        }
+        let accontKey = {}, sortList = []
+        data117.dealData.data?.forEach((item) => {
+            let bztype = Amp.bzTypeMap[item.wtAccountType]
+            if (!accontKey[bztype]) {
+                accontKey[bztype] = {
+                    bztype,
+                    list: [item]
+                }
+            } else {
+                accontKey[bztype].list.push(item)
+            }
+        })
+        for (let key in accontKey) {
+            sortList.push(accontKey[key]) 
+        }
+        console.log('dataList', JSON.parse(JSON.stringify(sortList)))
+        return sortList
+    });
 
     // 60刷新
     function up60(value) {
@@ -344,7 +324,12 @@
             ElMessage.error('请输入60接口数据')
             return
         }
-        console.log('aaaa23333up60') 
+        let data60 = getActionData('60')
+        let fareData = getActionData('5850')
+        console.log('aaaa23333fareData', fareData)
+        let list = getActionData('117', 'all').dealData.data
+        let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData.clientFare)
+        console.log('aaaa23333up60', res) 
     }
 
     // 切换账户
@@ -369,17 +354,18 @@
                     // 处理117数据，转化为对象
                     if (item.action === '117') {
                         item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
+                        INDEXO.value = item.dealData.INDEX
                     }
 
                     // 处理港股通5106数据，转化为对象
                     if (item.action === '5106' && item.data) {
-                        // 如果有人民币港股数据，则需要有对应的汇率，否则无法计算
+                        // 如果有人民币港股数据，则需要有对应的汇率，否则无法准确计算
                         let data5107 = getActionData('5107', 'all')
                         if (data5107.showText) {
                             try {
                                 HKStockExchangeRateList.value = DealMainData.getHKStockExchangeRate(strToJson(data5107.showText))
                             } catch (error) {
-                                console.log('5107error', error)
+                                console.error('5107error', error)
                             }
                         } else {
                             ElMessage.error('请输入5107港股通汇率数据')
@@ -398,67 +384,52 @@
             data117.dealData.data = data117.dealData.data.concat(data5106.dealData.data)
         }
 
-        // 对数据根据账户类型进行分类
-        let accontKey = {}, sortList = []
-        data117.dealData.data.forEach((item) => {
-            let bztype = Amp.bzTypeMap[item.wtAccountType]
-            if (!accontKey[bztype]) {
-                accontKey[bztype] = {
-                    bztype,
-                    list: [item]
-                }
-            } else {
-                accontKey[bztype].list.push(item)
-            }
-        })
-        for (let key in accontKey) {
-            sortList.push(accontKey[key]) 
-        }
-        dataList.value = sortList
-        // console.log('dataList', JSON.parse(JSON.stringify(dataList.value)))
-
-        console.log('aaadata5106', JSON.parse(JSON.stringify(data117.dealData.data)))
+        // console.log('aaadata5106', JSON.parse(JSON.stringify(data117.dealData.data)))
         initAccount(data117.dealData.data, data117.data, data5106.data)
     }
 
     function initAccount(gridData, oData, oData1) {
-        console.log('initAccount', gridData, oData, oData1)
+        // console.log('initAccount', gridData, oData, oData1)
         var that = this;
         if(!oData.GRID2){
             return;
         }
         // A5柜台
         if(oData.APEX_A5_SPECFLAG && oData.APEX_A5_SPECFLAG == '1'){
-            service_ptjy.require5735({}).then(function(data){
-                if (data.ERRORNO < 0) {
-                    alert(data.ERRORMESSAGE);
-                    oData.TOTALASSET_RMB = '--';
-                    oData.TOTALASSET_USD = '--';
-                    oData.TOTALASSET_HK = '--';
-                    DealAccontData.computeAccountData(gridData, oData, oData1, undefined, false);
-                    return;
+            const data = getActionData('5735')
+            console.log('data5735', JSON.parse(JSON.stringify(data)))
+            if (data.ERRORNO < 0) {
+                alert(data.ERRORMESSAGE);
+                oData.TOTALASSET_RMB = '--';
+                oData.TOTALASSET_USD = '--';
+                oData.TOTALASSET_HK = '--';
+                DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
+                return;
+            }
+            data.GRID0.shift();            
+            data.GRID0.forEach((o)=>{
+                var arr = o.split('|');
+                switch(arr[data.MONEYTYPEINDEX]){
+                    case '0':
+                        oData.TOTALASSET_RMB = new Big(oData.TOTALASSET_RMB).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
+                        oData.rmbEX = `取值117接口 TOTALASSET_RMB 字段加上5735接口多金市值 PRODMARKETVALUEINDEX 字段值：${oData.TOTALASSET_RMB} + ${arr[data.PRODMARKETVALUEINDEX]} = ${oData.TOTALASSET_RMB}`
+                        break;
+                    case '1':
+                        oData.TOTALASSET_USD = new Big(oData.TOTALASSET_USD).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
+                        oData.usdEX = `取值117接口 TOTALASSET_USD 字段加上5735接口多金市值 PRODMARKETVALUEINDEX 字段值：${oData.TOTALASSET_USD} + ${arr[data.PRODMARKETVALUEINDEX]} = ${oData.TOTALASSET_USD}`
+                        break;
+                    case '2':
+                        oData.TOTALASSET_HK = new Big(oData.TOTALASSET_HK).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
+                        oData.hkEX = `取值117接口 TOTALASSET_HK 字段加上5735接口多金市值 PRODMARKETVALUEINDEX 字段值：${oData.TOTALASSET_HK} + ${arr[data.PRODMARKETVALUEINDEX]} = ${oData.TOTALASSET_HK}`
+                        break;
+                    default:
+                        break;
                 }
-                data.GRID0.shift();            
-                data.GRID0.forEach((o)=>{
-                    var arr = o.split('|');
-                    switch(arr[data.MONEYTYPEINDEX]){
-                        case '0':
-                            oData.TOTALASSET_RMB = new Big(oData.TOTALASSET_RMB).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
-                            break;
-                        case '1':
-                            oData.TOTALASSET_USD = new Big(oData.TOTALASSET_USD).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
-                            break;
-                        case '2':
-                            oData.TOTALASSET_HK = new Big(oData.TOTALASSET_HK).plus(new Big(arr[data.PRODMARKETVALUEINDEX])).toFixed(2).toString();
-                            break;
-                        default:
-                            break;
-                    }
-                });
-                that.getOTCData(function(OTCData, OTCStatus){
-                    DealAccontData.computeAccountData(gridData, oData, oData1, OTCData, OTCStatus);
-                });
             });
+            console.log('aaa23333', oData)
+            accountList.value = DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
+            // that.getOTCData(function(OTCData, OTCStatus){
+            // });
         }
         else{
             var _oData = JSON.parse(JSON.stringify(oData));

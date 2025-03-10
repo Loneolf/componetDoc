@@ -46,31 +46,24 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        let chiCangItem = {}
        chiCangItem.code=itemArr[data.STOCKINDEX || data.STOCKCODEINDEX];
        chiCangItem.yingKui = itemArr[data.YKINDEX];
-       chiCangItem.yingKuiShow= geshiValue(itemArr[data.YKINDEX], data.YKINDEX, undefined, INDEX);
        chiCangItem.yingKuiEX=`取值117接口"GRID1"中对应持仓"YKINDEX"字段值`
 
        chiCangItem.yingKuiLv = itemArr[data.YKLINDEX];
-       chiCangItem.yingKuiLvShow= geshiValue(itemArr[data.YKLINDEX], data.YKLINDEX, undefined, INDEX);
        chiCangItem.yingKuiLvEX=`取值117接口"GRID1"中对应持仓"YKINDEX"字段值`
 
        chiCangItem.chiCang = itemArr[data.STOCKNUMINDEX];
-       chiCangItem.chiCangShow= geshiValue(itemArr[data.STOCKNUMINDEX], data.STOCKNUMINDEX, undefined, INDEX)
        chiCangItem.chiCangEX=`取值117接口"GRID1"中对应持仓"STOCKNUMINDEX"字段值`
 
        chiCangItem.keYong = itemArr[data.KYINDEX];
-       chiCangItem.keYongShow=geshiValue(itemArr[data.KYINDEX], data.KYINDEX, undefined, INDEX)
        chiCangItem.keYongEX=`取值117接口"GRID1"中对应持仓"KYINDEX"字段值`
 
        chiCangItem.chengBen = itemArr[data.KEEPPRICEINDEX];
-       chiCangItem.chengBenShow=geshiValue(itemArr[data.KEEPPRICEINDEX], data.KEEPPRICEINDEX, undefined, INDEX)
        chiCangItem.chengBenEX=`取值117接口"GRID1"中对应持仓"KEEPPRICEINDEX"字段值`
 
        chiCangItem.assetPrice = itemArr[data.ASSETPRICEINDEX];
-       chiCangItem.assetPriceShow = geshiValue(itemArr[data.ASSETPRICEINDEX], data.ASSETPRICEINDEX, undefined, INDEX)
        chiCangItem.assetPriceEX=`取值117接口"GRID1"中对应持仓"ASSETPRICEINDEX"字段值`
        
        chiCangItem.shiZhi=itemArr[data.STOCKVALUEINDEX];
-       chiCangItem.shiZhiShow=geshiValue(itemArr[data.STOCKVALUEINDEX], data.STOCKVALUEINDEX, undefined, INDEX)
        chiCangItem.shiZhiEX=`取值117接口"GRID1"中对应持仓"STOCKVALUEINDEX"字段值`
 
        chiCangItem.shiJia=itemArr[data.LASTPRICEINDEX];
@@ -118,17 +111,6 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
 
        chiCangItem.ratio = chiCangItem.ratio || '--';
 
-       chiCangItem.oWTINFO = {
-           ACCOUNTINDEX: chiCangItem.account,
-           WTACCOUNTTYPEINDEX: chiCangItem.wtAccountType,
-           STOCKCODE_TYPEINDEX: chiCangItem.stockCodeType,
-           STOCKINDEX: chiCangItem.code,
-           STOCKNAMEINDEX: chiCangItem.stockName,
-           shiZhiIndex: chiCangItem.shiZhi,
-           yingkuiIndex: chiCangItem.yingKui ,
-           chengbenjiaIndex: chiCangItem.chengBen,
-           chicangNumIndex: chiCangItem.chiCang
-       };
        chiCangItem.isUplistShow = chiCangItem.isUplistShow || false;
        chiCangItem.newMarketNo = chiCangItem.newMarketNo;
        chiCangItem.stockProCode = chiCangItem.stockProCode;
@@ -152,7 +134,7 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
     if (data.ERRORNO < 0 || !data.GRID0?.length) {
         return { INDEX: {}, data: [] };
     }
-
+    
     INDEX.STOCKCODEINDEX = data.STOCKCODEINDEX || '3';
     INDEX.YKLINDEX = data.YKRATEINDEX || '26';
     INDEX.STOCKNAMEINDEX = data.STOCKNAMEINDEX || '4';
@@ -189,12 +171,27 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
         chiCangItem.initIndex = k;
         chiCangItem.code=_data_arr[INDEX.STOCKCODEINDEX];
         chiCangItem.yingKui=_data_arr[INDEX.YKINDEX];
+        chiCangItem.yingKuiEX=`取值5106接口"GRID"中对应持仓"YKINDEX"字段值`
+
         chiCangItem.yingKuiLv= _data_arr[INDEX.YKLINDEX];
+        chiCangItem.yingKuiLvEX=`取值5106接口"GRID"中对应持仓"yingKuiLv"字段值`
+        
+        // console.log('aaaaahkyingkui', _data_arr, chiCangItem)
         chiCangItem.chiCang= _data_arr[INDEX.STOCKNUMINDEX];
+        chiCangItem.chiCangEX=`取值5106接口"GRID"中对应持仓"STOCKNUMINDEX"字段值`
+
         chiCangItem.keYong=_data_arr[INDEX.KYINDEX];
+        chiCangItem.keYongEX=`取值5106接口"GRID"中对应持仓"KYINDEX"字段值`
+
         chiCangItem.chengBen=_data_arr[INDEX.KEEPPRICEINDEX];
+        chiCangItem.chengBenEX=`取值5106接口"GRID"中对应持仓"KEEPPRICEINDEX"字段值`
+
         chiCangItem.shiJia=_data_arr[INDEX.LASTPRICEINDEX];
+        chiCangItem.shiJiaEX=`取值5106接口"GRID"中对应持仓"LASTPRICEINDEX"字段值`
+
         chiCangItem.shiZhi=_data_arr[INDEX.STOCKVALUEINDEX];
+        chiCangItem.shiZhiEX=`取值5106接口"GRID"中对应持仓"STOCKVALUEINDEX"字段值`
+
         chiCangItem.wtAccountType = _data_arr[INDEX.WTACCOUNTTYPEINDEX];
         chiCangItem.stockName = _data_arr[INDEX.STOCKNAMEINDEX];
 
@@ -218,24 +215,15 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
         chiCangItem.assetPrice = _data_arr[INDEX.ASSETPRICEINDEX];
         chiCangItem.rmbCostPrice = _data_arr[INDEX.RMBCOSTPRICEINDEX];
 
-        chiCangItem.name = geshiValue(chiCangItem.stockName,INDEX.STOCKNAMEINDEX, undefined, INDEX);
+        console.log('aaaa5106name', chiCangItem.stockName)
+        // chiCangItem.name = geshiValue(chiCangItem.stockName,INDEX.STOCKNAMEINDEX, undefined, INDEX);
+        chiCangItem.name = chiCangItem.stockName;
 
         chiCangItem.todayPlHKD = chiCangItem.todayPlHKD || '--';
         chiCangItem.todayPl = chiCangItem.todayPl || '--';
 
         chiCangItem.ratio = chiCangItem.ratio || '--';
 
-        chiCangItem.oWTINFO = {
-            ACCOUNTINDEX: chiCangItem.account,
-            WTACCOUNTTYPEINDEX: chiCangItem.wtAccountType,
-            // STOCKCODE_TYPEINDEX: chiCangItem.stockCodeType,
-            STOCKINDEX: chiCangItem.code,
-            STOCKNAMEINDEX: chiCangItem.stockName,
-            shiZhiIndex: chiCangItem.shiZhi,
-            yingkuiIndex: chiCangItem.yingKui ,
-            chengbenjiaIndex: chiCangItem.chengBen,
-            chicangNumIndex: chiCangItem.chiCang
-        };
         chiCangItem.isUplistShow = chiCangItem.isUplistShow || false;
 
         chiCangItem.domKey = chiCangItem.code + '|' + chiCangItem.wtAccountType + '|' + chiCangItem.account + '|' + k;
@@ -286,20 +274,9 @@ export function getTodayPl(chicangList, exchangeRateHKDtoUSD, HKStockExchangeRat
 
         // console.log('aaaa3333isTradeDateWithCache', time)
         // 交易日 08:00:00 - 09:10:00 不计算当日盈亏
-        if(time >= '080000' && time < '091000'){
-            chicangList.forEach((o)=>{
-                // 港股通
-                if(accountMap.accountTypeMap['0_HK'].includes(o.wtAccountType)){
-                    o.oWTINFO.todayPlHKD = o.todayPlHKD;
-                } 
-                o.oWTINFO.todayPl = o.todayPl;
-            });
-        }
-        else{
-            chicangList.forEach((o)=>{
-                getTodayPlItem(o, exchangeRateHKDtoUSD, HKStockExchangeRateList);
-            });
-        }
+        chicangList.forEach((o)=>{
+            getTodayPlItem(o, exchangeRateHKDtoUSD, HKStockExchangeRateList);
+        });
 
     return chicangList
 }
@@ -308,36 +285,31 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
     // 不计算当日参考盈亏
     if(!chiCangItem.assetPrice || isNaN(chiCangItem.assetPrice) || !parseFloat(chiCangItem.assetPrice) || !chiCangItem.preDrPrice || isNaN(chiCangItem.preDrPrice) || !parseFloat(chiCangItem.preDrPrice) || !notComputeTodayPl(chiCangItem)){
         chiCangItem.todayPl = '--';
-        chiCangItem.oWTINFO.todayPl = chiCangItem.todayPl;
         chiCangItem.todayPlHKD = '--';
-        chiCangItem.oWTINFO.todayPlHKD = chiCangItem.todayPlHKD;
         return;
     }
     // 港股通
     if(accountMap.accountTypeMap['0_HK'].includes(chiCangItem.wtAccountType)){
-        console.log('aaaa23333港股通') 
         try{
+            var rateItem = HKStockExchangeRateList[chiCangItem.wtAccountType];
             var todayHoldPl = new Big(chiCangItem.chiCang).minus(new Big(chiCangItem.realBuyAmount)).times(new Big(chiCangItem.assetPrice).minus(new Big(chiCangItem.preDrPrice))).toFixed(2).toString();
-            var todayBuyPl = new Big(new Big(chiCangItem.realBuyAmount).times(new Big(chiCangItem.assetPrice))).minus(new Big(chiCangItem.realBuyBalance).div(new Big(HKStockExchangeRateList[chiCangItem.wtAccountType].sellRate))).toFixed(2).toString();
-            var todaySellPl = new Big(chiCangItem.realSellBalance).div(new Big(HKStockExchangeRateList[chiCangItem.wtAccountType].buyRate)).minus(new Big(new Big(chiCangItem.realSellAmount).times(new Big(chiCangItem.preDrPrice)))).toFixed(2).toString();
+            var todayBuyPl = new Big(new Big(chiCangItem.realBuyAmount).times(new Big(chiCangItem.assetPrice))).minus(new Big(chiCangItem.realBuyBalance).div(new Big(rateItem.sellRate))).toFixed(2).toString();
+            var todaySellPl = new Big(chiCangItem.realSellBalance).div(new Big(rateItem.buyRate)).minus(new Big(new Big(chiCangItem.realSellAmount).times(new Big(chiCangItem.preDrPrice)))).toFixed(2).toString();
             chiCangItem.todayPlHKD = new Big(todayBuyPl).plus(new Big(todaySellPl)).plus(new Big(todayHoldPl)).toFixed(2).toString();
-            chiCangItem.todayPl = new Big(chiCangItem.todayPlHKD).times(HKStockExchangeRateList[chiCangItem.wtAccountType].middleRate).toFixed(2).toString();
+            chiCangItem.todayPl = new Big(chiCangItem.todayPlHKD).times(rateItem.middleRate).toFixed(2).toString();
             chiCangItem.todayPlEX = `
             当日参考盈亏 = (昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏) * 港币兑人民币汇率 <br/>
-            昨日持有到现在的股票盈亏: ((持有股票-新买入的股票数)*(最新价-前收盘价)) / 汇率 : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
-            今日新买入的股票到现在的盈亏: (今日买入的股票数量 *（最新价 - 今日买入的股票均价）) / 汇率: ${chiCangItem.realBuyAmount} * (${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance}) = ${todayBuyPl}<br/>
-            今日卖出的股票到卖出时点的盈亏: 今日卖出金额 - (今日卖出股票均价 * 前收盘价)): ${chiCangItem.realSellBalance} - ${chiCangItem.realSellAmount} * ${chiCangItem.preDrPrice} = ${todaySellPl}<br/>
-            当日参考盈亏 = ${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} = ${chiCangItem.todayPl}
-        `
+            昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
+            今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${rateItem.sellRate} = ${todayBuyPl}<br/>
+            今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${rateItem.buyRate} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
+            当日参考盈亏 = (${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} ) * ${rateItem.middleRate} = ${chiCangItem.todayPl}
+            `
+            // console.log('aaaa23333港股通', JSON.parse(JSON.stringify(chiCangItem))) 
         }
         catch(e){
             chiCangItem.todayPlHKD = '--';
             chiCangItem.todayPl = '--';
         }  
-        finally{
-            chiCangItem.oWTINFO.todayPlHKD = chiCangItem.todayPlHKD;
-            chiCangItem.oWTINFO.todayPl = chiCangItem.todayPl;
-        } 
         return
     }
     // 沪B转H
@@ -352,9 +324,6 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
         catch(e){
             chiCangItem.todayPl = '--';
         }
-        finally{
-            chiCangItem.oWTINFO.todayPl = chiCangItem.todayPl;
-        } 
         return
     }
     try{
@@ -374,9 +343,6 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
         console.log(e)
         chiCangItem.todayPl = '--';
     }
-    finally{
-        chiCangItem.oWTINFO.todayPl = chiCangItem.todayPl;
-    } 
 } 
 
 
@@ -406,7 +372,14 @@ export function notComputeTodayPl(obj) {
     return true;
 }
 
-export function geshiValue(name, index, noUnit, INDEXO){
+export function geshiValue(name, index, noUnit = true, INDEXO){
+    if (!INDEXO || !INDEXO.ZZPINDEX || !INDEXO.DATEFORMINDEX) {
+        INDEXO = {
+            ZZPINDEX: "8|2,5|3,6|2,4|3,2|2,1|2,",
+            DATEFORMINDEX: "7|yyyy-mm-dd",
+        }
+    }
+    
     if(!name || name === '--'){
         return '--';
     }

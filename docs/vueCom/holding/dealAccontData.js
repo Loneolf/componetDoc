@@ -8,6 +8,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
     oData.GRID2.shift();
     //个人资产
     oData.GRID2.forEach(function (oitem, oindex) {
+        console.log('aaa2233oitem', oitem);
         var aIt = oitem.split('|');
         //币种 人民币  美元 港币
         var type = aIt[oData['2_MONEYTYPECODEINDEX']] || aIt[oData['2_MONEYTYPEINDEX']];
@@ -36,6 +37,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             catch(e){
                 accountItem.total = '--';
+                console.log(e)
             }
             try{
                 // 市值 = 证券市值（沪深京、港股、天天利财） - 天天利财市值
@@ -44,6 +46,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             catch(e){
                 accountItem.sz = '--';
+                console.log(e)
             }
             // 人民币持仓为空时展示为--
             if(accountItem.sz == 0 && (!rmbHoldingList || !rmbHoldingList.length)){ 
@@ -63,6 +66,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 }
                 catch(e){
                     val = '--';
+                    console.log(e)
                 }
                 accountItem.yl = val;
                 accountItem.ylEX = `117接口 TOTALYK_RMB 字段值 - TOTALYK_ONEDAYBJHG(天天理财)  - TOTALYK_MULTIDAYBJHG`
@@ -94,14 +98,15 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                     accountItem.todayPl = '--';
                 }
             }
-
             try{
                 accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
                 accountItem.ratioEX = `总市值 / 总资产`
             }
             catch(e){
                 accountItem.ratio = '--';
+                console.log(e)
             }
+            // console.log('aaaaaaccountItem', JSON.parse(JSON.stringify(accountItem)))
             accountList.push(accountItem);
         }
         //美元
@@ -319,15 +324,17 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         }
 
         // 港股持仓为空时展示为--
-        if(!rmbHKHoldingList || !rmbHKHoldingList.length){ 
+        if(!rmbHKHoldingList?.length){ 
             accountItem.todayPl = '--';
         }
         else{
             var isTodayPlValid = false;
             var todayPl = '0.00';
             accountItem.todayPlEX = `所有人民币港股持仓当日盈亏累加之和`
+            accountItem.todayPlFrom = '';
             try{
-                rmbHKHoldingList.forEach(function(o){
+                rmbHKHoldingList.forEach(function(o, oi){
+                    // console.log('aaaahk0', JSON.parse(JSON.stringify(o)));
                     if(o.todayPl != '--'){
                         isTodayPlValid = true;
                         todayPl = new Big(todayPl).plus(new Big(o.todayPl)).toFixed(2).toString();
@@ -340,10 +347,11 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 accountItem.todayPl = todayPl;
             }
             catch(e){
+                console.error(e)
                 accountItem.todayPl = '--';
             }
         }
-        
+        console.log('accountItem.todayPl', JSON.parse(JSON.stringify(accountItem)));
         try{
             accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
             accountItem.ratioEX = `总市值 / 总资产`
