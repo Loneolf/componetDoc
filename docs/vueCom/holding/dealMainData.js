@@ -66,6 +66,14 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        chiCangItem.shiZhi=itemArr[data.STOCKVALUEINDEX];
        chiCangItem.shiZhiEX=`取值117接口"GRID1"中对应持仓"STOCKVALUEINDEX"字段值`
 
+       chiCangItem.shiZhi=itemArr[INDEX.STOCKVALUEINDEX];
+       var isSame = chiCangItem.shiZhi == (itemArr[INDEX.ASSETPRICEINDEX] * chiCangItem.chiCang).toFixed(2);
+       chiCangItem.shiZhiEX=`
+           取值117接口"GRID"中对应持仓"STOCKVALUEINDEX"字段值 <br />
+           计算市值是否 ===  市值价 * 持仓 <br />
+           市值价 ${itemArr[INDEX.ASSETPRICEINDEX]} * 持仓 ${chiCangItem.chiCang} = ${(itemArr[INDEX.ASSETPRICEINDEX] * chiCangItem.chiCang).toFixed(2)} <br />
+            ${isSame ? '  相同' : '  不相同'}
+        `
        chiCangItem.shiJia=itemArr[data.LASTPRICEINDEX];
        chiCangItem.wtAccountType = itemArr[data.WTACCOUNTTYPEINDEX];
        chiCangItem.stbLayerFlag = itemArr[data.STBLAYERFLAGINDEX];
@@ -190,7 +198,13 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
         chiCangItem.shiJiaEX=`取值5106接口"GRID"中对应持仓"LASTPRICEINDEX"字段值`
 
         chiCangItem.shiZhi=_data_arr[INDEX.STOCKVALUEINDEX];
-        chiCangItem.shiZhiEX=`取值5106接口"GRID"中对应持仓"STOCKVALUEINDEX"字段值`
+        var isSame = chiCangItem.shiZhi == _data_arr[INDEX.ASSETPRICEINDEX] * chiCangItem.chiCang;
+        chiCangItem.shiZhiEX=`
+            取值5106接口"GRID"中对应持仓"STOCKVALUEINDEX"字段值 <br />
+            计算市值是否相等于  市值价 * 持仓 <br />
+            市值价 ${_data_arr[INDEX.ASSETPRICEINDEX]} * 持仓 ${chiCangItem.chiCang} = ${_data_arr[INDEX.ASSETPRICEINDEX] * chiCangItem.chiCang} <br />
+            ${isSame ? '  相同' : '  不相同'}
+        `
 
         chiCangItem.wtAccountType = _data_arr[INDEX.WTACCOUNTTYPEINDEX];
         chiCangItem.stockName = _data_arr[INDEX.STOCKNAMEINDEX];
@@ -298,11 +312,11 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
             chiCangItem.todayPlHKD = new Big(todayBuyPl).plus(new Big(todaySellPl)).plus(new Big(todayHoldPl)).toFixed(2).toString();
             chiCangItem.todayPl = new Big(chiCangItem.todayPlHKD).times(rateItem.middleRate).toFixed(2).toString();
             chiCangItem.todayPlEX = `
-            当日参考盈亏 = (昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏) * 港币兑人民币汇率 <br/>
-            昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
-            今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${rateItem.sellRate} = ${todayBuyPl}<br/>
-            今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${rateItem.buyRate} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
-            当日参考盈亏 = (${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} ) * ${rateItem.middleRate} = ${chiCangItem.todayPl}
+                当日参考盈亏 = (昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏) * 港币兑人民币汇率 <br/>
+                昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
+                今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${rateItem.sellRate} = ${todayBuyPl}<br/>
+                今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${rateItem.buyRate} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
+                当日参考盈亏 = (${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} ) * ${rateItem.middleRate} = ${chiCangItem.todayPl}
             `
             // console.log('aaaa23333港股通', JSON.parse(JSON.stringify(chiCangItem))) 
         }
@@ -315,11 +329,18 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
     // 沪B转H
     if(accountMap.accountTypeMap['1'].indexOf(chiCangItem.wtAccountType) > -1 && chiCangItem.stockCodeType === 'h'){ 
         try{
+            var todayHoldPl = new Big(chiCangItem.chiCang).minus(new Big(chiCangItem.realBuyAmount)).times(new Big(chiCangItem.assetPrice).minus(new Big(chiCangItem.preDrPrice))).toFixed(2).toString();
             var todayBuyPl = new Big(new Big(chiCangItem.realBuyAmount).times(new Big(chiCangItem.assetPrice))).minus(new Big(chiCangItem.realBuyBalance).div(new Big(exchangeRateHKDtoUSD))).toFixed(2).toString();
             var todaySellPl = new Big(chiCangItem.realSellBalance).div(new Big(exchangeRateHKDtoUSD)).minus(new Big(new Big(chiCangItem.realSellAmount).times(new Big(chiCangItem.preDrPrice)))).toFixed(2).toString();
-            var todayHoldPl = new Big(chiCangItem.chiCang).minus(new Big(chiCangItem.realBuyAmount)).times(new Big(chiCangItem.assetPrice).minus(new Big(chiCangItem.preDrPrice))).toFixed(2).toString();
             chiCangItem.todayPl = new Big(todayBuyPl).plus(new Big(todaySellPl)).plus(new Big(todayHoldPl)).toFixed(2).toString();
             chiCangItem.todayPl = new Big(chiCangItem.todayPl).times(exchangeRateHKDtoUSD).toFixed(2).toString();
+            chiCangItem.todayPlEX = `
+                当日参考盈亏 = (昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏) * 港币兑美元汇率 <br/>
+                昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
+                今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${rateItem.sellRate} = ${todayBuyPl}<br/>
+                今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${rateItem.buyRate} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
+                当日参考盈亏 = (${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} ) * ${exchangeRateHKDtoUSD} = ${chiCangItem.todayPl}
+            `
         }
         catch(e){
             chiCangItem.todayPl = '--';
@@ -387,4 +408,47 @@ export function geshiValue(name, index, noUnit = true, INDEXO){
         return name.substr(0, 1) + dealUtil.formatZZDate(name.substr(1, name.length),index, INDEXO.ZZPINDEX, INDEXO.DATEFORMINDEX, noUnit);
     }
     return dealUtil.formatZZDate(name, index, INDEXO.ZZPINDEX, INDEXO.DATEFORMINDEX, noUnit);
+}
+
+export function serveDataToObj(data){
+    const lines = data.split('\n');
+    console.log('aaa2333lines', lines)
+    // 提取表头行
+    const headerLine = lines.find(line => line.startsWith('GRID0='));
+    const headerLine2 = lines.find(line => line.startsWith('GRID2='));
+    // 用于存储各字段对应索引的对象
+    const indexMap = {GRID0: [ headerLine.replace(/GRID0=/, '') ]};
+    const GRID2 = [ headerLine2.replace(/GRID2=/, '') ];
+    console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
+    var beginPush = false
+    var beginPush2 = false
+    lines.forEach(line => {
+        console.log('aaaaline')
+        if (beginPush && line.includes('|') && !line.includes('=')) {
+            console.log(indexMap.GRID0)
+            indexMap.GRID0.push(line)
+        } else {
+            beginPush = false
+        }
+        if (beginPush2 && line.includes('|') && !line.includes('=')) {
+            console.log(indexMap.GRID0)
+            GRID2.push(line)
+        } else {
+            beginPush2 = false
+        }
+        if (line.includes('GRID0=')) {
+            beginPush = true
+        }
+        if (line.includes('GRID2=')) {
+            beginPush2 = true
+        }
+        if (line.includes('=') && !line.includes('GRID0=') && !line.includes('GRID2=')) {
+            const [key, value] = line.split('=');
+            indexMap[key?.toUpperCase()] = value;
+        }
+    });
+    if (headerLine2) {
+        indexMap.GRID2 = GRID2;
+    }
+    return indexMap;
 }

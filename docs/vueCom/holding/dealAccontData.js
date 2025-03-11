@@ -31,8 +31,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 }
                 else{
                     accountItem.total = new Big(oData.TOTALASSET_RMB).plus(new Big(OTCData || 0)).toFixed(2).toString();
-                    accountItem.totalEX = `从116接口获取所有子账户，过滤所有人民币账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_RMB，本次取值: ${oData.rmbEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_RMB'}`
-                    accountItem.totalFrom = oData.rmbEX
+                    accountItem.totalEX = oData.rmbEX
                 }
             }
             catch(e){
@@ -42,7 +41,9 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             try{
                 // 市值 = 证券市值（沪深京、港股、天天利财） - 天天利财市值
                 accountItem.sz = new Big(oData.MKTVAL_RMB).minus(new Big(oData['MKTVAL_ONEDAYBJHG'] || '0')).minus(new Big(oData['MKTVAL_MULTIDAYBJHG'] || '0')).toFixed(2).toString();  
-                accountItem.szEX = `117接口 MKTVAL_RMB 字段值 - MKTVAL_ONEDAYBJHG(天天理财)  - MKTVAL_MULTIDAYBJHG`
+                accountItem.szEX = `117接口 MKTVAL_RMB 字段值 - MKTVAL_ONEDAYBJHG(天天理财)  - MKTVAL_MULTIDAYBJHG <br />
+                     = ${oData.MKTVAL_RMB} - ${oData['MKTVAL_ONEDAYBJHG'] || '0'} - ${oData['MKTVAL_MULTIDAYBJHG'] || '0'} = ${accountItem.sz}
+                `
             }
             catch(e){
                 accountItem.sz = '--';
@@ -69,7 +70,9 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                     console.log(e)
                 }
                 accountItem.yl = val;
-                accountItem.ylEX = `117接口 TOTALYK_RMB 字段值 - TOTALYK_ONEDAYBJHG(天天理财)  - TOTALYK_MULTIDAYBJHG`
+                accountItem.ylEX = `117接口 TOTALYK_RMB 字段值 - TOTALYK_ONEDAYBJHG(天天理财)  - TOTALYK_MULTIDAYBJHG <br />
+                    = ${oData.TOTALYK_RMB} - ${oData['TOTALYK_ONEDAYBJHG'] || '0'} - ${oData['TOTALYK_MULTIDAYBJHG'] || '0'} = ${accountItem.yl}
+                `
             }
             // console.log('aaaarmbHoldingList', rmbHoldingList);
             // 人民币持仓为空时展示为--
@@ -116,8 +119,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
             });
             accountItem.total = oData.TOTALASSET_USD;
-            accountItem.totalEX = `从116接口获取所有子账户，过滤所有美元账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_USD，本次取值: ${oData.usdEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_USD'}`
-            accountItem.totalFrom = oData.usdEX
+            accountItem.totalEX = oData.usdEX
             try{
                 // 美元持仓为空时展示为--
                 if(oData.MKTVAL_USD == 0 && (!usdHoldingList || !usdHoldingList.length)){ 
@@ -191,8 +193,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
             });
             accountItem.total = oData.TOTALASSET_HK;
-            accountItem.totalEX = `从116接口获取所有子账户，过滤所有美元账户资产进行相加  若无子账户 117接口，取值: TOTALASSET_HK，本次取值: ${oData.hkEX ? '116子账户累加，具体请看标注': '117接口 TOTALASSET_HK'}`
-            accountItem.totalFrom = oData.hkEX
+            accountItem.totalEX = oData.hkEX
             try{
                 // 港币持仓为空时展示为--
                 if(oData.MKTVAL_HK == 0 && (!hkHoldingList || !hkHoldingList.length)){ 
@@ -393,7 +394,7 @@ export function getAllZongZiChan(data, zhhData) {
                         try {
                             mzZichanRmb = new Big(mzZichanRmb).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllRmb = new Big(data.TOTALASSET_RMB).plus(new Big(mzZichanRmb)).toString();
-                            rmbEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanRmb}) ${zhhData.GRID0[j + 1] ? '+' : ''} `
+                            rmbEX += `116接口子账号累加：(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanRmb}) ${zhhData.GRID0[j + 1] ? '+' : ''} `
                         } catch (e) {
                             mzZichanAllRmb = data.TOTALASSET_RMB || '--';
                         }
@@ -401,7 +402,7 @@ export function getAllZongZiChan(data, zhhData) {
                         try {
                             mzZichanUSD = new Big(mzZichanUSD).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllUSD = new Big(data.TOTALASSET_USD).plus(new Big(mzZichanUSD)).toString();
-                            usdEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanUSD}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
+                            usdEX += `116接口子账号累加：(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanUSD}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
                         } catch (e) {
                             mzZichanAllUSD = data.TOTALASSET_USD || '--';
                         }
@@ -409,7 +410,7 @@ export function getAllZongZiChan(data, zhhData) {
                         try {
                             mzZichanHK = new Big(mzZichanHK).plus(new Big(Number(itemV[zhhData.ASSETTOTALINDEX]))).toString();
                             mzZichanAllHK = new Big(data.TOTALASSET_USD).plus(new Big(mzZichanHK)).toString();
-                            hkEX += `(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanHK}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
+                            hkEX += `116接口子账号累加：(账号: ${itemV[zhhData.FUNDACCOUNTINDEX]}_资金:${mzZichanHK}) ${zhhData.GRID0[j + 1] ? '+' : ''}  `
                         } catch (e) {
                             mzZichanAllHK = data.TOTALASSET_HK || '--';
                         }
@@ -424,9 +425,9 @@ export function getAllZongZiChan(data, zhhData) {
             res.TOTALASSET_RMB = mzZichanAllRmb || data.TOTALASSET_RMB || '--';
             res.TOTALASSET_USD = mzZichanAllUSD || data.TOTALASSET_USD || '--';
             res.TOTALASSET_HK = mzZichanAllHK || data.TOTALASSET_HK || '--';
-            res.rmbEX = rmbEX;
-            res.usdEX = usdEX;
-            res.hkEX = hkEX;
+            res.rmbEX = rmbEX || '117接口，取值: TOTALASSET_RMB 字段';
+            res.usdEX = usdEX || '117接口，取值: TOTALASSET_USD 字段';
+            res.hkEX = hkEX || '117接口，取值: TOTALASSET_HK 字段';
         };
     }
     return res;

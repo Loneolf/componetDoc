@@ -59,23 +59,31 @@
                         <label>总资产</label>：
                         <span>{{ item.total }}</span>
                         <el-popover
-                            v-if="item.totalFrom"
+                            v-if="item.totalEX"
                             placement="bottom"
                             :width="600"
                             trigger="hover"
-                            :content="item.totalFrom"
                         >
                             <template #reference>
-                                <el-button  type="primary" class="m-2">来源</el-button>
+                                <el-button class="m-2">来源</el-button>
                             </template>
+                            <p class="popverp" v-html="item.totalEX"></p>
                         </el-popover>
-                        <span class="explan" v-if="item.totalEX">---{{ item.totalEX }}</span>
-                        
                     </p>
                     <p>
                         <label>总市值</label>：
                         <span>{{ item.sz }}</span>
-                        <span class="explan" v-if="item.szEX">---{{ item.szEX }}</span>
+                        <el-popover
+                            v-if="item.szEX"
+                            placement="bottom"
+                            :width="600"
+                            trigger="hover"
+                        >
+                            <template #reference>
+                                <el-button class="m-2">来源</el-button>
+                            </template>
+                            <p class="popverp" v-html="item.szEX"></p>
+                        </el-popover>
                     </p>
                     <p>
                         <label>可取</label>：
@@ -90,7 +98,17 @@
                     <p>
                         <label>浮动盈亏</label>：
                         <span>{{ item.yl }}</span>
-                        <span class="explan" v-if="item.ylEX">---{{ item.ylEX }}</span>
+                        <el-popover
+                            v-if="item.ylEX"
+                            placement="bottom"
+                            :width="600"
+                            trigger="hover"
+                        >
+                            <template #reference>
+                                <el-button class="m-2">来源</el-button>
+                            </template>
+                            <p class="popverp" v-html="item.ylEX"></p>
+                        </el-popover>
                     </p>
                     <p>
                         <label>当日参考盈亏</label>：
@@ -100,17 +118,17 @@
                             placement="bottom"
                             :width="600"
                             trigger="hover"
-                            :content="item.todayPlFrom"
                         >
                             <template #reference>
-                                <el-button  type="primary" class="m-2">来源</el-button>
+                                <el-button class="m-2">来源</el-button>
                             </template>
+                            <p class="popverp" v-html="item.todayPlFrom"></p>
                         </el-popover>
                         <span class="explan" v-if="item.todayPlEX">---{{ item.todayPlEX }}</span>
                     </p>
                     <p>
                         <label>仓位百分比</label>：
-                        <span>{{ Nutil.toPercentage(item.ratio) }}</span>
+                        <span>{{ Nutil.toPercentage(item.sz / item.total) }}</span>
                         <span class="explan" v-if="item.ratioEX">---{{ item.ratioEX }} ({{ item.sz }}/{{ item.total }})</span>
                     </p>
                     <br />
@@ -286,6 +304,7 @@
     const activeAccont = ref('0')
     const HKStockExchangeRateList = ref({})
     const exchangeRateHKDtoUSD = ref('0.12813000')
+    // const exchangeRateHKDtoUSD = ref('')
     const INDEXO = ref({})
 
 
@@ -300,6 +319,7 @@
             return []
         }
         let accontKey = {}, sortList = []
+        // var forData = JSON.parse(JSON.stringify(data117.dealData.data))
         data117.dealData.data?.forEach((item) => {
             let bztype = Amp.bzTypeMap[item.wtAccountType]
             if (!accontKey[bztype]) {
@@ -312,6 +332,10 @@
             }
         })
         for (let key in accontKey) {
+            accontKey[key].list.sort((a, b) => {
+                return b.shiZhi - a.shiZhi
+            })
+            console.log('aaaa23333', JSON.parse(JSON.stringify(accontKey[key])))
             sortList.push(accontKey[key]) 
         }
         console.log('dataList', JSON.parse(JSON.stringify(sortList)))
@@ -328,8 +352,51 @@
         let fareData = getActionData('5850')
         console.log('aaaa23333fareData', fareData)
         let list = getActionData('117', 'all').dealData.data
-        let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData.clientFare)
-        console.log('aaaa23333up60', res) 
+        // 60数据刷新
+        let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
+        // console.log('aaaa23333up60', res) 
+
+        // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
+        var accountListTemp = JSON.parse(JSON.stringify(accountList.value));
+        accountListTemp.forEach((o)=>{
+            for(var k in o){
+                if(k === 'sz' || k === 'yl' || k === 'todayPl' || k === 'ratio'){
+                    o[k] = 0;
+                }
+                if(k === 'szEX' || k === 'ylEX' || k === 'todayPlFrom'){
+                    o[k] = ''; 
+                }
+            }
+        });
+        let len = res.length;
+        res.forEach((o1, index)=>{
+            console.log('aaaares', o1.todayPl, len, Amp.bzTypeMap[o1.wtAccountType])
+            try{
+                var accountItem = accountListTemp.find((o2)=>{
+                    return o2.bztype == Amp.bzTypeMap[o1.wtAccountType];
+                });
+                if(accountItem){
+                    if(o1.sz != '--'){
+                        accountItem.sz = new Big(accountItem.sz).plus(new Big(o1.shiZhi)).toFixed(2).toString();
+                        accountItem.szEX += `(${o1.name}：${o1.shiZhi}) ${len === index  ? ' || ' : ' ' }`
+                    }             
+                    if(o1.yingKui != '--'){
+                        accountItem.yl = new Big(accountItem.yl).plus(new Big(o1.yingKui)).toFixed(2).toString();
+                        accountItem.ylEX += `(${o1.name}：${o1.yingKui}) ${len === index ?' || ' : ' ' }`
+                    }
+
+                    if(o1.todayPl != '--'){
+                        console.log('aaaaintadayPl', accountItem.todayPlFrom)
+                        accountItem.todayPl = new Big(accountItem.todayPl).plus(new Big(o1.todayPl)).toFixed(2).toString();
+                        accountItem.todayPlFrom += `(${o1.name}：${o1.todayPl}) ${len === index ? ' || ' : ' ' }`
+                    }   
+                }   
+            }
+            catch(e){
+                console.error(e);
+            }
+        })
+        accountList.value = accountListTemp;
     }
 
     // 切换账户
@@ -340,6 +407,8 @@
     function parseBtn() {
         const list = allOpratedata.value
         if (!list.some(item => item.action === '117' && item.showText)) {
+            accountList.value = []
+            getActionData('117', 'all').dealData = undefined
             ElMessage.error('请输入117持仓接口数据')
             return 
         }
@@ -350,7 +419,7 @@
                 try {
                     // 将字符串转化为json对象
                     item.data = strToJson(item.showText) 
-
+                    console.log('aaa2333', item.data)
                     // 处理117数据，转化为对象
                     if (item.action === '117') {
                         item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
@@ -458,6 +527,9 @@
     }
 
     function strToJson(str) {
+        if (str.includes("GRID0=")) {
+            return DealMainData.serveDataToObj(str)
+        }
         return JSON.parse(str)
     }
   
