@@ -401,8 +401,12 @@
             if (item.showText) {
                 try {
                     // 将字符串转化为json对象
-                    item.data = strToJson(item.showText) 
-                    console.log('aaa2333', item.data)
+                    if (item.showText) {
+                        item.data = strToJson(item.showText) 
+                    } else {
+                        item.data = ''
+                    }
+                    // console.log('aaa2333', item.data)
                     // 处理117数据，转化为对象
                     if (item.action === '117') {
                         item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
@@ -460,7 +464,7 @@
                 ElMessage.error('请输入5735接口数据')
                 return 
             }
-            console.log('data5735', JSON.parse(JSON.stringify(data)))
+            // console.log('data5735', JSON.parse(JSON.stringify(data)))
             if (data.ERRORNO < 0) {
                 alert(data.ERRORMESSAGE);
                 oData.TOTALASSET_RMB = '--';

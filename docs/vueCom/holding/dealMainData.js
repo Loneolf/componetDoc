@@ -229,7 +229,7 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
         chiCangItem.assetPrice = _data_arr[INDEX.ASSETPRICEINDEX];
         chiCangItem.rmbCostPrice = _data_arr[INDEX.RMBCOSTPRICEINDEX];
 
-        console.log('aaaa5106name', chiCangItem.stockName)
+        // console.log('aaaa5106name', chiCangItem.stockName)
         // chiCangItem.name = geshiValue(chiCangItem.stockName,INDEX.STOCKNAMEINDEX, undefined, INDEX);
         chiCangItem.name = chiCangItem.stockName;
 
