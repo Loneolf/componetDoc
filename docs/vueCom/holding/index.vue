@@ -1,7 +1,9 @@
 <template>
     <div class="parseHoldingData">
         <div class="oprateBtn">
-            <el-button type="primary" @click="parseBtn">解析</el-button>
+            <el-button type="primary" @click="parseBtn">解析117</el-button>
+            <el-button type="primary" @click="calculate">数据计算</el-button>
+            <el-button type="primary" @click="clearData">清空内容</el-button>
         </div>
         <div class="sourceData">
             <div 
@@ -19,7 +21,18 @@
                         :content="oprateItem.showText"
                     >
                         <template #reference>
-                            <el-button class="m-2">详情</el-button>
+                            <el-button class="m-2" @click="$copyString(oprateItem.showText)">详情</el-button>
+                        </template>
+                    </el-popover>
+                    <el-popover
+                        v-if="oprateItem.isShowCode"
+                        placement="bottom"
+                        :width="700"
+                        trigger="hover"
+                        :content="oprateItem.code"
+                    >
+                        <template #reference>
+                            <el-button class="m-2" @click="$copyString(oprateItem.code)">获取代码</el-button>
                         </template>
                     </el-popover>
                     <!-- <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button> -->
@@ -303,13 +316,13 @@
     // const dataList = ref([])
     const activeAccont = ref('0')
     const HKStockExchangeRateList = ref({})
-    const exchangeRateHKDtoUSD = ref('0.12813000')
-    // const exchangeRateHKDtoUSD = ref('')
+    // const exchangeRateHKDtoUSD = ref('0.12813000')
+    const exchangeRateHKDtoUSD = ref('')
     const INDEXO = ref({})
 
 
     onMounted(() => {
-        parseBtn()
+        // parseBtn()
     })
 
     const dataList = computed(() => {
@@ -342,61 +355,31 @@
         return sortList
     });
 
+    function calculate() {
+        console.log('aaaacalculater')
+    }
+
+    function clearData(noInput) {
+        console.log('aaa233clear')
+    }
+
     // 60刷新
     function up60(value) {
         if (!value) {
             ElMessage.error('请输入60接口数据')
             return
         }
-        let data60 = getActionData('60')
+        // let data60 = getActionData('60')
+        let data60 = strToJson(value)
         let fareData = getActionData('5850')
         console.log('aaaa23333fareData', fareData)
         let list = getActionData('117', 'all').dealData.data
         // 60数据刷新
         let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
         // console.log('aaaa23333up60', res) 
-
+        let newAccountList = DealAccontData.upAccountData(accountList.value, res)
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        var accountListTemp = JSON.parse(JSON.stringify(accountList.value));
-        accountListTemp.forEach((o)=>{
-            for(var k in o){
-                if(k === 'sz' || k === 'yl' || k === 'todayPl' || k === 'ratio'){
-                    o[k] = 0;
-                }
-                if(k === 'szEX' || k === 'ylEX' || k === 'todayPlFrom'){
-                    o[k] = ''; 
-                }
-            }
-        });
-        let len = res.length;
-        res.forEach((o1, index)=>{
-            console.log('aaaares', o1.todayPl, len, Amp.bzTypeMap[o1.wtAccountType])
-            try{
-                var accountItem = accountListTemp.find((o2)=>{
-                    return o2.bztype == Amp.bzTypeMap[o1.wtAccountType];
-                });
-                if(accountItem){
-                    if(o1.sz != '--'){
-                        accountItem.sz = new Big(accountItem.sz).plus(new Big(o1.shiZhi)).toFixed(2).toString();
-                        accountItem.szEX += `(${o1.name}：${o1.shiZhi}) ${len === index  ? ' || ' : ' ' }`
-                    }             
-                    if(o1.yingKui != '--'){
-                        accountItem.yl = new Big(accountItem.yl).plus(new Big(o1.yingKui)).toFixed(2).toString();
-                        accountItem.ylEX += `(${o1.name}：${o1.yingKui}) ${len === index ?' || ' : ' ' }`
-                    }
-
-                    if(o1.todayPl != '--'){
-                        console.log('aaaaintadayPl', accountItem.todayPlFrom)
-                        accountItem.todayPl = new Big(accountItem.todayPl).plus(new Big(o1.todayPl)).toFixed(2).toString();
-                        accountItem.todayPlFrom += `(${o1.name}：${o1.todayPl}) ${len === index ? ' || ' : ' ' }`
-                    }   
-                }   
-            }
-            catch(e){
-                console.error(e);
-            }
-        })
-        accountList.value = accountListTemp;
+        accountList.value = newAccountList;
     }
 
     // 切换账户
@@ -441,6 +424,14 @@
                         }
                         item.dealData = DealMainData.turn5106ToObj(item.data, HKStockExchangeRateList.value)
                     }
+                    if (item.action === '5696') {
+                        console.log('aaaitemdata', JSON.parse(JSON.stringify(item.data)))
+                        try {
+                            exchangeRateHKDtoUSD.value = item?.data?.GRID0[1]?.split('|')?.[0] || exchangeRateHKDtoUSD.value
+                        } catch (error) {
+                            console.error('5659error', error)                            
+                        }
+                    }
                 } catch (error) {
                     console.error(error)                    
                 }
@@ -459,13 +450,16 @@
 
     function initAccount(gridData, oData, oData1) {
         // console.log('initAccount', gridData, oData, oData1)
-        var that = this;
         if(!oData.GRID2){
             return;
         }
         // A5柜台
         if(oData.APEX_A5_SPECFLAG && oData.APEX_A5_SPECFLAG == '1'){
             const data = getActionData('5735')
+            if (!data) {
+                ElMessage.error('请输入5735接口数据')
+                return 
+            }
             console.log('data5735', JSON.parse(JSON.stringify(data)))
             if (data.ERRORNO < 0) {
                 alert(data.ERRORMESSAGE);
@@ -475,6 +469,7 @@
                 DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
                 return;
             }
+            // console.log('aaa23333GRID0', GRID0)
             data.GRID0.shift();            
             data.GRID0.forEach((o)=>{
                 var arr = o.split('|');

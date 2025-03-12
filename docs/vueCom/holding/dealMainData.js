@@ -377,7 +377,7 @@ export function notComputeTodayPl(obj) {
     if(obj.wtAccountType == 'SZACCOUNT' && (obj.stockCodeType == '8' || (obj.stockCodeType == 'K' && obj.code.startsWith('159')))){
         return false;
     }
-    // 上海-证券类别为M、K、S不计算盈亏
+    // 上海-证券类别为M、K、S、L不计算盈亏
     if(obj.wtAccountType == 'SHACCOUNT' && (obj.stockCodeType == 'M' || obj.stockCodeType == 'K' || obj.stockCodeType == 'S' || (obj.stockCodeType == 'A' && obj.code.startsWith('519')))){
         return false;
     }

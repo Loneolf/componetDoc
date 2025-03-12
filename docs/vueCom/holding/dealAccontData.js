@@ -1,4 +1,4 @@
-import { accountTypeMap } from './accontMap'
+import { accountTypeMap, bzTypeMap } from './accontMap'
 
 export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
     // console.log('aaaaacomputerAccountData', gridData, oData, oData1, OTCData, OTCStatus);
@@ -367,6 +367,97 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
     }  
 
     return accountList;
+}
+
+export function upAccountData(accountList, dataList) {
+    var accountListTemp = JSON.parse(JSON.stringify(accountList));
+    accountListTemp.forEach((o)=>{
+        for(var k in o){
+            if(k === 'sz' || k === 'yl' || k === 'todayPl' || k === 'ratio'){
+                o[k] = 0;
+            }
+            if(k === 'szEX' || k === 'ylEX' || k === 'todayPlFrom'){
+                o[k] = ''; 
+            }
+        }
+    });
+    let len = dataList.length;
+    dataList.forEach((o1, index)=>{
+        // console.log('aaaares', o1.todayPl, len, Amp.bzTypeMap[o1.wtAccountType])
+        try{
+            var accountItem = accountListTemp.find((o2)=>{
+                return o2.bztype == bzTypeMap[o1.wtAccountType];
+            });
+            if(accountItem){
+                if(o1.sz != '--'){
+                    accountItem.sz = new Big(accountItem.sz).plus(new Big(o1.shiZhi)).toFixed(2).toString();
+                    accountItem.szEX += `(${o1.name}：${o1.shiZhi}) ${len === index  ? ' || ' : ' ' }`
+                }             
+                if(o1.yingKui != '--'){
+                    accountItem.yl = new Big(accountItem.yl).plus(new Big(o1.yingKui)).toFixed(2).toString();
+                    accountItem.ylEX += `(${o1.name}：${o1.yingKui}) ${len === index ?' || ' : ' ' }`
+                }
+
+                if(o1.todayPl != '--'){
+                    // console.log('aaaaintadayPl', accountItem.todayPlFrom)
+                    accountItem.todayPl = new Big(accountItem.todayPl).plus(new Big(o1.todayPl)).toFixed(2).toString();
+                    accountItem.todayPlFrom += `(${o1.name}：${o1.todayPl}) ${len === index ? ' || ' : ' ' }`
+                }   
+            }   
+        }
+        catch(e){
+            console.error(e);
+        }
+    })
+
+    accountListTemp.forEach((o, i)=>{
+        if(o.bztype == '0' || o.bztype == '0_HK'){
+            try{
+                var rmbIndex = accountList.findIndex((item)=>{
+                    return item.bztype == '0'; 
+                });
+                var rmbHKIndex = accountList.findIndex((item)=>{
+                    return item.bztype == '0_HK'; 
+                });
+                var rmbSzDiffer = '0.00';
+                try{
+                    rmbSzDiffer = new Big(accountListTemp[rmbIndex].sz).minus(new Big(accountList[rmbIndex].sz));
+                }
+                catch(e){
+                    rmbSzDiffer = '0.00';
+                }
+                var rmbHKSzDiffer = '0.00';
+                try{
+                    rmbHKSzDiffer = new Big(accountListTemp[rmbHKIndex].sz).minus(new Big(accountList[rmbHKIndex].sz));
+                }
+                catch(e){
+                    rmbHKSzDiffer = '0.00';
+                }
+                o.total = new Big(o.total).plus(new Big(rmbSzDiffer)).plus(new Big(rmbHKSzDiffer)).toFixed(2).toString();
+            }
+            catch(e){
+                console.error(e)
+                o.total = '--';
+            }
+        }
+        else{
+            try{
+                var szDiffer = '0.00';
+                try{
+                    szDiffer = new Big(o.sz).minus(new Big(accountList[i].sz));
+                }
+                catch(e){
+                    szDiffer = '0.00';
+                }
+                o.total = new Big(o.total).plus(new Big(szDiffer)).toFixed(2).toString();
+            }
+            catch(e){
+                console.error(e)
+                o.total = '--';
+            }
+        }
+    });
+    return accountListTemp;
 }
 
 

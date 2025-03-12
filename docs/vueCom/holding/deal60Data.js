@@ -158,8 +158,6 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                         预估卖出费用 = (佣金 + 印花税 + 过户费 + 委托费 + 其他费) * 港股通中间汇率<br />
                                         = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${fare}<br /> 
                                     `
-                                    
-
                                 }        
                             }
                             o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
@@ -213,7 +211,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                         } 
                     }
                     else if (!!o.code && !!o.wtAccountType && !!o.account && o.code == code){
-                        console.log('aaaa23333INNormal', o.wtAccountType, o.code, code)
+                        // console.log('aaaa23333INNormal', o.wtAccountType, o.code, code)
                         // if(!!o.code && !!o.wtAccountType && !!o.account && o.code == code && o.wtAccountType == that.chiCangHqDaiCha[i].split('|')[1]){
                         // 特定业务 或 市价不变 不重新计算
                         if(!isComputeCostPrice(o) || parseFloat(newPrice) == parseFloat(o.shiJia)){

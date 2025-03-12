@@ -92,8 +92,8 @@ export const opratedata = [
         showText: JSON.stringify(mockData.mockdata5107, null, 4),
     },
     {
-       title: '5659港币美元汇率',
-       action: '5659',
+       title: '5696港币美元汇率',
+       action: '5696',
        data: "",
        showText: "",
        showText: JSON.stringify(mockData.mockdata5696, null, 4), 
@@ -112,6 +112,17 @@ export const opratedata = [
         data: "",
         showText: "",
         showText: JSON.stringify(mockData.fare, null, 4),
+        isShowCode: true,
+        code: `H5TZT.readLocalMesg(['jyloginflag', 'logintype=1', 'USERCODE'], function (oData) {
+                var fileName = 'clientFare' + oData.USERCODE;
+                H5TZT.readFileMesg(fileName, function(oFile){
+                    if(oFile){
+                        var data = JSON.parse(decodeURIComponent(oFile));
+                        var fareMap = JSON.parse(JSON.stringify(data.clientFare));
+                        console.log(fareMap);
+                    }
+                })
+            })`
     },
     {
         title: '60刷新',
@@ -122,3 +133,4 @@ export const opratedata = [
         isUpBtn: true,
     },
 ]
+
