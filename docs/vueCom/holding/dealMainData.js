@@ -412,26 +412,26 @@ export function geshiValue(name, index, noUnit = true, INDEXO){
 
 export function serveDataToObj(data){
     const lines = data.split('\n');
-    console.log('aaa2333lines', lines)
+    // console.log('aaa2333lines', lines)
     // 提取表头行
     const headerLine = lines.find(line => line.startsWith('GRID0='));
     const headerLine2 = lines.find(line => line.startsWith('GRID2='));
     // 用于存储各字段对应索引的对象
     const indexMap = {GRID0: [ headerLine.replace(/GRID0=/, '') ]};
     const GRID2 = [ headerLine2.replace(/GRID2=/, '') ];
-    console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
+    // console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
     var beginPush = false
     var beginPush2 = false
     lines.forEach(line => {
-        console.log('aaaaline')
+        // console.log('aaaaline')
         if (beginPush && line.includes('|') && !line.includes('=')) {
-            console.log(indexMap.GRID0)
+            // console.log(indexMap.GRID0)
             indexMap.GRID0.push(line)
         } else {
             beginPush = false
         }
         if (beginPush2 && line.includes('|') && !line.includes('=')) {
-            console.log(indexMap.GRID0)
+            // console.log(indexMap.GRID0)
             GRID2.push(line)
         } else {
             beginPush2 = false

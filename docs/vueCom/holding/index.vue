@@ -3,7 +3,7 @@
         <div class="oprateBtn">
             <el-button type="primary" @click="parseBtn">解析117</el-button>
             <el-button type="primary" @click="calculate">数据计算</el-button>
-            <el-button type="primary" @click="clearData">清空内容</el-button>
+            <el-button type="primary" @click="clearData()">清空内容</el-button>
         </div>
         <div class="sourceData">
             <div 
@@ -359,8 +359,14 @@
         console.log('aaaacalculater')
     }
 
-    function clearData(noInput) {
-        console.log('aaa233clear')
+    function clearData(noInput = false) {
+        accountList.value = []
+        allOpratedata.value.forEach(item => {
+            if (!noInput) {
+                item.showText = ''
+            }
+            item.dealData = undefined
+        })
     }
 
     // 60刷新
@@ -449,24 +455,23 @@
     }
 
     function initAccount(gridData, oData, oData1) {
-        // console.log('initAccount', gridData, oData, oData1)
+        console.log('initAccount', gridData, oData, oData1)
         if(!oData.GRID2){
             return;
         }
         // A5柜台
         if(oData.APEX_A5_SPECFLAG && oData.APEX_A5_SPECFLAG == '1'){
             const data = getActionData('5735')
-            if (!data) {
-                ElMessage.error('请输入5735接口数据')
-                return 
-            }
-            console.log('data5735', JSON.parse(JSON.stringify(data)))
-            if (data.ERRORNO < 0) {
-                alert(data.ERRORMESSAGE);
-                oData.TOTALASSET_RMB = '--';
-                oData.TOTALASSET_USD = '--';
-                oData.TOTALASSET_HK = '--';
-                DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
+            // if (!data) {
+            //     ElMessage.error('请输入5735接口数据')
+            //     return 
+            // }
+            // console.log('data5735', JSON.parse(JSON.stringify(data)))
+            if (!data || data.ERRORNO < 0) {
+                oData.rmbEX = `取值117接口 TOTALASSET_RMB 字段值：${oData.TOTALASSET_RMB}`
+                oData.usdEX = `取值117接口 TOTALASSET_USD 字段值：${oData.TOTALASSET_USD}`
+                oData.hkEX = `取值117接口 TOTALASSET_HK 字段值：${oData.TOTALASSET_HK}`
+                accountList.value = DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
                 return;
             }
             // console.log('aaa23333GRID0', GRID0)
@@ -522,7 +527,8 @@
     }
 
     function strToJson(str) {
-        if (str.includes("GRID0=")) {
+        if (str.includes("GRID0=") || str.includes("Grid=")) {
+            str = str.replace(/Grid=/g, 'GRID0=');
             return DealMainData.serveDataToObj(str)
         }
         return JSON.parse(str)

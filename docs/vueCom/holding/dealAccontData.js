@@ -36,7 +36,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             catch(e){
                 accountItem.total = '--';
-                console.log(e)
+                console.error(e)
             }
             try{
                 // 市值 = 证券市值（沪深京、港股、天天利财） - 天天利财市值
@@ -47,7 +47,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             catch(e){
                 accountItem.sz = '--';
-                console.log(e)
+                console.error(e)
             }
             // 人民币持仓为空时展示为--
             if(accountItem.sz == 0 && (!rmbHoldingList || !rmbHoldingList.length)){ 
@@ -67,7 +67,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 }
                 catch(e){
                     val = '--';
-                    console.log(e)
+                    console.error(e)
                 }
                 accountItem.yl = val;
                 accountItem.ylEX = `117接口 TOTALYK_RMB 字段值 - TOTALYK_ONEDAYBJHG(天天理财)  - TOTALYK_MULTIDAYBJHG <br />
@@ -107,7 +107,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             catch(e){
                 accountItem.ratio = '--';
-                console.log(e)
+                console.error(e)
             }
             // console.log('aaaaaaccountItem', JSON.parse(JSON.stringify(accountItem)))
             accountList.push(accountItem);

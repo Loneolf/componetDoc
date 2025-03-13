@@ -220,8 +220,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                         // 新市值价 = 原市值价 - 原最新价 + 新最新价
                         var newAssetPriceEX = new Big(o.assetPrice).minus(new Big(o.shiJia)).plus(newPrice).toFixed(4).toString();
                         o.assetPriceEX = `
-                        新市值价 = 原市值价 - 原最新价 + 新最新价<br />
-                        新市值价 = ${o.assetPrice} - ${o.shiJia} + ${newPrice} = ${newAssetPriceEX}
+                            新市值价 = 原市值价 - 原最新价 + 新最新价<br />
+                            新市值价 = ${o.assetPrice} - ${o.shiJia} + ${newPrice} = ${newAssetPriceEX}
                         `
                         o.assetPrice = newAssetPriceEX
 

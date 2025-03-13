@@ -51,7 +51,7 @@ export function getServerDataIndex(rawData) {
     console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
     var beginPush = false
     lines.forEach(line => {
-        console.log('aaaaline')
+        // console.log('aaaaline')
         if (beginPush && line.includes('|') && !line.includes('=')) {
             console.log(indexMap.GRID0)
             indexMap.GRID0.push(line)
