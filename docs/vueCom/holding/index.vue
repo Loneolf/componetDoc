@@ -407,8 +407,12 @@
             if (item.showText) {
                 try {
                     // 将字符串转化为json对象
-                    item.data = strToJson(item.showText) 
-                    console.log('aaa2333', item.data)
+                    if (item.showText) {
+                        item.data = strToJson(item.showText) 
+                    } else {
+                        item.data = ''
+                    }
+                    // console.log('aaa2333', item.data)
                     // 处理117数据，转化为对象
                     if (item.action === '117') {
                         item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
