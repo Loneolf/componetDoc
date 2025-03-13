@@ -67,7 +67,7 @@ export const opratedata = [
         action: '117',
         data: "",
         showText: "",
-        // showText: JSON.stringify(mockData.mockdata117, null, 4) ,
+        showText: JSON.stringify(mockData.mockdata117, null, 4) ,
         dealData: {},
     },
     {
@@ -82,28 +82,28 @@ export const opratedata = [
         action: '5106',
         data: "",
         showText: "",
-        // showText: JSON.stringify(mockData.mockdata5106, null, 4)
+        showText: JSON.stringify(mockData.mockdata5106, null, 4)
     },
     {
         title: '5107获取港股通汇率',
         action: '5107',
         data: "",
         showText: "",
-        // showText: JSON.stringify(mockData.mockdata5107, null, 4),
+        showText: JSON.stringify(mockData.mockdata5107, null, 4),
     },
     {
        title: '5696港币美元汇率',
        action: '5696',
        data: "",
        showText: "",
-    //    showText: JSON.stringify(mockData.mockdata5696, null, 4), 
+       showText: JSON.stringify(mockData.mockdata5696, null, 4), 
     },
     {
        title: '5735-A5多金账号',
        action: '5735',
        data: "",
        showText: "",
-    //    showText: JSON.stringify(mockData.mockdata5735, null, 4), 
+       showText: JSON.stringify(mockData.mockdata5735, null, 4), 
     },
 
     {
@@ -111,7 +111,7 @@ export const opratedata = [
         action: '5850',
         data: "",
         showText: "",
-        // showText: JSON.stringify(mockData.fare, null, 4),
+        showText: JSON.stringify(mockData.fare, null, 4),
         isShowCode: true,
         code: `H5TZT.readLocalMesg(['jyloginflag', 'logintype=1', 'USERCODE'], function (oData) {
                 var fileName = 'clientFare' + oData.USERCODE;
@@ -129,7 +129,7 @@ export const opratedata = [
         action: '60',
         data: "",
         showText: "",
-        // showText: JSON.stringify(mockData.mockdata60, null, 4),
+        showText: JSON.stringify(mockData.mockdata60, null, 4),
         isUpBtn: true,
     },
 ]

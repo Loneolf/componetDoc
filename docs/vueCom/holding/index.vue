@@ -293,6 +293,7 @@
     import { geshiValue } from './dealMainData'
     import * as DealAccontData from './dealAccontData'
     import { deal60Data } from './deal60Data'
+    import { calculateOData } from './calculate'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
     import * as tUtil from '../comUtil/tabelUtil'
@@ -357,6 +358,12 @@
 
     function calculate() {
         console.log('aaaacalculater')
+        let fareData = getActionData('5850')
+        let list = getActionData('117', 'all').dealData.data
+        let res = calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
+        // console.log('aaaa23333up60', res) 
+        // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
+        // accountList.value = DealAccontData.upAccountData(accountList.value, res)
     }
 
     function clearData(noInput = false) {
@@ -383,9 +390,8 @@
         // 60数据刷新
         let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
         // console.log('aaaa23333up60', res) 
-        let newAccountList = DealAccontData.upAccountData(accountList.value, res)
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        accountList.value = newAccountList;
+        accountList.value = DealAccontData.upAccountData(accountList.value, res)
     }
 
     // 切换账户
