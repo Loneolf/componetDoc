@@ -5,24 +5,28 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
     console.log("aaaa23333", JSON.parse(JSON.stringify(gridData)), HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap)
     try{
         gridData.forEach((o)=>{
+            let co = {}
+            var fare = '0', fareText = '';
+
             // 港股通
             if(accountMap.accountTypeMap['0_HK'].includes(o.wtAccountType)){
-                console.log('aaaain港股通', o.wtAccountType, o.code)
+                // console.log('aaaain港股通', o.wtAccountType, o.code)
                 // 特定业务 或 市价不变 不重新计算
-                if(!isComputeCostPrice(o)){
-                    return;
-                }
+                // if(!isComputeCostPrice(o)){
+                //     return;
+                // }
 
                 // 市值 = 市值价 * 持仓
                 var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
                 // console.log('aaaHKStockExchangeRateList', HKStockExchangeRateList, o.wtAccountType)
-                o.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
+                co.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
                 o.shiZhiEX = `
                     市值 = 市值价 * 持仓 * 港元中间汇率<br />
-                    市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
+                    市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi} <br />
+                    计算结果为：${o.shiZhi}
                 `
                 if(parseFloat(o.chengBen) > 0){
-                    o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+                    co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
                     o.yingKuiLvEX = `
                         盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
                         盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
@@ -33,17 +37,18 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                     o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
                 }
                 try{
-                    var fare = '0';
-                    if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){                                                             
+                    if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){    
+                        // console.log('aao.chiCang', o.chiCang, o.chiCang > 0)                                                         
                         if(o.chiCang > 0){
                             var totalFare = {};
-                            console.log('aaafaremap', o.wtAccountType, o.stockCodeType, o.subStockType, fareMap[o.wtAccountType][o.stockCodeType]['!'])
+                            // console.log('aaafaremap', o.wtAccountType, o.stockCodeType, o.subStockType, fareMap[o.wtAccountType][o.stockCodeType]['!'])
                             if(!!fareMap[o.wtAccountType][o.stockCodeType][o.subStockType]){
                                 totalFare = fareMap[o.wtAccountType][o.stockCodeType][o.subStockType];
                             }
                             else{
                                 totalFare = fareMap[o.wtAccountType][o.stockCodeType]['!'];
                             }
+                            // console.log('aaatotalFare', JSON.parse(JSON.stringify(totalFare)))
                             var fare0 = new Big(totalFare.fare0).times(new Big(marketValue)).plus(new Big(totalFare.fare0_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
                             fare0 = new Big(fare0).gt(new Big(totalFare.min_fare0)) ? fare0 : totalFare.min_fare0;
                             if(totalFare.max_fare0 > 0){
@@ -103,23 +108,26 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                             
                             fare = new Big(fare0).plus(new Big(fare1)).plus(new Big(fare2)).plus(new Big(fare3)).plus(new Big(farex)).toFixed(2).toString();
                             fare = new Big(fare).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
-                            var fareEX = `
+                            fareEX = `
                                 预估卖出费用 = (佣金 + 印花税 + 过户费 + 委托费 + 其他费) * 港股通中间汇率<br />
                                 = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${fare}<br /> 
                             `
+                            fareText = `${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}`
+
                         }        
                     }
-                    o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
+                    co.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
                     o.yingKuiEX = `
                         盈亏 = 市值 - 成本价 - 预估卖出费用<br />
                         盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
+                        计算盈亏与接口返回盈亏是否相等： 接口返回盈亏：${o.yingKui} 计算盈亏：${co.yingKui} 结论：${o.yingKui == co.yingKui? '相等' : '不相等'}<br />
                         预估卖出费用计算过程如下：<br />
-                        ${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}
+                        ${fareText}
                     `
                 }
                 catch(e){
                     console.error(e)
-                    o.yingKui = '--'; 
+                    // o.yingKui = '--'; 
                 }
                 finally{
                     try{
@@ -133,46 +141,50 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                         o.yingKuiWithoutFare = '--'; 
                     }
                 } 
-            }
-            else if (!!o.code && !!o.wtAccountType && !!o.account){
+            } else if (!!o.code && !!o.wtAccountType && !!o.account){
+                console.log('aao.chiCang', o.name, o.chiCang, o.chiCang > 0)
                 // console.log('aaaa23333INNormal', o.wtAccountType, o.code, code)
                 // if(!!o.code && !!o.wtAccountType && !!o.account && o.code == code && o.wtAccountType == that.chiCangHqDaiCha[i].split('|')[1]){
                 // 特定业务 或 市价不变 不重新计算
-                if(!isComputeCostPrice(o) || parseFloat(newPrice) == parseFloat(o.shiJia)){
-                    return;
-                }
+                // if(!isComputeCostPrice(o) || parseFloat(newPrice) == parseFloat(o.shiJia)){
+                //     return;
+                // }
                 
                 // 市值 = 市值价（含利息）* 持仓
                 var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
                 // 沪B转H市值 = 市值价（含利息）* 持仓 * 汇率
                 if(accountMap.accountTypeMap['1'].indexOf(o.wtAccountType) > -1 && o.stockCodeType === 'h'){                                                             
-                    o.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
+                    co.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
                     o.shiZhiEX = `
                         沪B转H市值 = 市值价 * 持仓 * 汇率<br />
-                        市值 = ${marketValue} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi}
+                        市值 = ${marketValue} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi} <br />
+                        计算市值与接口返回市值是否相等： 接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} 结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}
                     `
                 }
                 else{
-                    o.shiZhi = marketValue;
+                    co.shiZhi = marketValue;
                     o.shiZhiEX = `
                         市值 = 市值价 * 持仓<br />
-                        市值 = ${marketValue} * ${o.chiCang} = ${o.shiZhi}
+                        市值 = ${marketValue} * ${o.chiCang} = ${co.shiZhi} <br />
+                        计算市值与接口返回市值是否相等： 接口返回市值：${o.shiZhi} 计算市值：${marketValue} 结论：${o.shiZhi == marketValue ? '相等' : '不相等'}
                     `
                 }
                 
                 if(parseFloat(o.chengBen) > 0){
-                    o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+                    co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
                     o.yingKuiLvEX = `
-                        盈亏率 = (新市值价 - 成本价) / 成本价 * 100<br />
-                        盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
+                        盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
+                        盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${co.yingKuiLv}% <br />
+                        计算盈亏率与接口返回盈亏率是否相等： 接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${co.yingKuiLv}% 结论：${o.yingKuiLv == co.yingKuiLv? '相等' : '不相等'}
+                    `
+                } else{
+                    co.yingKuiLv = '0.00';
+                    o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00 <br />
+                        计算盈亏率与接口返回盈亏率是否相等： 接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${'0.00'}% 结论：${o.yingKuiLv == '0.00'? '相等' : '不相等'}
                     `
                 }
-                else{
-                    o.yingKuiLv = '0.00';
-                    o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
-                }
                 try{
-                    var fare = '0';
+                    console.log('aaaaaaincalculate', o.name, !isNoFareClient, !!o.wtAccountType, !!fareMap[o.wtAccountType], !!fareMap[o.wtAccountType][o.stockCodeType])
                     if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){
                         if(o.chiCang > 0){
                             var totalFare = {};
@@ -260,12 +272,14 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                                     = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${exchangeRateHKDtoUSD} = ${fare}<br /> 
                                 `
                             }
+                            fareText = `${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}`
                         }
                     }
-                    o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
+                    co.yingKui = new Big(co.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
                     o.yingKuiEX = `
                         盈亏 = 市值 - 成本价 - 预估卖出费用<br />
-                        盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
+                        盈亏 = ${co.shiZhi} - ${o.costBalance} - ${fare} = ${co.yingKui} <br />
+                        计算盈亏与接口返回盈亏是否相等： 接口返回盈亏：${o.yingKui} 计算盈亏：${co.yingKui} 结论：${o.yingKui == co.yingKui? '相等' : '不相等'}<br />
                         预估卖出费用计算过程如下：<br />
                         ${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}
                     `
