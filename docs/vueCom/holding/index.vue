@@ -278,6 +278,21 @@
                                     <p class="popverp" v-html="si.assetPriceEX"></p>
                                 </el-popover>
                             </span>
+                            <span class="itemSplit">|</span>
+                            <span class="itemSi">
+                                <label>个股仓位</label>：<span>{{  si.ratio }}</span>
+                                <el-popover
+                                    v-if="si.ratioEX"
+                                    placement="bottom"
+                                    :width="600"
+                                    trigger="hover"
+                                >
+                                    <template #reference>
+                                        <el-button class="m-2">来源</el-button>
+                                    </template>
+                                    <p class="popverp" v-html="si.ratioEX"></p>
+                                </el-popover>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -440,6 +455,7 @@
                         }
                         item.dealData = DealMainData.turn5106ToObj(item.data, HKStockExchangeRateList.value)
                     }
+                    // 处理5696数据，获取港币兑美元汇率
                     if (item.action === '5696') {
                         console.log('aaaitemdata', JSON.parse(JSON.stringify(item.data)))
                         try {
@@ -447,6 +463,13 @@
                         } catch (error) {
                             console.error('5659error', error)                            
                         }
+                    }
+                    // 处理5850数据，获取费率
+                    if (item.action === '5850') {
+                        if (item.data?.GRID0) {
+                            item.data = DealMainData.parseFareData(item.data, Amp.exchangeTypeMap)
+                        }
+                        console.log('aaaa2333item', JSON.parse(JSON.stringify(item)))
                     }
                 } catch (error) {
                     console.error(error)                    

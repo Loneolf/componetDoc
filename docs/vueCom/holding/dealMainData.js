@@ -435,7 +435,7 @@ export function serveDataToObj(data){
     const headerLine2 = lines.find(line => line.startsWith('GRID2='));
     // 用于存储各字段对应索引的对象
     const indexMap = {GRID0: [ headerLine.replace(/GRID0=/, '') ]};
-    const GRID2 = [ headerLine2.replace(/GRID2=/, '') ];
+    let GRID2 = [ headerLine2?.replace(/GRID2=/, '') ];
     // console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
     var beginPush = false
     var beginPush2 = false
@@ -468,4 +468,79 @@ export function serveDataToObj(data){
         indexMap.GRID2 = GRID2;
     }
     return indexMap;
+}
+
+export function parseFareData(data, exchangeTypeMap){
+    if (!data.GRID0?.length) return
+    let fareMap = {};
+    for(var n = 1; n < data.GRID0.length; n++){
+        var arr = data.GRID0[n].split('|');
+        // 只取来源类别为0，1，104的费率
+        if(arr[data.SOURCEKINDINDEX] != '0' && arr[data.SOURCEKINDINDEX] != '1' && arr[data.SOURCEKINDINDEX] != '104'){
+            continue;
+        }
+        // 股转、京市只取来源类别为104的费用
+        if(arr[data.EXCHANGETYPEINDEX] == '特转A' || arr[data.EXCHANGETYPEINDEX] == '特转B'){
+            if(arr[data.SOURCEKINDINDEX] != '104'){
+                continue;
+            } 
+        } 
+        // 港股通只取来源类别为0的费用
+        else if(arr[data.EXCHANGETYPEINDEX] == '沪HK' || arr[data.EXCHANGETYPEINDEX] == '深HK'){
+            if(arr[data.SOURCEKINDINDEX] != '0'){
+                continue;
+            }  
+        }
+        // 沪深AB股及H股全流通基金只取来源类别为1的费用
+        else{
+            // 生产已有使用来源类别为1的证券类别
+            var ofStockTypeList = ['1','3','A','D','F','K','L','M','N','T','V','i','k','l','r'];
+            if(ofStockTypeList.indexOf(arr[data.STOCKTYPEODEINDEX]) > -1 && arr[data.SOURCEKINDINDEX] != '1'){
+                continue;
+            }
+        }
+        // 只取委托方式、委托类别、委托属性为全部的费率
+        if(arr[data.WTFSINDEX] != '!' || arr[data.ENTRUSTTYPEINDEX] != '!' || arr[data.ENTRUSTPROPINDEX] != '!'){
+            continue; 
+        }
+        if(exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]){
+            if(!fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]]){
+                fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]] = {};
+            }
+            if(!fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]]){
+                fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]] = {};
+            }
+            if(!fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]]){
+                fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]] = {};
+            }
+            else{
+                // 优先采用非9999费用类型的费用串
+                if(arr[data.FAREKINDINDEX] == '9999'){
+                    continue;
+                }
+            }
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare0 = arr[data.COMMISIONINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare0_par = arr[data.FARE0PARINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare0 = arr[data.MINFARE0INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare0 = arr[data.MAXFARE0INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare1 = arr[data.FARE1INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare1_par = arr[data.FARE1PARINDEX || '17'];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare1 = arr[data.MINFARE1INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare1 = arr[data.MAXFARE1INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare2 = arr[data.FARE2INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare2_par = arr[data.FARE2PARINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare2 = arr[data.MINFARE2INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare2 = arr[data.MAXFARE2INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare3 = arr[data.FARE3RATIOINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare3_par = arr[data.FARE3PARINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare3 = arr[data.MINFARE3INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare3 = arr[data.MAXFARE3INDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].farex = arr[data.FAREXRATIOINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].farex_par = arr[data.FAREXPARINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_farex = arr[data.MINFAREXINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_farex = arr[data.MAXFAREXINDEX];
+        }   
+    }
+    console.log(fareMap);
+    return fareMap;    
 }

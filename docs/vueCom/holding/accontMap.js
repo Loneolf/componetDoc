@@ -1,5 +1,6 @@
 // import * as mockData from './holdMock'
 import * as mockData from './holdA5Mock'
+const isMock = false
 
 export const accountTypeMap = {
     '0': ['SHACCOUNT', 'SZACCOUNT', 'SBACCOUNT'], // 人民币A股  沪深京
@@ -66,52 +67,47 @@ export const opratedata = [
         title: '117持仓接口',
         action: '117',
         data: "",
-        showText: "",
-        showText: JSON.stringify(mockData.mockdata117, null, 4) ,
+        showText: isMock ? JSON.stringify(mockData.mockdata117, null, 4) : "",
         dealData: {},
     },
     {
         title: '116资金账号',
         action: '116',
         data: "",
-        showText: "",
-        // showText: JSON.stringify(mockData.mockdata116, null, 4) ,
+        showText: '',
+        // showText: isMock ? JSON.stringify(mockData.mockdata116, null, 4) : "",
     },
     {
         title: '5106港股通持仓',
         action: '5106',
         data: "",
-        showText: "",
-        showText: JSON.stringify(mockData.mockdata5106, null, 4)
+        showText: isMock ? JSON.stringify(mockData.mockdata5106, null, 4) : "",
     },
     {
         title: '5107获取港股通汇率',
         action: '5107',
         data: "",
-        showText: "",
-        showText: JSON.stringify(mockData.mockdata5107, null, 4),
+        showText: isMock ? JSON.stringify(mockData.mockdata5107, null, 4) : "",
     },
     {
        title: '5696港币美元汇率',
        action: '5696',
        data: "",
-       showText: "",
-       showText: JSON.stringify(mockData.mockdata5696, null, 4), 
+       showText: isMock ? JSON.stringify(mockData.mockdata117, null, 4) : "",
+    //    showText: JSON.stringify(mockData.mockdata5696, null, 4), 
     },
     {
        title: '5735-A5多金账号',
        action: '5735',
        data: "",
-       showText: "",
-       showText: JSON.stringify(mockData.mockdata5735, null, 4), 
+       showText: isMock ? JSON.stringify(mockData.mockdata5735, null, 4) : "",
     },
 
     {
         title: '5850客户费率',
         action: '5850',
         data: "",
-        showText: "",
-        showText: JSON.stringify(mockData.fare, null, 4),
+        showText: isMock ? JSON.stringify(mockData.fare, null, 4) : "",
         isShowCode: true,
         code: `H5TZT.readLocalMesg(['jyloginflag', 'logintype=1', 'USERCODE'], function (oData) {
                 var fileName = 'clientFare' + oData.USERCODE;
@@ -128,8 +124,7 @@ export const opratedata = [
         title: '60刷新',
         action: '60',
         data: "",
-        showText: "",
-        showText: JSON.stringify(mockData.mockdata60, null, 4),
+        showText: isMock ? JSON.stringify(mockData.mockdata60, null, 4) : "",
         isUpBtn: true,
     },
 ]

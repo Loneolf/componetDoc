@@ -8,7 +8,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
     var newmarket_arr = oData.NEWMARKETNO.split('|');
     var stock_pro_arr = oData.STOCKPROP.split('|');
     if(oData.GRID0 && oData.GRID0.length>0){
-        oData.GRID0.shift();
+        // oData.GRID0.shift();
         for(var i=0; i<oData.GRID0.length; i++) {
             var item = oData.GRID0[i].split('|');
             // 更新股票中的股票代码
@@ -35,6 +35,17 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     continue;
                 }
                 gridData.forEach((o)=>{
+
+                    var fare = '0', fareText = '';
+                    var totalFare = undefined;
+                    if (!(!!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType])) {
+                        fareText = `市场类别wtAccountType为${o.wtAccountType}, <br />
+                            证券类别stockCodeType为${o.stockCodeType}, <br />
+                            证券类别子类subStockType为${o.subStockType}<br />
+                            未匹配到对应的利率，不计算预估卖出费用
+                        `
+                    }
+                    
                     // 人民币A股或港股通
                     // if(that.currAccount == '0' || that.currAccount == '0_HK'){
                     //     // 美元港币 不重新计算
@@ -85,10 +96,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                             o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
                         }
                         try{
-                            var fare = '0';
                             if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){                                                             
                                 if(o.chiCang > 0){
-                                    var totalFare = {};
                                     console.log('aaafaremap', o.wtAccountType, o.stockCodeType, o.subStockType, fareMap[o.wtAccountType][o.stockCodeType]['!'])
                                     if(!!fareMap[o.wtAccountType][o.stockCodeType][o.subStockType]){
                                         totalFare = fareMap[o.wtAccountType][o.stockCodeType][o.subStockType];
@@ -159,6 +168,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                         预估卖出费用 = (佣金 + 印花税 + 过户费 + 委托费 + 其他费) * 港股通中间汇率<br />
                                         = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${fare}<br /> 
                                     `
+                                    fareText = `${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}`
                                 }        
                             }
                             o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
@@ -166,7 +176,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                 盈亏 = 市值 - 成本价 - 预估卖出费用<br />
                                 盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
                                 预估卖出费用计算过程如下：<br />
-                                ${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}
+                                ${fareText}
                             `
                         }
                         catch(e){
@@ -260,7 +270,6 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                             o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
                         }
                         try{
-                            var fare = '0';
                             if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){
                                 if(o.chiCang > 0){
                                     var totalFare = {};
@@ -348,6 +357,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                             = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${exchangeRateHKDtoUSD} = ${fare}<br /> 
                                         `
                                     }
+                                    fareText = `${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}`
                                 }
                             }
                             o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(fare)).toFixed(2).toString();
@@ -355,7 +365,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                 盈亏 = 市值 - 成本价 - 预估卖出费用<br />
                                 盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
                                 预估卖出费用计算过程如下：<br />
-                                ${fare0EX}${fare1EX}${fare2EX}${fare3EX}${farexEX}${fareEX}
+                                ${fareText}
                             `
                         }
                         catch(e){
