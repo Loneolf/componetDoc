@@ -249,7 +249,7 @@ export function isComputeCostPrice (obj) {
     return true;
 }
 
-export function calProcess(o, accountTypeMap, fareMap, HKStockExchangeRateList, exchangeRateHKDtoUSD, isNoFareClient = false) {
+export function calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList, exchangeRateHKDtoUSD, isNoFareClient = false}) {
     let co = {}
     var fare = '0', fareText = '';
     var totalFare = undefined;

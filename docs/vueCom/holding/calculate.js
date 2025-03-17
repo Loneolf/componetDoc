@@ -1,4 +1,4 @@
-import * as accountMap from './accontMap.js'
+import { accountTypeMap } from './accontMap.js'
 import { calProcess } from './dealUtil'
 
 export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
@@ -6,7 +6,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
     console.log("aaaa23333", JSON.parse(JSON.stringify(gridData)), HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap)
     try{
         gridData.forEach((o)=>{
-            calProcess(o, accountMap.accountTypeMap, fareMap, HKStockExchangeRateList, exchangeRateHKDtoUSD, isNoFareClient)
+            calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList, exchangeRateHKDtoUSD, isNoFareClient})
         });
     }
     catch(e){

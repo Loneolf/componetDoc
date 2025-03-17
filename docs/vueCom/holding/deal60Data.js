@@ -34,6 +34,9 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                 if(!newPrice || isNaN(newPrice) || !parseFloat(newPrice)){
                     continue;
                 }
+                var itemArr = gridData.filter((o)=>{
+                    return (accountMap.accountTypeMap['0_HK'].includes(o.wtAccountType) && ('H' + o.code) == code) || (!!o.code && !!o.wtAccountType && !!o.account && o.code == code)
+                })
                 gridData.forEach((o)=>{
 
                     var fare = '0', fareText = '';
