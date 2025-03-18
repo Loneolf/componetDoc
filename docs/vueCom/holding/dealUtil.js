@@ -274,8 +274,10 @@ export function calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList,
         co.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
         o.shiZhiEX = `
             市值 = 市值价 * 持仓 * 港元中间汇率<br />
-            市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi} <br />
+            市值 = ${o.assetPrice} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${co.shiZhi} <br />
             计算结果为：${o.shiZhi}
+            接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
+            <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
         `
         if(parseFloat(o.chengBen) > 0){
             co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
@@ -409,7 +411,7 @@ export function calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList,
             co.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
             o.shiZhiEX = `
                 沪B转H市值 = 市值价 * 持仓 * 汇率<br />
-                市值 = ${marketValue} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi} <br /><br />
+                市值 = ${o.assetPrice} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${co.shiZhi} <br /><br />
                 接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
                 <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
             `
@@ -418,8 +420,8 @@ export function calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList,
             co.shiZhi = marketValue;
             o.shiZhiEX = `
                 市值 = 市值价 * 持仓<br />
-                市值 = ${marketValue} * ${o.chiCang} = ${co.shiZhi} <br /><br />
-                接口返回市值：${o.shiZhi} 计算市值：${marketValue} <br />
+                市值 = ${o.assetPrice} * ${o.chiCang} = ${co.shiZhi} <br /><br />
+                接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
                 <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
             `
         }
