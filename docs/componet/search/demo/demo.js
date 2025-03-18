@@ -1,6 +1,6 @@
 "use strict";
 define(function (require, exports) {
-    var comsearch = require('./index');
+    var comsearch = require('../index');
 	var app;
 	comsearch.init('com-search');
 	initVue();

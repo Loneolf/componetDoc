@@ -1,6 +1,6 @@
 define(function (require, exports, module) {
-    var TimeBar = require('./index');
-    var util = require('../util')
+    var TimeBar = require('../index');
+    var util = require('../../util')
     var nearTime = util.getNearTime(new Date(), false)
     TimeBar.init('time-bar');
     new Vue({

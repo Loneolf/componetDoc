@@ -11,7 +11,7 @@
 ```
 
 ## 效果展示
-<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/TimeBar/index.html" width="375px" height="700px"></iframe>
+<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/TimeBar/demo/demo.html" width="375px" height="700px"></iframe>
 
 
 ## 基础用法

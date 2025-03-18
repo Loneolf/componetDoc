@@ -1,11 +1,11 @@
 <div class="searchcomBox">
 	<div class="searchInput">
-		<img class="seachIcon" src="./img/seachIcon.png"/>
+		<img class="seachIcon" src="../img/seachIcon.png"/>
 		<span 
 			:class="topSearchValue ? '' : 'placeholder'"
 			ref="searchSpanRef"
 		>{{topSearchValue || placeholder}}</span>
-		<img v-if="topSearchValue" class="clear" src="./img/clear.png" @click.stop="clearSeach">
+		<img v-if="topSearchValue" class="clear" src="../img/clear.png" @click.stop="clearSeach">
 	</div>
 	<van-popup
 		v-model="isShowSeachPop"
@@ -30,7 +30,7 @@
 		</div>
 		<div class="search-list width-center">
 			<div class="empty" v-show="isEmpty && searchValue != ''">
-				<img src="./img/noData.png" alt="" />
+				<img src="../img/noData.png" alt="" />
 				<div class="empty-text">未找到搜索结果</div>
 				<div
 					class="empty-button"
