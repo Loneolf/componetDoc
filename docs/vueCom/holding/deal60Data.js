@@ -1,5 +1,6 @@
 import * as accountMap from './accontMap.js'
 import { isComputeCostPrice } from './dealUtil.js'
+import { getTodayPl } from './dealMainData.js'
 
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
     let isNoFareClient = false

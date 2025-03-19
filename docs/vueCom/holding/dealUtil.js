@@ -249,11 +249,6 @@ export function isComputeCostPrice (obj) {
     return true;
 }
 
-export function calProcess({o, accountTypeMap, fareMap, HKStockExchangeRateList, exchangeRateHKDtoUSD, isNoFareClient = false}) {
-     
-}
-
-
 export default {
     format,
     unit,

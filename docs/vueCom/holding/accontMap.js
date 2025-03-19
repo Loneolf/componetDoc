@@ -93,8 +93,7 @@ export const opratedata = [
        title: '5696港币美元汇率',
        action: '5696',
        data: "",
-       showText: isMock ? JSON.stringify(mockData.mockdata117, null, 4) : "",
-    //    showText: JSON.stringify(mockData.mockdata5696, null, 4), 
+       showText: JSON.stringify(mockData.mockdata5696, null, 4), 
     },
     {
        title: '5735-A5多金账号',
