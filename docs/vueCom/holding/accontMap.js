@@ -1,6 +1,6 @@
 // import * as mockData from './holdMock'
 import * as mockData from './holdA5Mock'
-const isMock = false;
+const isMock = true;
 
 export const accountTypeMap = {
     '0': ['SHACCOUNT', 'SZACCOUNT', 'SBACCOUNT'], // 人民币A股  沪深京
@@ -116,6 +116,8 @@ export const opratedata = [
                         var data = JSON.parse(decodeURIComponent(oFile));
                         var fareMap = JSON.parse(JSON.stringify(data.clientFare));
                         console.log(fareMap);
+                    } else {
+                        console.log('获取费率失败, 未查询到')
                     }
                 })
             })`

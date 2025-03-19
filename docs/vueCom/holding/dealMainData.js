@@ -117,14 +117,14 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
            chiCangItem.name = geshiValue(stockname_temp,data.STOCKNAMEINDEX, undefined, INDEX);
        };
 
-       chiCangItem.ratio = chiCangItem.ratio || '--';
+       chiCangItem.ratio = '--';
 
        chiCangItem.isUplistShow = chiCangItem.isUplistShow || false;
        chiCangItem.newMarketNo = chiCangItem.newMarketNo;
        chiCangItem.stockProCode = chiCangItem.stockProCode;
 
        chiCangItem.domKey = chiCangItem.code + '|' + chiCangItem.wtAccountType + '|' + chiCangItem.account;
-       chiCangItem.todayPl = chiCangItem.todayPl || '--';                
+       chiCangItem.todayPl = '--';                
 
        chiCangItem.isActive = true;
        arr.push(chiCangItem);

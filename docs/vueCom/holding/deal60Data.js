@@ -38,7 +38,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     return (accountMap.accountTypeMap['0_HK'].includes(o.wtAccountType) && ('H' + o.code) == code) || (!!o.code && !!o.wtAccountType && !!o.account && o.code == code)
                 })
                 gridData.forEach((o)=>{
-
+                    let co = {}
                     var fare = '0', fareText = '';
                     var totalFare = undefined;
                     if (!(!!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType])) {
@@ -108,66 +108,66 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                     else{
                                         totalFare = fareMap[o.wtAccountType][o.stockCodeType]['!'];
                                     }
-                                    var fare0 = new Big(totalFare.fare0).times(new Big(marketValue)).plus(new Big(totalFare.fare0_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare0 = new Big(fare0).gt(new Big(totalFare.min_fare0)) ? fare0 : totalFare.min_fare0;
+                                    co.fare0 = new Big(totalFare.fare0).times(new Big(marketValue)).plus(new Big(totalFare.fare0_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    fare0 = new Big(co.fare0).gt(new Big(totalFare.min_fare0)) ? co.fare0 : totalFare.min_fare0;
                                     if(totalFare.max_fare0 > 0){
                                         fare0 = new Big(fare0).lt(new Big(totalFare.max_fare0)) ? fare0 : totalFare.max_fare0;
                                     }
                                     var fare0EX = `
                                         fare0:佣金计算过程，fare0 * 市值 + fare0_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare0} * ${marketValue} + ${totalFare.fare0_par} * ${o.chiCang} * ${o.parValue} = ${fare0}<br />
+                                        ${totalFare.fare0} * ${marketValue} + ${totalFare.fare0_par} * ${o.chiCang} * ${o.parValue} = ${co.fare0}<br />
                                         然后这个值和手续费下限min_fare0: ${totalFare.min_fare0}比较，谁大取值谁，再和手续费上限 max_fare0(如果大于0): ${totalFare.max_fare0}比较，谁小取值谁<br />
                                         佣金最终计算结果为：${fare0}<br />
                                     `
-                                    var fare1 = new Big(totalFare.fare1).times(new Big(marketValue)).plus(new Big(totalFare.fare1_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare1 = new Big(fare1).gt(new Big(totalFare.min_fare1)) ? fare1 : totalFare.min_fare1;
+                                    co.fare1 = new Big(totalFare.fare1).times(new Big(marketValue)).plus(new Big(totalFare.fare1_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare1 = new Big(co.fare1).gt(new Big(totalFare.min_fare1)) ? co.fare1 : totalFare.min_fare1;
                                     if(totalFare.max_fare1 > 0){
                                         fare1 = new Big(fare1).lt(new Big(totalFare.max_fare1)) ? fare1 : totalFare.max_fare1;
                                     }
                                     fare1 = Math.ceil(fare1);
                                     var fare1EX = `
                                         fare1:印花税计算过程，fare1 * 市值 + fare1_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare1} * ${marketValue} + ${totalFare.fare1_par} * ${o.chiCang} * ${o.parValue} = ${fare1}<br />
+                                        ${totalFare.fare1} * ${marketValue} + ${totalFare.fare1_par} * ${o.chiCang} * ${o.parValue} = ${co.fare1}<br />
                                         然后这个值和印花税下限min_fare1: ${totalFare.min_fare1}比较，谁大取值谁，再和印花税上限 max_fare1 (如果大于0): ${totalFare.max_fare1}比较，谁小取值谁<br />
                                         印花税最终计算结果为：${fare1}<br />
                                     `
-                                    var fare2 = new Big(totalFare.fare2).times(new Big(marketValue)).plus(new Big(totalFare.fare2_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare2 = new Big(fare2).gt(new Big(totalFare.min_fare2)) ? fare2 : totalFare.min_fare2;
+                                    co.fare2 = new Big(totalFare.fare2).times(new Big(marketValue)).plus(new Big(totalFare.fare2_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare2 = new Big(co.fare2).gt(new Big(totalFare.min_fare2)) ? co.fare2 : totalFare.min_fare2;
                                     if(totalFare.max_fare2 > 0){
                                         fare2 = new Big(fare2).lt(new Big(totalFare.max_fare2)) ? fare2 : totalFare.max_fare2;
                                     }
                                     var fare2EX = `
                                         fare2:过户费计算过程, fare2 * 市值 + fare2_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare2} * ${marketValue} + ${totalFare.fare2_par} * ${o.chiCang} * ${o.parValue} = ${fare2}<br />
+                                        ${totalFare.fare2} * ${marketValue} + ${totalFare.fare2_par} * ${o.chiCang} * ${o.parValue} = ${co.fare2}<br />
                                         然后这个值和过户费下限min_fare2: ${totalFare.min_fare2}比较，谁大取值谁，再和印花税上限 max_fare2 (如果大于0): ${totalFare.max_fare2}比较，谁小取值谁<br />
                                         过户费最终计算结果为：${fare2}<br />
                                     `
-                                    var fare3 = new Big(totalFare.fare3).times(new Big(marketValue)).plus(new Big(totalFare.fare3_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare3 = new Big(fare3).gt(new Big(totalFare.min_fare3)) ? fare3 : totalFare.min_fare3;
+                                    co.fare3 = new Big(totalFare.fare3).times(new Big(marketValue)).plus(new Big(totalFare.fare3_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare3 = new Big(co.fare3).gt(new Big(totalFare.min_fare3)) ? co.fare3 : totalFare.min_fare3;
                                     if(totalFare.max_fare3 > 0){
                                         fare3 = new Big(fare3).lt(new Big(totalFare.max_fare3)) ? fare3 : totalFare.max_fare3;
                                     }
                                     var fare3EX = `
                                         fare3:委托费计算过程, fare3 * 市值 + fare3_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare3} * ${marketValue} + ${totalFare.fare3_par} * ${o.chiCang} * ${o.parValue} = ${fare3}<br />
+                                        ${totalFare.fare3} * ${marketValue} + ${totalFare.fare3_par} * ${o.chiCang} * ${o.parValue} = ${co.fare3}<br />
                                         然后这个值和委托费下限min_fare3: ${totalFare.min_fare3}比较，谁大取值谁，再和委托费上限 max_fare3 (如果大于0): ${totalFare.max_fare3}比较，谁小取值谁<br />
                                         委托费最终计算结果为：${fare3}<br />
                                     `
-                                    var farex = new Big(totalFare.farex).times(new Big(marketValue)).plus(new Big(totalFare.farex_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    farex = new Big(farex).gt(new Big(totalFare.min_farex)) ? farex : totalFare.min_farex;
+                                    co.farex = new Big(totalFare.farex).times(new Big(marketValue)).plus(new Big(totalFare.farex_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var farex = new Big(co.farex).gt(new Big(totalFare.min_farex)) ? co.farex : totalFare.min_farex;
                                     if(totalFare.max_farex > 0){
                                         farex = new Big(farex).lt(new Big(totalFare.max_farex)) ? farex : totalFare.max_farex;
                                     }
                                     var farexEX = `
                                         farex:其他费计算过程, farex * 市值 + farex_par * 持仓 * 每手价值<br />
-                                        ${totalFare.farex} * ${marketValue} + ${totalFare.farex_par} * ${o.chiCang} * ${o.parValue} = ${farex}<br />
+                                        ${totalFare.farex} * ${marketValue} + ${totalFare.farex_par} * ${o.chiCang} * ${o.parValue} = ${co.farex}<br />
                                         然后这个值和其他费下限min_farex: ${totalFare.min_farex}比较，谁大取值谁，再和其他费上限 max_farex (如果大于0): ${totalFare.max_farex}比较，谁小取值谁<br />
                                         其他费最终计算结果为：${farex}<br />
                                     `
                                     
                                     fare = new Big(fare0).plus(new Big(fare1)).plus(new Big(fare2)).plus(new Big(fare3)).plus(new Big(farex)).toFixed(2).toString();
                                     fare = new Big(fare).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
-                                    var fareEX = `
+                                    fareEX = `
                                         预估卖出费用 = (佣金 + 印花税 + 过户费 + 委托费 + 其他费) * 港股通中间汇率<br />
                                         = (${fare0} + ${fare1} + ${fare2} + ${fare3} + ${farex}) * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${fare}<br /> 
                                     `
@@ -179,6 +179,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                 盈亏 = 市值 - 成本价 - 预估卖出费用<br />
                                 盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
                                 预估卖出费用计算过程如下：<br />
+                                账户类型wtAccountType:${o.wtAccountType}---- 股票类型stockCodeType:${o.stockCodeType}----子股票类型subStockType:${o.subStockType} <br />
                                 ${fareText}
                             `
                         }
@@ -282,26 +283,26 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                     else{
                                         totalFare = fareMap[o.wtAccountType][o.stockCodeType]['!'];
                                     }
-                                    var fare0 = new Big(totalFare.fare0).times(new Big(marketValue)).plus(new Big(totalFare.fare0_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare0 = new Big(fare0).gt(new Big(totalFare.min_fare0)) ? fare0 : totalFare.min_fare0;
+                                    co.fare0 = new Big(totalFare.fare0).times(new Big(marketValue)).plus(new Big(totalFare.fare0_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare0 = new Big(co.fare0).gt(new Big(totalFare.min_fare0)) ? co.fare0 : totalFare.min_fare0;
                                     if(totalFare.max_fare0 > 0){
                                         fare0 = new Big(fare0).lt(new Big(totalFare.max_fare0)) ? fare0 : totalFare.max_fare0;
                                     }
                                     var fare0EX = `
                                         fare0:佣金计算过程，fare0 * 市值 + fare0_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare0} * ${marketValue} + ${totalFare.fare0_par} * ${o.chiCang} * ${o.parValue} = ${fare0}<br />
+                                        ${totalFare.fare0} * ${marketValue} + ${totalFare.fare0_par} * ${o.chiCang} * ${o.parValue} = ${co.fare0}<br />
                                         然后这个值和手续费下限min_fare0: ${totalFare.min_fare0}比较，谁大取值谁，再和手续费上限 max_fare0(如果大于0): ${totalFare.max_fare0}比较，谁小取值谁<br />
                                         佣金最终计算结果为：${fare0}<br />
                                     `
 
-                                    var fare1 = new Big(totalFare.fare1).times(new Big(marketValue)).plus(new Big(totalFare.fare1_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare1 = new Big(fare1).gt(new Big(totalFare.min_fare1)) ? fare1 : totalFare.min_fare1;
+                                    co.fare1 = new Big(totalFare.fare1).times(new Big(marketValue)).plus(new Big(totalFare.fare1_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare1 = new Big(co.fare1).gt(new Big(totalFare.min_fare1)) ? co.fare1 : totalFare.min_fare1;
                                     if(totalFare.max_fare1 > 0){
                                         fare1 = new Big(fare1).lt(new Big(totalFare.max_fare1)) ? fare1 : totalFare.max_fare1;
                                     }
                                     var fare1EX = `
                                         fare1:印花税计算过程，fare1 * 市值 + fare1_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare1} * ${marketValue} + ${totalFare.fare1_par} * ${o.chiCang} * ${o.parValue} = ${fare1}<br />
+                                        ${totalFare.fare1} * ${marketValue} + ${totalFare.fare1_par} * ${o.chiCang} * ${o.parValue} = ${co.fare1}<br />
                                         然后这个值和印花税下限min_fare1: ${totalFare.min_fare1}比较，谁大取值谁，再和印花税上限 max_fare1 (如果大于0): ${totalFare.max_fare1}比较，谁小取值谁<br />
                                         印花税最终计算结果为：${fare1}<br />
                                     `
@@ -313,37 +314,37 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                         `
                                     }
                                     
-                                    var fare2 = new Big(totalFare.fare2).times(new Big(marketValue)).plus(new Big(totalFare.fare2_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare2 = new Big(fare2).gt(new Big(totalFare.min_fare2)) ? fare2 : totalFare.min_fare2;
+                                    co.fare2 = new Big(totalFare.fare2).times(new Big(marketValue)).plus(new Big(totalFare.fare2_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    var fare2 = new Big(co.fare2).gt(new Big(totalFare.min_fare2)) ? co.fare2 : totalFare.min_fare2;
                                     if(totalFare.max_fare2 > 0){
                                         fare2 = new Big(fare2).lt(new Big(totalFare.max_fare2)) ? fare2 : totalFare.max_fare2;
                                     } 
                                     var fare2EX = `
                                         fare2:过户费计算过程, fare2 * 市值 + fare2_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare2} * ${marketValue} + ${totalFare.fare2_par} * ${o.chiCang} * ${o.parValue} = ${fare2}<br />
-                                        然后这个值和过户费下限min_fare2: ${totalFare.min_fare2}比较，谁大取值谁，再和印花税上限 max_fare2 (如果大于0): ${totalFare.max_fare2}比较，谁小取值谁<br />
+                                        ${totalFare.fare2} * ${marketValue} + ${totalFare.fare2_par} * ${o.chiCang} * ${o.parValue} = ${co.fare2}<br />
+                                        然后这个值和过户费下限min_fare2: ${totalFare.min_fare2}比较，谁大取值谁，再和过户费上限 max_fare2 (如果大于0): ${totalFare.max_fare2}比较，谁小取值谁<br />
                                         过户费最终计算结果为：${fare2}<br />
                                     `
 
-                                    var fare3 = new Big(totalFare.fare3).times(new Big(marketValue)).plus(new Big(totalFare.fare3_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    fare3 = new Big(fare3).gt(new Big(totalFare.min_fare3)) ? fare3 : totalFare.min_fare3;
+                                    co.fare3 = new Big(totalFare.fare3).times(new Big(marketValue)).plus(new Big(totalFare.fare3_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    fare3 = new Big(co.fare3).gt(new Big(totalFare.min_fare3)) ? co.fare3 : totalFare.min_fare3;
                                     if(totalFare.max_fare3 > 0){
                                         fare3 = new Big(fare3).lt(new Big(totalFare.max_fare3)) ? fare3 : totalFare.max_fare3;
                                     }                           
                                     var fare3EX = `
                                         fare3:委托费计算过程, fare3 * 市值 + fare3_par * 持仓 * 每手价值<br />
-                                        ${totalFare.fare3} * ${marketValue} + ${totalFare.fare3_par} * ${o.chiCang} * ${o.parValue} = ${fare3}<br />
+                                        ${totalFare.fare3} * ${marketValue} + ${totalFare.fare3_par} * ${o.chiCang} * ${o.parValue} = ${co.fare3}<br />
                                         然后这个值和委托费下限min_fare3: ${totalFare.min_fare3}比较，谁大取值谁，再和委托费上限 max_fare3 (如果大于0): ${totalFare.max_fare3}比较，谁小取值谁<br />
                                         委托费最终计算结果为：${fare3}<br />
                                     `                                      
-                                    var farex = new Big(totalFare.farex).times(new Big(marketValue)).plus(new Big(totalFare.farex_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
-                                    farex = new Big(farex).gt(new Big(totalFare.min_farex)) ? farex : totalFare.min_farex;
+                                    co.farex = new Big(totalFare.farex).times(new Big(marketValue)).plus(new Big(totalFare.farex_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
+                                    farex = new Big(co.farex).gt(new Big(totalFare.min_farex)) ? co.farex : totalFare.min_farex;
                                     if(totalFare.max_farex > 0){
                                         farex = new Big(farex).lt(new Big(totalFare.max_farex)) ? farex : totalFare.max_farex;
                                     }   
                                     var farexEX = `
                                         farex:其他费计算过程, farex * 市值 + farex_par * 持仓 * 每手价值<br />
-                                        ${totalFare.farex} * ${marketValue} + ${totalFare.farex_par} * ${o.chiCang} * ${o.parValue} = ${farex}<br />
+                                        ${totalFare.farex} * ${marketValue} + ${totalFare.farex_par} * ${o.chiCang} * ${o.parValue} = ${co.farex}<br />
                                         然后这个值和其他费下限min_farex: ${totalFare.min_farex}比较，谁大取值谁，再和其他费上限 max_farex (如果大于0): ${totalFare.max_farex}比较，谁小取值谁<br />
                                         其他费最终计算结果为：${farex}<br />
                                     `
@@ -368,6 +369,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                 盈亏 = 市值 - 成本价 - 预估卖出费用<br />
                                 盈亏 = ${o.shiZhi} - ${o.costBalance} - ${fare} = ${o.yingKui} <br />
                                 预估卖出费用计算过程如下：<br />
+                                账户类型wtAccountType:${o.wtAccountType}---- 股票类型stockCodeType:${o.stockCodeType}----子股票类型subStockType:${o.subStockType} <br />
                                 ${fareText}
                             `
                         }
@@ -438,7 +440,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
             }
         }
     }
-    return gridData
+
+    return getTodayPl(gridData, exchangeRateHKDtoUSD, HKStockExchangeRateList)
 }
 
 export function checkMarketAva (markettype,marketcode) {

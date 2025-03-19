@@ -371,14 +371,29 @@
         return sortList
     });
 
+    // 刷新前 数据计算
     function calculate() {
         console.log('aaaacalculater')
         let fareData = getActionData('5850')
-        let list = getActionData('117', 'all').dealData.data
+        console.log('aaaa23333fareData', fareData)
+        if (!fareData) {
+            ElMessage.error('请输入需要计算的费率，5850接口数据')
+            return
+        }
+        let list = getActionData('117', 'all')?.dealData?.data
+        if (!list) {
+            ElMessage.error('请输入持仓117接口数据')
+            return 
+        }
         let res = calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
         // console.log('aaaa23333up60', res) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        // accountList.value = DealAccontData.upAccountData(accountList.value, res)
+        accountList.value = DealAccontData.upAccountData(accountList.value, res)
+        ElMessage({
+            message: '计算完毕',
+            type: 'success',
+            duration: 1000,
+        })
     }
 
     function clearData(noInput = false) {
@@ -386,6 +401,7 @@
         allOpratedata.value.forEach(item => {
             if (!noInput) {
                 item.showText = ''
+                item.data = ''
             }
             item.dealData = undefined
         })
@@ -469,7 +485,7 @@
                         if (item.data?.GRID0) {
                             item.data = DealMainData.parseFareData(item.data, Amp.exchangeTypeMap)
                         }
-                        console.log('aaaa2333item', JSON.parse(JSON.stringify(item)))
+                        console.log('aaaa2333item5850', JSON.parse(JSON.stringify(item)))
                     }
                 } catch (error) {
                     console.error(error)                    

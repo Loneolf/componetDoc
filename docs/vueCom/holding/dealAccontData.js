@@ -91,7 +91,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                             accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${rmbHoldingList[oi + 1] ? '+' : ''} `
                         }  
                         // 计算个股的持仓占比
-                        if (accountItem.total !== '--' && o.shiZhi !== '--') {
+                        if (accountItem.total !== '--' && o.shiZhi !== '--' && !isNaN(o.shiZhi)) {
                             o.ratio = new Big(o.shiZhi).div(new Big(accountItem.total)).times(new Big(100)).toFixed(2).toString() + '%';
                             o.ratioEX = `个股市值 ${o.shiZhi} / 总资产 ${accountItem.total} = ${o.ratio}`
                         } else {
@@ -175,7 +175,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                             accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${usdHoldingList[oi + 1] ? '+' : ''} `
                         }
                         // 计算个股的持仓占比
-                        if (accountItem.total !== '--' && o.shiZhi !== '--') {
+                        if (accountItem.total !== '--' && o.shiZhi !== '--' && !isNaN(o.shiZhi)) {
                             o.ratio = new Big(o.shiZhi).div(new Big(accountItem.total)).times(new Big(100)).toFixed(2).toString() + '%';
                             o.ratioEX = `个股市值 ${o.shiZhi} / 总资产 ${accountItem.total} = ${o.ratio}`
                         } else {
@@ -258,7 +258,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                             accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${hkHoldingList[oi + 1] ? '+' : ''} `
                         }
                         // 计算个股的持仓占比
-                        if (accountItem.total !== '--' && o.shiZhi !== '--') {
+                        if (accountItem.total !== '--' && o.shiZhi !== '--' && !isNaN(o.shiZhi)) {
                             o.ratio = new Big(o.shiZhi).div(new Big(accountItem.total)).times(new Big(100)).toFixed(2).toString() + '%';
                             o.ratioEX = `个股市值 ${o.shiZhi} / 总资产 ${accountItem.total} = ${o.ratio}`
                         } else {
@@ -366,7 +366,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                         accountItem.todayPlFrom += `(${o.name}:: ${o.todayPl}) ${rmbHKHoldingList[oi + 1] ? '+' : ''} `
                     }
                     // 计算个股的持仓占比
-                    if (accountItem.total !== '--' && o.shiZhi !== '--') {
+                    if (accountItem.total !== '--' && o.shiZhi !== '--' && !isNaN(o.shiZhi)) {
                         o.ratio = new Big(o.shiZhi).div(new Big(accountItem.total)).times(new Big(100)).toFixed(2).toString() + '%';
                         o.ratioEX = `个股市值 ${o.shiZhi} / 总资产 ${accountItem.total} = ${o.ratio}`
                     } else {
