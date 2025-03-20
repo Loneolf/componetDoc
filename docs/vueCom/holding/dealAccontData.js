@@ -513,29 +513,29 @@ export function calAccontData(accountList, dataList) {
         list?.forEach((si)=>{
             si.co = si.co || {};
             szO += isNaN(si.shiZhi) ? 0 : Number(si.shiZhi);
-            szEXO += `${si.name}：${si.shiZhi} ---`;
+            szEXO += `${si.name}：${si.shiZhi} 、`;
             szC += isNaN(si.co.shiZhi)? 0 : Number(si.co.shiZhi);
-            szEXC += `${si.name}：${si.co.shiZhi} ---`;
+            szEXC += `${si.name}：${si.co.shiZhi} 、`;
             ylO += isNaN(si.yingKui)? 0 : Number(si.yingKui);
-            ylEXO += `${si.name}：${si.yingKui} ---`;
+            ylEXO += `${si.name}：${si.yingKui} 、`;
             ylC += isNaN(si.co.yingKui)? 0 : Number(si.co.yingKui);
-            ylEXC += `${si.name}：${si.co.yingKui} ---`;
+            ylEXC += `${si.name}：${si.co.yingKui} 、`;
         })
         item.szEX += `
             ${szEXO} <br />
             持仓接口返回值累加结果为：${szO} <br />
-            是否和117接口返回值一致：${szO === item.sz ? '是' : '否'} <br />
+            是否和117接口返回值一致：${Number(szO).toFixed(2) === Number(item.sz).toFixed(2) ? '是' : '否'} <br />
             ${szEXC} <br />
             持仓计算结果累加结果为：${szC} <br />
-            是否和117接口返回值一致：${szC === item.sz? '是' : '否'} <br />
+            是否和117接口返回值一致：${Number(szC).toFixed(2) === Number(item.sz).toFixed(2)? '是' : '否'} <br />
         `;
         item.ylEX += `
             ${ylEXO} <br />
             盈亏接口返回值累加结果为：${ylO} <br />
-            是否和117接口返回值一致：${ylO === item.yl? '是' : '否'} <br />
+            是否和117接口返回值一致：${Number(ylO).toFixed(2) === Number(item.yl).toFixed(2)? '是' : '否'} <br />
             ${ylEXC} <br />
             盈亏计算结果累加结果为：${ylC} <br />
-            是否和117接口返回值一致：${ylC === item.yl? '是' : '否'} <br />
+            是否和117接口返回值一致：${Number(ylC).toFixed(2) === Number(item.yl).toFixed(2)? '是' : '否'} <br />
         `;
     });
     console.log('aaaaccountListTemp', accountListTemp);
