@@ -364,7 +364,7 @@
             accontKey[key].list.sort((a, b) => {
                 return b.shiZhi - a.shiZhi
             })
-            console.log('aaaa23333', JSON.parse(JSON.stringify(accontKey[key])))
+            // console.log('aaaa23333', JSON.parse(JSON.stringify(accontKey[key])))
             sortList.push(accontKey[key]) 
         }
         console.log('dataList', JSON.parse(JSON.stringify(sortList)))
@@ -386,11 +386,12 @@
             return 
         }
         let res = calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
-        // console.log('aaaa23333up60', res) 
+
+        console.log('aaaa23333calculate', JSON.parse(JSON.stringify(dataList.value))) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        accountList.value = DealAccontData.upAccountData(accountList.value, res)
+        accountList.value = DealAccontData.calAccontData(accountList.value, dataList.value)
         ElMessage({
-            message: '计算完毕',
+            message: '刷新前计算完毕',
             type: 'success',
             duration: 1000,
         })
@@ -473,7 +474,7 @@
                     }
                     // 处理5696数据，获取港币兑美元汇率
                     if (item.action === '5696') {
-                        console.log('aaaitemdata', JSON.parse(JSON.stringify(item.data)))
+                        // console.log('aaaitemdata', JSON.parse(JSON.stringify(item.data)))
                         try {
                             exchangeRateHKDtoUSD.value = item?.data?.GRID0[1]?.split('|')?.[0] || exchangeRateHKDtoUSD.value
                         } catch (error) {
@@ -485,7 +486,7 @@
                         if (item.data?.GRID0) {
                             item.data = DealMainData.parseFareData(item.data, Amp.exchangeTypeMap)
                         }
-                        console.log('aaaa2333item5850', JSON.parse(JSON.stringify(item)))
+                        // console.log('aaaa2333item5850', JSON.parse(JSON.stringify(item)))
                     }
                 } catch (error) {
                     console.error(error)                    
@@ -504,7 +505,7 @@
     }
 
     function initAccount(gridData, oData, oData1) {
-        console.log('initAccount', gridData, oData, oData1)
+        // console.log('initAccount', gridData, oData, oData1)
         if(!oData.GRID2){
             return;
         }
@@ -544,7 +545,7 @@
                         break;
                 }
             });
-            console.log('aaa23333', oData)
+            // console.log('aaa23333', oData)
             accountList.value = DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
             // that.getOTCData(function(OTCData, OTCStatus){
             // });
@@ -562,7 +563,7 @@
             oData.hkEX =  adata.hkEX;
             var accontArr = DealAccontData.computeAccountData(gridData, oData, oData1, undefined, undefined);
             accountList.value = accontArr
-            console.log('accontArr', accontArr)
+            // console.log('accontArr', accontArr)
             // DealAccontData.computeAccountData(gridData, oData, oData1, OTCData, OTCStatus);
                 // that.getOTCData(function(OTCData, OTCStatus){
                 // });

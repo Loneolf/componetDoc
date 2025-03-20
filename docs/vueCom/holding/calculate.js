@@ -21,7 +21,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                 `
                 // 计算盈亏率
                 calYingKuiLv(o, co)
-                calYingKu(isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap)
+                calYingKu({isNoFareClient, o, co, fareMap, marketValue, HKStockExchangeRateList, accountTypeMap})
             } else if (!!o.code && !!o.wtAccountType && !!o.account){
                 // 市值 = 市值价（含利息）* 持仓
                 var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
@@ -46,7 +46,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                 }
                 
                 calYingKuiLv(o, co)
-                calYingKu(isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap)
+                calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, accountTypeMap})
                 o.co = co
             }
         });
@@ -58,7 +58,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
 }
 
 
-export function calYingKu(isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap) {
+export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap}) {
     var fare = '0', fareText = '';
     try{
         // console.log('aaaaaaincalculate', o.name, !isNoFareClient, !!o.wtAccountType, !!fareMap[o.wtAccountType], !!fareMap[o.wtAccountType][o.stockCodeType])

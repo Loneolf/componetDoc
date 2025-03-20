@@ -8,7 +8,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
     oData.GRID2.shift();
     //个人资产
     oData.GRID2.forEach(function (oitem, oindex) {
-        console.log('aaa2233oitem', oitem);
+        // console.log('aaa2233oitem', oitem);
         var aIt = oitem.split('|');
         //币种 人民币  美元 港币
         var type = aIt[oData['2_MONEYTYPECODEINDEX']] || aIt[oData['2_MONEYTYPEINDEX']];
@@ -243,7 +243,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             // 港币持仓为空时展示为--
             accountItem.todayPlEX = `所有港币持仓当日盈亏累加之和`
             accountItem.todayPlFrom = '';
-            console.log('aaahkHoldingList', hkHoldingList);
+            // console.log('aaahkHoldingList', hkHoldingList);
             if(!hkHoldingList || !hkHoldingList.length){ 
                 accountItem.todayPl = '--';
             }
@@ -293,7 +293,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         var rmbHKHoldingList = gridData.filter((o)=>{
             return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
         });
-        console.log('aaarmbHKHoldingList', JSON.parse(JSON.stringify(rmbHKHoldingList)));
+        // console.log('aaarmbHKHoldingList', JSON.parse(JSON.stringify(rmbHKHoldingList)));
         try{
             if(OTCStatus == false){
                 accountItem.total = '--';
@@ -384,7 +384,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
                 accountItem.todayPl = '--';
             }
         }
-        console.log('accountItem.todayPl', JSON.parse(JSON.stringify(accountItem)));
+        // console.log('accountItem.todayPl', JSON.parse(JSON.stringify(accountItem)));
         try{
             accountItem.ratio = new Big(accountItem.sz).div(new Big(accountItem.total)).toFixed(4).toString();
             accountItem.ratioEX = `总市值 / 总资产`
@@ -490,6 +490,132 @@ export function upAccountData(accountList, dataList) {
         }
     });
     return accountListTemp;
+}
+
+
+export function calAccontData(accountList, dataList) {
+    var accountListTemp = JSON.parse(JSON.stringify(accountList));
+    accountListTemp.forEach((item, index)=>{
+        let list = dataList.find((o)=>{
+            return o.bztype == item.bztype;
+        })?.list
+        
+        item.szEX += '<br />'
+        item.ylEX += '<br />'
+        let szEXO = '接口返回市值累加 <br />';
+        let szEXC = '使用计算进行的市值累加< br />';
+        let szO = 0;
+        let szC = 0;
+        let ylEXO = '接口返回的盈亏累加 <br />';
+        let ylEXC = '使用计算进行的盈亏累加 <br />';
+        let ylO = 0;
+        let ylC = 0;
+        list?.forEach((si)=>{
+            si.co = si.co || {};
+            szO += isNaN(si.shiZhi) ? 0 : Number(si.shiZhi);
+            szEXO += `${si.name}：${si.shiZhi} ---`;
+            szC += isNaN(si.co.shiZhi)? 0 : Number(si.co.shiZhi);
+            szEXC += `${si.name}：${si.co.shiZhi} ---`;
+            ylO += isNaN(si.yingKui)? 0 : Number(si.yingKui);
+            ylEXO += `${si.name}：${si.yingKui} ---`;
+            ylC += isNaN(si.co.yingKui)? 0 : Number(si.co.yingKui);
+            ylEXC += `${si.name}：${si.co.yingKui} ---`;
+        })
+        item.szEX += `
+            ${szEXO} <br />
+            持仓接口返回值累加结果为：${szO} <br />
+            是否和117接口返回值一致：${szO === item.sz ? '是' : '否'} <br />
+            ${szEXC} <br />
+            持仓计算结果累加结果为：${szC} <br />
+            是否和117接口返回值一致：${szC === item.sz? '是' : '否'} <br />
+        `;
+        item.ylEX += `
+            ${ylEXO} <br />
+            盈亏接口返回值累加结果为：${ylO} <br />
+            是否和117接口返回值一致：${ylO === item.yl? '是' : '否'} <br />
+            ${ylEXC} <br />
+            盈亏计算结果累加结果为：${ylC} <br />
+            是否和117接口返回值一致：${ylC === item.yl? '是' : '否'} <br />
+        `;
+    });
+    console.log('aaaaccountListTemp', accountListTemp);
+    return accountListTemp;
+    // dataList.forEach((o1, index)=>{
+    //     // console.log('aaaares', o1.todayPl, len, Amp.bzTypeMap[o1.wtAccountType])
+    //     try{
+    //         var accountItem = accountListTemp.find((o2)=>{
+    //             return o2.bztype == bzTypeMap[o1.wtAccountType];
+    //         });
+    //         if(accountItem){
+    //             if(o1.sz != '--'){
+    //                 accountItem.sz = new Big(accountItem.sz).plus(new Big(o1.shiZhi)).toFixed(2).toString();
+    //                 accountItem.szEX += `(${o1.name}：${o1.shiZhi}) ${len === index  ? ' || ' : ' ' }`
+    //             }             
+    //             if(o1.yingKui != '--'){
+    //                 accountItem.yl = new Big(accountItem.yl).plus(new Big(o1.yingKui)).toFixed(2).toString();
+    //                 accountItem.ylEX += `(${o1.name}：${o1.yingKui}) ${len === index ?' || ' : ' ' }`
+    //             }
+
+    //             if(o1.todayPl != '--'){
+    //                 // console.log('aaaaintadayPl', accountItem.todayPlFrom)
+    //                 accountItem.todayPl = new Big(accountItem.todayPl).plus(new Big(o1.todayPl)).toFixed(2).toString();
+    //                 accountItem.todayPlFrom += `(${o1.name}：${o1.todayPl}) ${len === index ? ' || ' : ' ' }`
+    //             }   
+    //         }   
+    //     }
+    //     catch(e){
+    //         console.error(e);
+    //     }
+    // })
+
+    // accountListTemp.forEach((o, i)=>{
+    //     if(o.bztype == '0' || o.bztype == '0_HK'){
+    //         try{
+    //             var rmbIndex = accountList.findIndex((item)=>{
+    //                 return item.bztype == '0'; 
+    //             });
+    //             var rmbHKIndex = accountList.findIndex((item)=>{
+    //                 return item.bztype == '0_HK'; 
+    //             });
+    //             var rmbSzDiffer = '0.00';
+    //             try{
+    //                 rmbSzDiffer = new Big(accountListTemp[rmbIndex].sz).minus(new Big(accountList[rmbIndex].sz));
+    //             }
+    //             catch(e){
+    //                 rmbSzDiffer = '0.00';
+    //             }
+    //             var rmbHKSzDiffer = '0.00';
+    //             try{
+    //                 rmbHKSzDiffer = new Big(accountListTemp[rmbHKIndex].sz).minus(new Big(accountList[rmbHKIndex].sz));
+    //             }
+    //             catch(e){
+    //                 rmbHKSzDiffer = '0.00';
+    //             }
+    //             o.total = new Big(o.total).plus(new Big(rmbSzDiffer)).plus(new Big(rmbHKSzDiffer)).toFixed(2).toString();
+    //         }
+    //         catch(e){
+    //             console.error(e)
+    //             o.total = '--';
+    //         }
+    //     }
+    //     else{
+    //         try{
+    //             var szDiffer = '0.00';
+    //             try{
+    //                 szDiffer = new Big(o.sz).minus(new Big(accountList[i].sz));
+    //             }
+    //             catch(e){
+    //                 szDiffer = '0.00';
+    //             }
+    //             o.total = new Big(o.total).plus(new Big(szDiffer)).toFixed(2).toString();
+    //         }
+    //         catch(e){
+    //             console.error(e)
+    //             o.total = '--';
+    //         }
+    //     }
+    // });
+    // return accountListTemp;
 }
 
 
