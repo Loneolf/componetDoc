@@ -3,25 +3,54 @@
 }
 
 .dateChoice {
-    padding: .32rem .24rem;
+    padding: 0 .24rem;
     font-size: .3rem !important;
     background: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
- }
- 
+}
+
+.noSelectData {
+    background: #ffffff;
+    z-index: 500;
+    width: 100%;
+    height: 1.28rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .3rem;
+    color: #222222;
+    font-family: "CITIC-Numbers";
+    overflow: hidden;
+}
+.noSelectData img {
+    width: 1rem;
+}
+.noSelectData .leftLine{
+   margin-right: .2rem; 
+}
+.noSelectData .rightLine{
+    margin-left: .2rem;
+}
+.noSelectData .dateMiddleText{
+    padding: 0 .34rem;
+    font-size: .28rem;
+    color: #777777;
+}
+
 .dateChoice .dateText {
-    display: inline-block;
-    background-size: 0.15rem;
+    display: block;
     width: 3rem;
     height: 0.7rem;
     line-height: .7rem;
     text-align: center;
     font-size: 0.3rem;
     color: #5e5e5e;
+    box-sizing: border-box;
     border: .01rem solid #d2d2d2;
     border-radius: 0.08rem;
+    margin-top: .01rem;
 }
 
 .dateChoice .dateMiddleText{
@@ -175,6 +204,3 @@
 .monthTimeWrap .rightLine{
     background: url(./lineRight.png);
 }
-/* .van-toast--bottom {
-    bottom: 0.4rem !important;
-} */

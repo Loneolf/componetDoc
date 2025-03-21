@@ -503,7 +503,7 @@ export function calAccontData(accountList, dataList) {
         item.szEX += '<br />'
         item.ylEX += '<br />'
         let szEXO = '接口返回市值累加 <br />';
-        let szEXC = '使用计算进行的市值累加< br />';
+        let szEXC = '使用计算进行的市值累加<br />';
         let szO = 0;
         let szC = 0;
         let ylEXO = '接口返回的盈亏累加 <br />';

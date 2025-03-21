@@ -47,8 +47,8 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                 
                 calYingKuiLv(o, co)
                 calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, accountTypeMap})
-                o.co = co
             }
+            o.co = co
         });
     }
     catch(e){

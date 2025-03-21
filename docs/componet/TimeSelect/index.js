@@ -1,10 +1,9 @@
 'use strict';
 
-//该模块应用jquery，因所有页面均引用，在此不单独引用jquery
-
 define(function (require, exports, module) {
     require('./assets/index.css#');
     var utils = require('../util');
+    var html = require('./template.html');
     //初始化
     function init(componentsName, Vue) {
         Vue = Vue ? Vue : window.Vue;
@@ -17,9 +16,36 @@ define(function (require, exports, module) {
             return false;
         }
         Vue.component(componentsName, {
-            props: ['minDate', 'maxDate', 'formatter', 'beginDate', 'endDate', 'isShow', 'maxDiff'],
-            
-            template:  "\n<div class=\"monthDateWrap\" v-show=\"isShow\">\n    <div class=\"dateChoice\">\n        <span class=\"dateText begindate\" type=\"text\" id=\"date1\" @click=\"setPopDate('begin', 'wrap')\">{{beginDate}}</span>\n        <span class=\"dateMiddleText\">\u81F3</span>\n        <span class=\"dateText enddate\" type=\"text\" id=\"date2\" @click=\"setPopDate('end', 'wrap')\">{{endDate}}</span>\n    </div>\n    <van-popup v-model=\"isDatePickerOpen\" position=\"bottom\" @click-overlay=\"onCancel\">\n        <div class=\"month-date-picker\">\n            <van-datetime-picker \n                v-model=\"selectedDate\" \n                :type=\"datePickerType\" \n                :formatter=\"formatter\" \n                :min-date=\"minDate\" \n                :max-date=\"maxDate\" \n                swipe-duration=100\n                @confirm=\"onConfirm\" \n                @cancel=\"onCancel\" \n                @change=\"onChange\"\n            >\n                <template #title>\n                    <div class=\"month-date-picker-types\">\n                        <div \n                            class=\"month-date-picker-type date\" \n                            :class=\"{active:datePickerType == 'date'}\" \n                            @click=\"chooseDatePickerType('date')\"\n                        > \u6309\u65E5\u9009\u62E9</div>\n                        <div \n                            class=\"month-date-picker-type month\" \n                            :class=\"{active:datePickerType == 'year-month'}\" \n                            @click=\"chooseDatePickerType('year-month')\"\n                        >\u6309\u6708\u9009\u62E9</div>\n                    </div>\n                </template>\n                <template #columns-top>\n                    <div class=\"month-date-picker-dates\" :class=\"datePickerType === 'date' ? '': 'monthTimeWrap'\">\n                        <div v-if=\"datePickerType !== 'date'\" class=\"leftLine\"></div>\n                        <div class=\"month-date-picker-date\" :class=\"{active:dateType == 'begin' && datePickerType == 'date'}\" @click=\"setPopDate('begin')\">\n                            {{ datePickerType === 'date' ? beginDateTemp : monthBegin }}\n                        </div>\n                        <div style=\"margin: 0 0.2rem; color: #222222; line-height: 0.7rem; height: 0.7rem\">\u81F3</div>\n                        <div class=\"month-date-picker-date\" :class=\"{active:dateType == 'end' && datePickerType == 'date'}\" @click=\"setPopDate('end')\">\n                            {{ datePickerType === 'date' ? endDateTemp : monthEnd }}\n                        </div>\n                        <div v-if=\"datePickerType !== 'date'\" class=\"rightLine\"></div>\n                    </div>\n                </template>\n            </van-datetime-picker>\n            <van-toast></van-toast>\n        </div>\n    </van-popup>\n</div>\n",
+            props: {
+                'minDate': {
+                    type: Date,
+                },
+                'maxDate': {
+                    type: Date,
+                },
+                'formatter': {
+                    type: Function,
+                },
+                'beginDate': {
+                    type: String,
+                },
+                'endDate': {
+                    type: String,
+                },
+                'isShow': {
+                    type: Boolean,
+                    default: false,
+                },
+                'maxDiff': {
+                    type: Number,
+                    default: '31'
+                },
+                'showTime': {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+            template:  html,
 
             data: function data() {
                 return {
