@@ -1,6 +1,6 @@
 // import * as mockData from './holdMock'
 import * as mockData from './holdA5Mock'
-const isMock = true;
+const isMock = false;
 
 export const accountTypeMap = {
     '0': ['SHACCOUNT', 'SZACCOUNT', 'SBACCOUNT'], // 人民币A股  沪深京
@@ -67,7 +67,7 @@ export const opratedata = [
         title: '数据提取',
         action: 'all',
         data: "",
-        showText: isMock? JSON.stringify(mockData.mockAllData, null, 4) : "",
+        showText: isMock? mockData.mockAllData : "",
         showParse: true,
     },
     {

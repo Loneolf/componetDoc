@@ -403,11 +403,14 @@
                 }
             })
         });
-
         // 将保留下来的应答，根据action，填写到对应的输入框
         result?.forEach(ri => {
-            let action = strToJson(ri)?.ACTION
-            console.log('aaaaction', strToJson(ri))
+            let action 
+            try {
+                action = strToJson(ri)?.ACTION
+            } catch (e) {
+                console.log('aaaaaaextract', e, ri)
+            }
             if (!action) return
             let oprateItem = allOpratedata.value.find(item => item.action === action)
             if (oprateItem) {

@@ -437,7 +437,7 @@ export function serveDataToObj(data){
     const headerLine = lines.find(line => line.startsWith('GRID0='));
     const headerLine2 = lines.find(line => line.startsWith('GRID2='));
     // 用于存储各字段对应索引的对象
-    const indexMap = {GRID0: [ headerLine.replace(/GRID0=/, '') ]};
+    const indexMap = {GRID0: [ headerLine?.replace(/GRID0=/, '') ]};
     let GRID2 = [ headerLine2?.replace(/GRID2=/, '') ];
     // console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
     var beginPush = false
