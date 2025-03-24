@@ -124,7 +124,8 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        chiCangItem.stockProCode = chiCangItem.stockProCode;
 
        chiCangItem.domKey = chiCangItem.code + '|' + chiCangItem.wtAccountType + '|' + chiCangItem.account;
-       chiCangItem.todayPl = '--';                
+       chiCangItem.todayPl = '--';        
+       chiCangItem.selfUpNum = ''        
 
        chiCangItem.isActive = true;
        arr.push(chiCangItem);
@@ -241,6 +242,8 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
         chiCangItem.isUplistShow = chiCangItem.isUplistShow || false;
 
         chiCangItem.domKey = chiCangItem.code + '|' + chiCangItem.wtAccountType + '|' + chiCangItem.account + '|' + k;
+
+        chiCangItem.selfUpNum = ''
 
         chiCangItem.isActive = true;
         arr.push(chiCangItem);

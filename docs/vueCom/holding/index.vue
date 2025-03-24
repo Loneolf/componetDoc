@@ -37,6 +37,7 @@
                     </el-popover>
                     <!-- <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button> -->
                     <el-button  type="primary" v-if="oprateItem.isUpBtn" @click="up60(oprateItem.showText)">更新</el-button>
+                    <el-button  type="primary" v-if="oprateItem.showParse" @click="extract(oprateItem.showText)">提取</el-button>
                 </p>
                 <textarea v-model="oprateItem.showText" class="textarea"  />
             </div>
@@ -293,6 +294,11 @@
                                     <p class="popverp" v-html="si.ratioEX"></p>
                                 </el-popover>
                             </span>
+                            <span class="itemSplit">|</span>
+                            <span class="selfUpdata">
+                                <el-input v-model="si.selfUpNum" style="width: 140px" placeholder="请输入更新数据" />
+                                <el-button @click="selfUpdata(si)">手动更新</el-button>
+                            </span>
                         </p>
                     </div>
                 </div>
@@ -371,6 +377,45 @@
         return sortList
     });
 
+    function selfUpdata(si) {
+        if (isNaN(si.selfUpNum)) {
+            ElMessage.error('请输入正确的数字')
+            return 
+        }
+        console.log('aaaa233', si)
+    }
+
+    // 提取数据
+    function extract(value) {
+        if (!value) {
+            ElMessage.error('请粘贴全部数据')
+            return
+        }
+        // 分割请求与应答，将请求移除，保留应答的部分
+        const firstSplit = value.split('请求');
+        const result = [];
+        firstSplit.forEach(item => {
+            item = `请求${item}`
+            const secondSplit = item.split('应答');
+            secondSplit?.forEach(si => {
+                if (!si?.startsWith('请求')) {
+                    result.push(`应答${si}`)
+                }
+            })
+        });
+
+        // 将保留下来的应答，根据action，填写到对应的输入框
+        result?.forEach(ri => {
+            let action = strToJson(ri)?.ACTION
+            console.log('aaaaction', strToJson(ri))
+            if (!action) return
+            let oprateItem = allOpratedata.value.find(item => item.action === action)
+            if (oprateItem) {
+                oprateItem.showText = ri 
+            }
+        })
+    }
+
     // 刷新前 数据计算
     function calculate() {
         console.log('aaaacalculater')
@@ -442,6 +487,7 @@
         
 
         list.forEach((item) => {
+            if (item.action === 'all') return
             if (item.showText) {
                 try {
                     // 将字符串转化为json对象
