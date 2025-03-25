@@ -80,7 +80,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                     fare0:佣金计算过程，fare0 * 市值 + fare0_par * 持仓 * 每手价值<br />
                     ${totalFare.fare0} * ${marketValue} + ${totalFare.fare0_par} * ${o.chiCang} * ${o.parValue} = ${co.fare0}<br />
                     然后这个值和手续费下限min_fare0: ${totalFare.min_fare0}比较，谁大取值谁，再和手续费上限 max_fare0(如果大于0): ${totalFare.max_fare0}比较，谁小取值谁<br />
-                    佣金最终计算结果为：${fare0}<br />
+                    <span class='fontWeight'>佣金最终计算结果为：${fare0}</span><br />
                 `
 
                 co.fare1 = new Big(totalFare.fare1).times(new Big(marketValue)).plus(new Big(totalFare.fare1_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
@@ -92,7 +92,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                     fare1:印花税计算过程，fare1 * 市值 + fare1_par * 持仓 * 每手价值<br />
                     ${totalFare.fare1} * ${marketValue} + ${totalFare.fare1_par} * ${o.chiCang} * ${o.parValue} = ${co.fare1}<br />
                     然后这个值和印花税下限min_fare1: ${totalFare.min_fare1}比较，谁大取值谁，再和印花税上限 max_fare1 (如果大于0): ${totalFare.max_fare1}比较，谁小取值谁<br />
-                    印花税最终计算结果为：${fare1}<br />
+                    <span class='fontWeight'>印花税最终计算结果为：${fare1}</span><br />
                 `
                 // H股全流通、B转H、港股通、印花税向上取整
                 if(o.wtAccountType === 'R' || o.stockCodeType === 'h' || accountTypeMap['0_HK'].includes(o.wtAccountType)){
@@ -106,7 +106,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                         textType = '港股通'
                     }
                     fare1EX += `
-                        因为是属于是${textType}，印花税向上取整 Math.ceil(fare1) ，故最终计算结果为${fare1}<br />
+                        因为是属于是${textType}，印花税向上取整 Math.ceil(fare1) ，<span class='fontWeight'>故最终计算结果为${fare1}</span><br />
                     `
                 }
                 
@@ -119,7 +119,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                     fare2:过户费计算过程, fare2 * 市值 + fare2_par * 持仓 * 每手价值<br />
                     ${totalFare.fare2} * ${marketValue} + ${totalFare.fare2_par} * ${o.chiCang} * ${o.parValue} = ${co.fare2}<br />
                     然后这个值和过户费下限min_fare2: ${totalFare.min_fare2}比较，谁大取值谁，再和过户费上限 max_fare2 (如果大于0): ${totalFare.max_fare2}比较，谁小取值谁<br />
-                    过户费最终计算结果为：${fare2}<br />
+                    <span class='fontWeight'>过户费最终计算结果为：${fare2}</span><br />
                 `
 
                 co.fare3 = new Big(totalFare.fare3).times(new Big(marketValue)).plus(new Big(totalFare.fare3_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
@@ -131,7 +131,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                     fare3:委托费计算过程, fare3 * 市值 + fare3_par * 持仓 * 每手价值<br />
                     ${totalFare.fare3} * ${marketValue} + ${totalFare.fare3_par} * ${o.chiCang} * ${o.parValue} = ${co.fare3}<br />
                     然后这个值和委托费下限min_fare3: ${totalFare.min_fare3}比较，谁大取值谁，再和委托费上限 max_fare3 (如果大于0): ${totalFare.max_fare3}比较，谁小取值谁<br />
-                    委托费最终计算结果为：${fare3}<br />
+                    <span class='fontWeight'>委托费最终计算结果为：${fare3}</span><br />
                 `                                      
                 co.farex = new Big(totalFare.farex).times(new Big(marketValue)).plus(new Big(totalFare.farex_par).times(new Big(o.chiCang)).times(new Big(o.parValue))).toFixed(2).toString();
                 var farex = new Big(co.farex).gt(new Big(totalFare.min_farex)) ? co.farex : totalFare.min_farex;
@@ -142,7 +142,7 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
                     farex:其他费计算过程, farex * 市值 + farex_par * 持仓 * 每手价值<br />
                     ${totalFare.farex} * ${marketValue} + ${totalFare.farex_par} * ${o.chiCang} * ${o.parValue} = ${co.farex}<br />
                     然后这个值和其他费下限min_farex: ${totalFare.min_farex}比较，谁大取值谁，再和其他费上限 max_farex (如果大于0): ${totalFare.max_farex}比较，谁小取值谁<br />
-                    其他费最终计算结果为：${farex}<br />
+                    <span class='fontWeight'>其他费最终计算结果为：${farex}</span><br />
                 `
                 fare = new Big(fare0).plus(new Big(fare1)).plus(new Big(fare2)).plus(new Big(fare3)).plus(new Big(farex)).toFixed(2).toString();
                 var fareEX = `
@@ -204,9 +204,14 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
     }
 }
 
-export function calYingKuiLv(o, co) {
+export function calYingKuiLv(o, co, isUp) {
     if(parseFloat(o.chengBen) > 0){
-        co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+        var calYingkuilv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+        if (isUp) {
+            o.yingKuiLv = calYingkuilv;
+        } else {
+            co.yingKuiLv = calYingkuilv;
+        }
         o.yingKuiLvEX = `
             盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
             盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%<br />

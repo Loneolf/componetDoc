@@ -1,6 +1,7 @@
 import * as accountMap from './accontMap.js'
 import { isComputeCostPrice } from './dealUtil.js'
 import { getTodayPl } from './dealMainData.js'
+import { calYingKu, calYingKuiLv } from './calculate.js'
 
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
     let isNoFareClient = false
@@ -88,6 +89,9 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                             市值 = 市值价 * 持仓 * 港元中间汇率<br />
                             市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
                         `
+
+                        calYingKuiLv(o, co, true)
+
                         if(parseFloat(o.chengBen) > 0){
                             o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
                             o.yingKuiLvEX = `

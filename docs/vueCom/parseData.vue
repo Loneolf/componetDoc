@@ -7,7 +7,7 @@
             <template v-if="showData2.length > 0">
                 <div class="tableBox">
                     <vxe-table 
-                        height="500" 
+                        max-height="500" 
                         :data="showData2" 
                         :row-config="{isCurrent: true, isHover: true}"
                         :scroll-y="{enabled: true, gt: 10}"
@@ -39,7 +39,7 @@
             <template v-if="showData.length > 0">
                 <div class="tableBox">
                     <vxe-table 
-                        height="800" 
+                        max-height="800" 
                         :data="showData"
                         :row-config="{isCurrent: true, isHover: true}"
                         :scroll-y="{enabled: true, gt: 0}"
@@ -231,5 +231,26 @@
               color: #ff4d4f;
           }
       }
+  }
+  .dark  {
+    .getFieldIndexBox{
+        .topBox {
+            textarea {
+                background-color: #333333;
+            }
+        } 
+    }
+    .vxe-table--render-default .vxe-table--body-wrapper {
+        background-color: #333333;
+    }
+    .vxe-body--column {
+        color: #ffffff;
+    }
+    .row--hover {
+        background-color: #555555!important;
+    }
+    .row--current {
+        background-color: #777777!important; 
+    }
   }
 </style>
