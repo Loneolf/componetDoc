@@ -211,7 +211,7 @@
                                     v-if="si.yingKuiLvEX"
                                     placement="bottom"
                                     :width="600"
-                                    trigger="click"
+                                    trigger="hover"
                                 >
                                     <template #reference>
                                         <el-button class="m-2">来源</el-button>

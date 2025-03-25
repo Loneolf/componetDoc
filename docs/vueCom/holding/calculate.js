@@ -1,7 +1,6 @@
 import { accountTypeMap } from './accontMap.js'
 
 export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
-    let isNoFareClient = false
     console.log("aaaa23333", JSON.parse(JSON.stringify(gridData)), HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap)
     try {
         gridData.forEach((o)=> {
@@ -21,7 +20,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                 `
                 // 计算盈亏率
                 calYingKuiLv(o, co)
-                calYingKu({isNoFareClient, o, co, fareMap, marketValue, HKStockExchangeRateList, accountTypeMap})
+                calYingKu({o, co, fareMap, marketValue, HKStockExchangeRateList, accountTypeMap})
             } else if (!!o.code && !!o.wtAccountType && !!o.account){
                 // 市值 = 市值价（含利息）* 持仓
                 var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
@@ -46,7 +45,7 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                 }
                 
                 calYingKuiLv(o, co)
-                calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, accountTypeMap})
+                calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, accountTypeMap})
             }
             o.co = co
         });
@@ -58,11 +57,11 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
 }
 
 
-export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap}) {
+export function calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap}) {
     var fare = '0', fareText = '';
     try{
-        // console.log('aaaaaaincalculate', o.name, !isNoFareClient, !!o.wtAccountType, !!fareMap[o.wtAccountType], !!fareMap[o.wtAccountType][o.stockCodeType])
-        if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){
+        // console.log('aaaaaaincalculate', o.name, !!o.wtAccountType, !!fareMap[o.wtAccountType], !!fareMap[o.wtAccountType][o.stockCodeType])
+        if(!!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){
             if(o.chiCang > 0){
                 var totalFare = {};
                 if(!!fareMap[o.wtAccountType][o.stockCodeType][o.subStockType]){
@@ -204,14 +203,9 @@ export function calYingKu({isNoFareClient, o, co, fareMap, marketValue, exchange
     }
 }
 
-export function calYingKuiLv(o, co, isUp) {
+function calYingKuiLv(o, co) {
     if(parseFloat(o.chengBen) > 0){
-        var calYingkuilv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
-        if (isUp) {
-            o.yingKuiLv = calYingkuilv;
-        } else {
-            co.yingKuiLv = calYingkuilv;
-        }
+        co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
         o.yingKuiLvEX = `
             盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
             盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%<br />

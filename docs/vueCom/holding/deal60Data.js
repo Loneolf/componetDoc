@@ -1,7 +1,6 @@
 import * as accountMap from './accontMap.js'
 import { isComputeCostPrice } from './dealUtil.js'
 import { getTodayPl } from './dealMainData.js'
-import { calYingKu, calYingKuiLv } from './calculate.js'
 
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
     let isNoFareClient = false
@@ -20,8 +19,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                 if(accountMap.accountTypeMap['0_HK'].includes(o.wtAccountType) && ('H' + o.code) == code){
                     o.newMarketNo = newmarket_arr[i];
                     o.stockProCode = stock_pro_arr[i];
-                }
-                else if (o.code == code){
+                } else if (o.code == code){
                     var newMarketNo = newmarket_arr[i];
                     if(checkMarketAva(o.wtAccountType, newMarketNo)){
                         o.newMarketNo = newMarketNo;
@@ -90,19 +88,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                             市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
                         `
 
-                        calYingKuiLv(o, co, true)
-
-                        if(parseFloat(o.chengBen) > 0){
-                            o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
-                            o.yingKuiLvEX = `
-                                盈亏率 = (新市值价 - 成本价) / 成本价 * 100<br />
-                                盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
-                            `
-                        }
-                        else{
-                            o.yingKuiLv = '0.00';
-                            o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
-                        }
+                        calYingKuiLv(o, co)
+                        
                         try{
                             if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){                                                             
                                 if(o.chiCang > 0){
@@ -266,18 +253,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                                 市值 = ${marketValue} * ${o.chiCang} = ${o.shiZhi}
                             `
                         }
+                        calYingKuiLv(o, co)
                         
-                        if(parseFloat(o.chengBen) > 0){
-                            o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
-                            o.yingKuiLvEX = `
-                                盈亏率 = (新市值价 - 成本价) / 成本价 * 100<br />
-                                盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
-                            `
-                        }
-                        else{
-                            o.yingKuiLv = '0.00';
-                            o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
-                        }
                         try{
                             if(!isNoFareClient && !!o.wtAccountType && !!fareMap[o.wtAccountType] && !!fareMap[o.wtAccountType][o.stockCodeType]){
                                 if(o.chiCang > 0){
@@ -448,6 +425,23 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
 
     return getTodayPl(gridData, exchangeRateHKDtoUSD, HKStockExchangeRateList)
 }
+
+function calYingKuiLv(o, co) {
+    co.oYingKuiLv = o.yingKuiLv
+    if(parseFloat(o.chengBen) > 0){
+        o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+        o.yingKuiLvEX = `
+            盈亏率 = (新市值价 - 成本价) / 成本价 * 100<br />
+            盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
+        `
+    }
+    else{
+        o.yingKuiLv = '0.00';
+        o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
+    }
+    return { o, co }
+}
+
 
 export function checkMarketAva (markettype,marketcode) {
     var market_code_map = {
