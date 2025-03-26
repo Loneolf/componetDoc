@@ -334,6 +334,7 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
             // console.log('aaaa23333港股通', JSON.parse(JSON.stringify(chiCangItem))) 
         }
         catch(e){
+            console.log('getTodayPlItemError', e)
             chiCangItem.todayPlHKD = '--';
             chiCangItem.todayPl = '--';
         }  
