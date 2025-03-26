@@ -1,0 +1,37 @@
+.timeBarBox {
+    border-bottom: solid 0.01rem #EBEDEE;
+  }
+  .timeBarBox .tabBox {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 0.64rem;
+    height: 0.8rem;
+    line-height: 0.8rem;
+    background-color: #ffffff;
+  }
+  .timeBarBox .tabBox .tabItem {
+    position: relative;
+    color: #222222;
+    font-size: 0.3rem;
+  }
+  .timeBarBox .tabBox .activeBar {
+    font-weight: bold;
+  }
+  .timeBarBox .tabBox .activeBar::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 0.36rem;
+    height: 0.06rem;
+    background: url("/vue/components/TimeBar/assets/downLine.png") no-repeat;
+    background-size: 100%;
+    bottom: 0rem;
+    left: 50%;
+    margin-left: -0.18rem;
+    z-index: 999;
+  }
+  .timeBarBox .dateChoice {
+    border-top: solid 0.01rem #EBEDEE;
+    height: 1.12rem;
+  }
+  
