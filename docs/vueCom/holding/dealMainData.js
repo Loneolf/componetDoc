@@ -341,6 +341,7 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
     }
     // 沪B转H
     if(accountMap.accountTypeMap['1'].indexOf(chiCangItem.wtAccountType) > -1 && chiCangItem.stockCodeType === 'h'){ 
+        console.log('aaaa23333沪B转H', JSON.parse(JSON.stringify(chiCangItem)), exchangeRateHKDtoUSD)
         try{
             var todayHoldPl = new Big(chiCangItem.chiCang).minus(new Big(chiCangItem.realBuyAmount)).times(new Big(chiCangItem.assetPrice).minus(new Big(chiCangItem.preDrPrice))).toFixed(2).toString();
             var todayBuyPl = new Big(new Big(chiCangItem.realBuyAmount).times(new Big(chiCangItem.assetPrice))).minus(new Big(chiCangItem.realBuyBalance).div(new Big(exchangeRateHKDtoUSD))).toFixed(2).toString();
@@ -349,13 +350,14 @@ function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateLi
             chiCangItem.todayPl = new Big(chiCangItem.todayPl).times(exchangeRateHKDtoUSD).toFixed(2).toString();
             chiCangItem.todayPlEX = `
                 当日参考盈亏 = (昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏) * 港币兑美元汇率 <br/>
-                昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
-                今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${rateItem.sellRate} = ${todayBuyPl}<br/>
-                今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${rateItem.buyRate} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
+                昨日持有到现在的股票盈亏: (持有股票-新买入的股票数) * (最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
+                今日新买入的股票到现在的盈亏: 今日买入的股票数量 * 市值价 - 买入金额 / 卖出汇率: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} / ${exchangeRateHKDtoUSD} = ${todayBuyPl}<br/>
+                今日卖出的股票到卖出时点的盈亏: 今日卖出金额 / 买入汇率 - (卖出数量 * 前收盘价)): ${chiCangItem.realSellBalance} / ${exchangeRateHKDtoUSD} - ${chiCangItem.realSellAmount} * ${ chiCangItem.preDrPrice } = ${todaySellPl}<br/>
                 当日参考盈亏 = (${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} ) * ${exchangeRateHKDtoUSD} = ${chiCangItem.todayPl}
             `
         }
         catch(e){
+            console.log(e)
             chiCangItem.todayPl = '--';
         }
         return

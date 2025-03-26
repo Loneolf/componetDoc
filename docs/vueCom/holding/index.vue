@@ -441,7 +441,7 @@
             ElMessage.error('请输入持仓117接口数据')
             return 
         }
-        let res = calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
+        calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
 
         console.log('aaaa23333calculate', JSON.parse(JSON.stringify(dataList.value))) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
@@ -496,7 +496,6 @@
             return 
         }
         
-
         list.forEach((item) => {
             if (item.action === 'all') return
             if (item.showText) {
@@ -507,13 +506,6 @@
                     } else {
                         item.data = ''
                     }
-                    // console.log('aaa2333', item.data)
-                    // 处理117数据，转化为对象
-                    if (item.action === '117') {
-                        item.dealData = DealMainData.turn117ToObj(item.data, exchangeRateHKDtoUSD.value)
-                        INDEXO.value = item.dealData.INDEX
-                    }
-
                     // 处理港股通5106数据，转化为对象
                     if (item.action === '5106' && item.data) {
                         // 如果有人民币港股数据，则需要有对应的汇率，否则无法准确计算
@@ -550,7 +542,11 @@
                 }
             } 
         })
+
+        // 处理117数据，转化为对象
         let data117 = getActionData('117', 'all')
+        data117.dealData = DealMainData.turn117ToObj(data117.data, exchangeRateHKDtoUSD.value)
+        INDEXO.value = data117.dealData.INDEX
 
         let data5106 = getActionData('5106', 'all')
         if (data5106?.dealData?.data?.length) {
