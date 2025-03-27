@@ -1,7 +1,5 @@
 import * as dealUtil from './dealUtil.js'
 import * as accountMap from './accontMap.js'
-import { hsExchangeTypeMap } from './accontMap.js'
-
 
 export function turn117ToObj(data, exchangeRateHKDtoUSD) {
     let _data = JSON.parse(JSON.stringify(data))
@@ -433,6 +431,7 @@ export function geshiValue(name, index, noUnit = true, INDEXO){
     return dealUtil.formatZZDate(name, index, INDEXO.ZZPINDEX, INDEXO.DATEFORMINDEX, noUnit);
 }
 
+// 将服务端数据，转为前端获取接口返回的数据格式
 export function serveDataToObj(data){
     const lines = data.split('\n');
     // console.log('aaa2333lines', lines)
@@ -525,26 +524,28 @@ export function parseFareData(data, exchangeTypeMap){
                     continue;
                 }
             }
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare0 = arr[data.COMMISIONINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare0_par = arr[data.FARE0PARINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare0 = arr[data.MINFARE0INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare0 = arr[data.MAXFARE0INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare1 = arr[data.FARE1INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare1_par = arr[data.FARE1PARINDEX || '17'];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare1 = arr[data.MINFARE1INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare1 = arr[data.MAXFARE1INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare2 = arr[data.FARE2INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare2_par = arr[data.FARE2PARINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare2 = arr[data.MINFARE2INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare2 = arr[data.MAXFARE2INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare3 = arr[data.FARE3RATIOINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].fare3_par = arr[data.FARE3PARINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_fare3 = arr[data.MINFARE3INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_fare3 = arr[data.MAXFARE3INDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].farex = arr[data.FAREXRATIOINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].farex_par = arr[data.FAREXPARINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].min_farex = arr[data.MINFAREXINDEX];
-            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]].max_farex = arr[data.MAXFAREXINDEX];
+            fareMap[exchangeTypeMap[arr[data.EXCHANGETYPEINDEX]]][arr[data.STOCKTYPEODEINDEX]][arr[data.SUBSTOCKTYPEINDEX]] = {
+                fare0: arr[data.COMMISIONINDEX],
+                fare0_par: arr[data.FARE0PARINDEX],
+                min_fare0: arr[data.MINFARE0INDEX],
+                max_fare0: arr[data.MAXFARE0INDEX],
+                fare1: arr[data.FARE1INDEX],
+                fare1_par: arr[data.FARE1PARINDEX || '17'],
+                min_fare1: arr[data.MINFARE1INDEX],
+                max_fare1: arr[data.MAXFARE1INDEX],
+                fare2: arr[data.FARE2INDEX],
+                fare2_par: arr[data.FARE2PARINDEX],
+                min_fare2: arr[data.MINFARE2INDEX],
+                max_fare2: arr[data.MAXFARE2INDEX],
+                fare3: arr[data.FARE3RATIOINDEX],
+                fare3_par: arr[data.FARE3PARINDEX],
+                min_fare3: arr[data.MINFARE3INDEX],
+                max_fare3: arr[data.MAXFARE3INDEX],
+                farex: arr[data.FAREXRATIOINDEX],
+                farex_par: arr[data.FAREXPARINDEX],
+                min_farex: arr[data.MINFAREXINDEX],
+                max_farex: arr[data.MAXFAREXINDEX],
+            }
         }   
     }
     console.log(fareMap);

@@ -1,14 +1,34 @@
 import { accountTypeMap } from './accontMap.js'
 
 export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
-    console.log("aaaa23333", JSON.parse(JSON.stringify(gridData)), HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap)
+    // console.log("aaaa23333", JSON.parse(JSON.stringify(gridData)), HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap)
     try {
         gridData.forEach((o)=> {
             let co = {}
+            // 市值 = 市值价（含利息）* 持仓
+            var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
+
+            // 计算盈亏率
+            if(parseFloat(o.chengBen) > 0){
+                co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+                o.yingKuiLvEX = `
+                    盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
+                    盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%<br />
+                    接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${co.yingKuiLv}% <br />
+                    <span class='fontWeight'>结论：${o.yingKuiLv == co.yingKuiLv? '相等' : '不相等'}</span>
+                `
+            }
+            else{
+                o.yingKuiLv = '0.00';
+                o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00<br />
+                    接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${'0.00'}% <br />
+                    <span class='fontWeight'>结论：${o.yingKuiLv == '0.00'? '相等' : '不相等'}</span>
+                `
+            }
+
             // 港股通
             if(accountTypeMap['0_HK'].includes(o.wtAccountType)){
                 // 市值 = 市值价 * 持仓
-                var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
                 // console.log('aaaHKStockExchangeRateList', HKStockExchangeRateList, o.wtAccountType)
                 co.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
                 o.shiZhiEX = `
@@ -18,35 +38,25 @@ export const calculateOData = (gridData, HKStockExchangeRateList, exchangeRateHK
                     接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
                     <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
                 `
-                // 计算盈亏率
-                calYingKuiLv(o, co)
-                calYingKu({o, co, fareMap, marketValue, HKStockExchangeRateList, accountTypeMap})
-            } else if (!!o.code && !!o.wtAccountType && !!o.account){
-                // 市值 = 市值价（含利息）* 持仓
-                var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
                 // 沪B转H市值 = 市值价（含利息）* 持仓 * 汇率
-                if(accountTypeMap['1'].indexOf(o.wtAccountType) > -1 && o.stockCodeType === 'h'){                                                             
-                    co.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
-                    o.shiZhiEX = `
-                        沪B转H市值 = 市值价 * 持仓 * 汇率<br />
-                        市值 = ${o.assetPrice} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${co.shiZhi} <br />
-                        接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
-                        <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
-                    `
-                }
-                else{
-                    co.shiZhi = marketValue;
-                    o.shiZhiEX = `
-                        市值 = 市值价 * 持仓<br />
-                        市值 = ${o.assetPrice} * ${o.chiCang} = ${co.shiZhi} <br />
-                        接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
-                        <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
-                    `
-                }
-                
-                calYingKuiLv(o, co)
-                calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, accountTypeMap})
+            } else if (accountTypeMap['1'].indexOf(o.wtAccountType) > -1 && o.stockCodeType === 'h'){
+                co.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
+                o.shiZhiEX = `
+                    沪B转H市值 = 市值价 * 持仓 * 汇率<br />
+                    市值 = ${o.assetPrice} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${co.shiZhi} <br />
+                    接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
+                    <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
+                `
+             } else{
+                co.shiZhi = marketValue;
+                o.shiZhiEX = `
+                    市值 = 市值价 * 持仓<br />
+                    市值 = ${o.assetPrice} * ${o.chiCang} = ${co.shiZhi} <br />
+                    接口返回市值：${o.shiZhi} 计算市值：${co.shiZhi} <br />
+                    <span class='fontWeight'>结论：${o.shiZhi == co.shiZhi ? '相等' : '不相等'}</span>
+                `
             }
+            calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap})
             o.co = co
         });
     }
@@ -207,24 +217,4 @@ export function calFare({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKSt
         `
     }
     return { o, co, fare, fareText }
-}
-
-function calYingKuiLv(o, co) {
-    if(parseFloat(o.chengBen) > 0){
-        co.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
-        o.yingKuiLvEX = `
-            盈亏率 = (市值价 - 成本价) / 成本价 * 100<br />
-            盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%<br />
-            接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${co.yingKuiLv}% <br />
-            <span class='fontWeight'>结论：${o.yingKuiLv == co.yingKuiLv? '相等' : '不相等'}</span>
-        `
-    }
-    else{
-        o.yingKuiLv = '0.00';
-        o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00<br />
-            接口返回盈亏率：${o.yingKuiLv}% 计算盈亏率：${'0.00'}% <br />
-            <span class='fontWeight'>结论：${o.yingKuiLv == '0.00'? '相等' : '不相等'}</span>
-        `
-    }
-    return { o, co }
 }
