@@ -44,25 +44,25 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        let chiCangItem = {}
        chiCangItem.code=itemArr[data.STOCKINDEX || data.STOCKCODEINDEX];
        chiCangItem.yingKui = itemArr[data.YKINDEX];
-       chiCangItem.yingKuiEX=`取值117接口"GRID1"中对应持仓"YKINDEX"字段值`
+       chiCangItem.yingKuiEX=`取值117接口"GRID0"中对应持仓"YKINDEX"字段值`
 
        chiCangItem.yingKuiLv = itemArr[data.YKLINDEX];
-       chiCangItem.yingKuiLvEX=`取值117接口"GRID1"中对应持仓"YKINDEX"字段值`
+       chiCangItem.yingKuiLvEX=`取值117接口"GRID0"中对应持仓"YKINDEX"字段值`
 
        chiCangItem.chiCang = itemArr[data.STOCKNUMINDEX];
-       chiCangItem.chiCangEX=`取值117接口"GRID1"中对应持仓"STOCKNUMINDEX"字段值`
+       chiCangItem.chiCangEX=`取值117接口"GRID0"中对应持仓"STOCKNUMINDEX"字段值`
 
        chiCangItem.keYong = itemArr[data.KYINDEX];
-       chiCangItem.keYongEX=`取值117接口"GRID1"中对应持仓"KYINDEX"字段值`
+       chiCangItem.keYongEX=`取值117接口"GRID0"中对应持仓"KYINDEX"字段值`
 
        chiCangItem.chengBen = itemArr[data.KEEPPRICEINDEX];
-       chiCangItem.chengBenEX=`取值117接口"GRID1"中对应持仓"KEEPPRICEINDEX"字段值`
+       chiCangItem.chengBenEX=`取值117接口"GRID0"中对应持仓"KEEPPRICEINDEX"字段值`
 
        chiCangItem.assetPrice = itemArr[data.ASSETPRICEINDEX];
-       chiCangItem.assetPriceEX=`取值117接口"GRID1"中对应持仓"ASSETPRICEINDEX"字段值`
+       chiCangItem.assetPriceEX=`取值117接口"GRID0"中对应持仓"ASSETPRICEINDEX"字段值`
        
        chiCangItem.shiZhi=itemArr[data.STOCKVALUEINDEX];
-       chiCangItem.shiZhiEX=`取值117接口"GRID1"中对应持仓"STOCKVALUEINDEX"字段值`
+       chiCangItem.shiZhiEX=`取值117接口"GRID0"中对应持仓"STOCKVALUEINDEX"字段值`
 
        chiCangItem.shiZhi=itemArr[INDEX.STOCKVALUEINDEX];
        var isSame = chiCangItem.shiZhi == (itemArr[INDEX.ASSETPRICEINDEX] * chiCangItem.chiCang).toFixed(2);
@@ -429,50 +429,6 @@ export function geshiValue(name, index, noUnit = true, INDEXO){
         return name.substr(0, 1) + dealUtil.formatZZDate(name.substr(1, name.length),index, INDEXO.ZZPINDEX, INDEXO.DATEFORMINDEX, noUnit);
     }
     return dealUtil.formatZZDate(name, index, INDEXO.ZZPINDEX, INDEXO.DATEFORMINDEX, noUnit);
-}
-
-// 将服务端数据，转为前端获取接口返回的数据格式
-export function serveDataToObj(data){
-    const lines = data.split('\n');
-    // console.log('aaa2333lines', lines)
-    // 提取表头行
-    const headerLine = lines.find(line => line.startsWith('GRID0='));
-    const headerLine2 = lines.find(line => line.startsWith('GRID2='));
-    // 用于存储各字段对应索引的对象
-    const indexMap = {GRID0: [ headerLine?.replace(/GRID0=/, '') ]};
-    let GRID2 = [ headerLine2?.replace(/GRID2=/, '') ];
-    // console.log('aaaaaindexMap', JSON.parse(JSON.stringify(indexMap)))
-    var beginPush = false
-    var beginPush2 = false
-    lines.forEach(line => {
-        // console.log('aaaaline')
-        if (beginPush && line.includes('|') && !line.includes('=')) {
-            // console.log(indexMap.GRID0)
-            indexMap.GRID0.push(line)
-        } else {
-            beginPush = false
-        }
-        if (beginPush2 && line.includes('|') && !line.includes('=')) {
-            // console.log(indexMap.GRID0)
-            GRID2.push(line)
-        } else {
-            beginPush2 = false
-        }
-        if (line.includes('GRID0=')) {
-            beginPush = true
-        }
-        if (line.includes('GRID2=')) {
-            beginPush2 = true
-        }
-        if (line.includes('=') && !line.includes('GRID0=') && !line.includes('GRID2=')) {
-            const [key, value] = line.split('=');
-            indexMap[key?.toUpperCase()] = value;
-        }
-    });
-    if (headerLine2) {
-        indexMap.GRID2 = GRID2;
-    }
-    return indexMap;
 }
 
 export function parseFareData(data, exchangeTypeMap){

@@ -318,12 +318,9 @@
     import { calculateOData } from './calculate'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
-    import * as tUtil from '../comUtil/tabelUtil'
+    import { strToJson } from '@com/util.js'
     
-    
-
     const allOpratedata = ref(Amp.opratedata)
-    
     const accountList = ref([
         {
             bztype: '0',
@@ -336,7 +333,6 @@
             ratio: '--'
         }
     ])
-    // const dataList = ref([])
     const activeAccont = ref('0')
     const HKStockExchangeRateList = ref({})
     // const exchangeRateHKDtoUSD = ref('0.12813000')
@@ -411,11 +407,13 @@
                 }
             })
         });
+        console.log('aaaaaaextract', result)
         // 将保留下来的应答，根据action，填写到对应的输入框
         result?.forEach(ri => {
             let action 
             try {
-                action = strToJson(ri)?.ACTION
+                let Data = strToJson(ri)
+                action = Data?.Action || Data?.action || Data?.ACTION
             } catch (e) {
                 console.log('aaaaaaextract', e, ri)
             }
@@ -629,14 +627,6 @@
         return allOpratedata.value.find(item => item.action === action)[key] 
     }
 
-    function strToJson(str) {
-        if (str.includes("GRID0=") || str.includes("Grid=")) {
-            str = str.replace(/Grid=/g, 'GRID0=');
-            return DealMainData.serveDataToObj(str)
-        }
-        return JSON.parse(str)
-    }
-  
 </script>
   
   

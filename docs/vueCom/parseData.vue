@@ -73,11 +73,11 @@
   
 <script setup>
     import { ref, onMounted } from "vue";
-    import * as tUtil from './comUtil/tabelUtil'
     import * as mockData from './holding/holdMock'
     import { mockdata1, mockdata2, mockHsData1, mockHsData2 } from './mockdata.js'
     import tofix from '@a/img/tofix.png'
     import fixed from '@a/img/fixed.png'
+    import { strToJson, getFieldIndex } from '@com/util.js'
 
     const taValue = ref()
 
@@ -112,41 +112,21 @@
                 return
             }
 
-            let isHSData = text.includes('HsAns=') && text.includes('ReturnGrid=')
-            let isServerData = text.includes('GRID0=') || text.includes('Grid=')
-            // console.log('aaaajudgeText', isHSData, isServerData)
-            if (isHSData) {
-                let res = tUtil.getHSDataindex(text)
-                console.log('aaaaisHSData', res)
-                if (!res || !res.length) throw new Error('数据异常')
-                showData.value = res
-                console.log('aaaaisHSData', tUtil.getHSDataindex(text))
-            } else if (isServerData) {
-                console.log('aaaaaserve')
-                // getServerDataIndex(text)
-                // return
-                let res = tUtil.getServerDataIndex(text)
-                showData.value = res.showData
-                titleArr.value = res.titleArr
-                fixArr.value = res.fixedArr
-            } else {
-                // let data1 = eval(text)
-                let data = JSON.parse(text)
-                let res = tUtil.getFieldIndex(data)
-                if (data.GRID2) {
-                    var data2 = JSON.parse(JSON.stringify(data))
-                    data2.GRID0 = data.GRID2
-                    let res2 = tUtil.getFieldIndex(data2)
-                    showData2.value = res2.showData
-                    titleArr2.value = res2.titleArr
-                    fixArr2.value = res2.fixedArr
-                }
-                console.log('aaadata1', res)
-                showData.value = res.showData
-                titleArr.value = res.titleArr
-                fixArr.value = res.fixedArr
-                console.log('fixArr', JSON.parse(JSON.stringify(res)))
-                console.log('showData', showData)
+            let data = strToJson(text)
+            let res = getFieldIndex(data)
+            
+            console.log('aaadata1', res)
+            showData.value = res.showData
+            titleArr.value = res.titleArr
+            fixArr.value = res.fixedArr
+
+            if (data.GRID2) {
+                var data2 = JSON.parse(JSON.stringify(data))
+                data2.GRID0 = data.GRID2
+                let res2 = getFieldIndex(data2)
+                showData2.value = res2.showData
+                titleArr2.value = res2.titleArr
+                fixArr2.value = res2.fixedArr
             }
 
         } catch (error) {
@@ -189,6 +169,9 @@
             overflow: auto;
         }
     }
+    .vxe-table--render-default .vxe-table--scroll-y-handle {
+        height: auto!important;
+    }
   .getFieldIndexBox{
       .topBox {
           height: 400px;
@@ -206,7 +189,6 @@
           }
       }
       .bottomBox{
-          overflow: auto;
           padding: 20px;
           margin-top: 20px;
           .item{

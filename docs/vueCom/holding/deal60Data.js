@@ -6,38 +6,26 @@ import { calFare } from './calculate.js'
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
     if (!oData.NEWMARKETNO || !oData.NEWMARKETNO.length) return;
     // 股票市场列表
-    var newmarket_arr = oData.NEWMARKETNO.split('|');
-    var stock_pro_arr = oData.STOCKPROP.split('|');
+    let newmarket_arr = oData.NEWMARKETNO.split('|');
+    let stock_pro_arr = oData.STOCKPROP.split('|');
     if(oData.GRID0 && oData.GRID0.length>0){
         // oData.GRID0.shift();
-        for(var i=0; i<oData.GRID0.length; i++) {
-            var item = oData.GRID0[i].split('|');
+        for(let i=0; i<oData.GRID0.length; i++) {
+            let item = oData.GRID0[i].split('|');
             // 更新股票中的股票代码
-            var code = item[oData.STOCKCODEINDEX]+'';
-            gridData.forEach((o)=>{
-                // 给持仓列表数据加上 市场 与 STOCKPROP
-                if(accountTypeMap['0_HK'].includes(o.wtAccountType) && ('H' + o.code) == code){
-                    o.newMarketNo = newmarket_arr[i];
-                    o.stockProCode = stock_pro_arr[i];
-                } else if (o.code == code){
-                    var newMarketNo = newmarket_arr[i];
-                    if(checkMarketAva(o.wtAccountType, newMarketNo)){
-                        o.newMarketNo = newMarketNo;
-                        o.stockProCode = stock_pro_arr[i];
-                    }
-                }
-            });
+            let code = item[oData.STOCKCODEINDEX]+'';
 
             try{
-                var newPrice = item[oData.NEWPRICEINDEX];
+                let newPrice = item[oData.NEWPRICEINDEX];
                 // 没有最新市价则不进行计算
                 if(!newPrice || isNaN(newPrice) || !parseFloat(newPrice)){
                     continue;
                 }
-                var itemArr = gridData.filter((o) => {
+                let itemArr = gridData.filter((o) => {
                     return (accountTypeMap['0_HK'].includes(o.wtAccountType) && ('H' + o.code) == code) || (!!o.code && !!o.wtAccountType && !!o.account && o.code == code)
                 })
                 itemArr?.forEach((o)=>{
+                    o.isUp = true
                     let co = {}
                     // 特定业务 或 市价不变 不重新计算
                     if(!isComputeCostPrice(o) || parseFloat(newPrice) == parseFloat(o.shiJia)){
@@ -45,7 +33,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     }
 
                     // 新市值价 = 原市值价 - 原最新价 + 新最新价
-                    var newAssetPriceEX = new Big(o.assetPrice).minus(new Big(o.shiJia)).plus(newPrice).toFixed(4).toString();
+                    let newAssetPriceEX = new Big(o.assetPrice).minus(new Big(o.shiJia)).plus(newPrice).toFixed(4).toString();
                     o.assetPriceEX = `
                         新市值价 = 原市值价 - 原最新价 + 新最新价<br />
                         新市值价 = ${o.assetPrice} - ${o.shiJia} + ${newPrice} = ${newAssetPriceEX}
@@ -54,7 +42,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     o.shiJia = newPrice;
                     o.shiJiaEX = `最新价 =  ${newPrice}`
                     // 市值 = 市值价（含利息）* 持仓
-                    var marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
+                    let marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
 
                     co.oYingKuiLv = o.yingKuiLv
                     if(parseFloat(o.chengBen) > 0){
@@ -131,7 +119,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
 }
 
 export function checkMarketAva (markettype,marketcode) {
-    var market_code_map = {
+    let market_code_map = {
         'SHACCOUNT':'|4352|4367|4353|4356|4365|4355|4359|4361|4360|4364|4354|',
         'SZACCOUNT':'|4608|4609|4611|4617|4614|4612|4616|4618|4619|4610|4620|4613|4623|',
         'SBACCOUNT':'|5120|5121|5135|',
@@ -141,14 +129,14 @@ export function checkMarketAva (markettype,marketcode) {
         'HKACCOUNT':'',
         'HKSZACCOUNT':''
     }
-    var result = true;
+    let result = true;
     // 对返回的不足4位市场代码过滤
     if(marketcode && marketcode.length<4) {
         result = false;
     }
     // 目前仅沪深有重复代码，仅作沪深市场的校验
     if(!!marketcode && !!markettype && (markettype.toUpperCase()=='SHACCOUNT' || markettype.toUpperCase()=='SZACCOUNT')) {
-        var all_code = market_code_map[markettype.toUpperCase()];
+        let all_code = market_code_map[markettype.toUpperCase()];
         if(all_code.indexOf('|'+marketcode+'|')>-1) {
             result = true;
         }else{

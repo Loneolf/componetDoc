@@ -20,6 +20,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         accountItem.kqEX = `取值117接口"GRID2"列表中对应"2_AVAILABLEINDEX"字段值`
         accountItem.kyEX = `取值117接口"GRID2"列表中对应"2_USABLEINDEX"字段值`
         if (type == '0' || type =='RMB' || type=='rmb') {
+            console.log('aaa2233RMB', oData.MKTVAL_RMB, oData.TOTALASSET_RMB, oData)
             accountItem.bztype = '0';
             var rmbHoldingList = gridData.filter((o)=>{
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
@@ -40,7 +41,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             }
             try{
                 // 市值 = 证券市值（沪深京、港股、天天利财） - 天天利财市值
-                accountItem.sz = new Big(oData.MKTVAL_RMB).minus(new Big(oData['MKTVAL_ONEDAYBJHG'] || '0')).minus(new Big(oData['MKTVAL_MULTIDAYBJHG'] || '0')).toFixed(2).toString();  
+                accountItem.sz = new Big(oData.MKTVAL_RMB || '0').minus(new Big(oData['MKTVAL_ONEDAYBJHG'] || '0')).minus(new Big(oData['MKTVAL_MULTIDAYBJHG'] || '0')).toFixed(2).toString();  
                 accountItem.szEX = `117接口 MKTVAL_RMB 字段值 - MKTVAL_ONEDAYBJHG(天天理财)  - MKTVAL_MULTIDAYBJHG <br />
                      = ${oData.MKTVAL_RMB} - ${oData['MKTVAL_ONEDAYBJHG'] || '0'} - ${oData['MKTVAL_MULTIDAYBJHG'] || '0'} = ${accountItem.sz}
                 `
@@ -56,10 +57,9 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
             accountItem.kq = sKq;
             accountItem.ky = sKy;
             // 人民币持仓为空时展示为--
-            if(oData.TOTALYK_RMB == 0 && (!rmbHoldingList || !rmbHoldingList.length)){ 
+            if((oData.TOTALYK_RMB == 0 || !oData.TOTALYK_RMB) && (!rmbHoldingList || !rmbHoldingList.length)){ 
                 accountItem.yl = '--';
-            }
-            else{
+            } else{
                 var val = '';
                 try{
                     // 浮动盈亏 = 沪深京总盈亏（不含港股） - 天天利财盈亏
