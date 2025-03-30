@@ -504,21 +504,12 @@
                     } else {
                         item.data = ''
                     }
-                    // 处理港股通5106数据，转化为对象
-                    if (item.action === '5106' && item.data) {
-                        // 如果有人民币港股数据，则需要有对应的汇率，否则无法准确计算
-                        let data5107 = getActionData('5107', 'all')
-                        if (data5107.showText) {
-                            try {
-                                HKStockExchangeRateList.value = DealMainData.getHKStockExchangeRate(strToJson(data5107.showText))
-                            } catch (error) {
-                                console.error('5107error', error)
-                            }
-                        } else {
-                            ElMessage.error('请输入5107港股通汇率数据')
-                        }
-                        item.dealData = DealMainData.turn5106ToObj(item.data, HKStockExchangeRateList.value)
+
+                    // 处理5107数据，获取港币兑换人民币汇率
+                    if (item.action === '5107') {
+                        HKStockExchangeRateList.value = DealMainData.getHKStockExchangeRate(strToJson(item.showText))
                     }
+
                     // 处理5696数据，获取港币兑美元汇率
                     if (item.action === '5696') {
                         // console.log('aaaitemdata', JSON.parse(JSON.stringify(item.data)))
@@ -528,6 +519,7 @@
                             console.error('5659error', error)                            
                         }
                     }
+                    
                     // 处理5850数据，获取费率
                     if (item.action === '5850') {
                         if (item.data?.GRID0) {
@@ -546,8 +538,10 @@
         data117.dealData = DealMainData.turn117ToObj(data117.data, exchangeRateHKDtoUSD.value)
         INDEXO.value = data117.dealData.INDEX
 
+        // 处理5106数据，转化为对象
         let data5106 = getActionData('5106', 'all')
-        if (data5106?.dealData?.data?.length) {
+        if (data5106.showText) {
+            data5106.dealData = DealMainData.turn5106ToObj(data5106.data, HKStockExchangeRateList.value)
             data117.dealData.data = data117.dealData.data.concat(data5106.dealData.data)
         }
 

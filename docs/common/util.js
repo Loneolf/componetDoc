@@ -25,7 +25,7 @@ export function copyString(params) {
     })
 }
 
-export function serveDataToObj(data){
+export function serveDataToObj(data, isCap){
   const lines = data.split('\n');
   // console.log('aaa2333lines', lines)
   // 提取表头行
@@ -59,7 +59,7 @@ export function serveDataToObj(data){
       }
       if (line.includes('=') && !line.includes('GRID0=') && !line.includes('GRID2=')) {
           let [key, value] = line.split('=');
-          indexMap[key] = value;
+          indexMap[isCap ? key.toUpperCase() : key] = value;
       }
   });
   if (headerLine2) {
@@ -69,10 +69,10 @@ export function serveDataToObj(data){
 }
 
 
-export function strToJson(str) {
+export function strToJson(str, isCap = true) {
   if (str.includes("GRID0=") || str.includes("Grid=")) {
       str = str.replace(/Grid=/g, 'GRID0=');
-      return serveDataToObj(str)
+      return serveDataToObj(str, isCap)
   }
   return JSON.parse(str)
 }
