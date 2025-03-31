@@ -1,6 +1,7 @@
+import { ElMessage } from 'element-plus'
 import { accountTypeMap } from './accontMap.js'
 import { isComputeCostPrice } from './dealUtil.js'
-import { getTodayPl } from './dealMainData.js'
+import { getTodayPl, getTodayPlItem } from './dealMainData.js'
 import { calFare } from './calculate.js'
 
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
@@ -26,7 +27,12 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     o.isUp = true
                     let co = {}
                     // 特定业务 或 市价不变 不重新计算
-                    if(!isComputeCostPrice(o) || parseFloat(newPrice) == parseFloat(o.shiJia)){
+                    let comObj = isComputeCostPrice(o)
+                    if(!comObj.isCompute || parseFloat(newPrice) == parseFloat(o.shiJia)){
+                        o.assetPriceEX = comObj.text || `市价不变，不进行更新，最新值为${newPrice}，接口市价返回值为${o.shiJia}`
+                        o.yingKuiLvEX = comObj.text || `市价未发生变化，盈亏率不进行更新`
+                        o.shiZhiEX = comObj.text || `市价未发生变化，市值不进行更新`
+                        o.yingKuiEX = comObj.text || `市价未发生变化，盈亏不进行更新`
                         return;
                     }
 
@@ -61,7 +67,7 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                         o.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
                         o.shiZhiEX = `
                             市值 = 市值价 * 持仓 * 港元中间汇率<br />
-                            市值 = ${marketValue} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
+                            市值 = ${o.assetPrice} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
                         `
                     // 沪B转H市值 = 市值价（含利息）* 持仓 * 汇率
                     } else if (accountTypeMap['1'].indexOf(o.wtAccountType) > -1 && o.stockCodeType === 'h'){
@@ -69,13 +75,13 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                         o.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
                         o.shiZhiEX = `
                             沪B转H市值 = 市值价 * 持仓 * 汇率<br />
-                            市值 = ${marketValue} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi}
+                            市值 = ${o.assetPrice} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi}
                         `
                     } else{
                         o.shiZhi = marketValue;
                         o.shiZhiEX = `
                             市值 = 市值价 * 持仓<br />
-                            市值 = ${marketValue} * ${o.chiCang} = ${o.shiZhi}
+                            市值 = ${o.assetPrice} * ${o.chiCang} = ${o.shiZhi}
                         `
                     }
                         
@@ -110,6 +116,93 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
     }
 
     return getTodayPl(gridData, exchangeRateHKDtoUSD, HKStockExchangeRateList)
+}
+
+export const selfUpDataF = (o, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
+    try{
+        let newPrice = o.selfUpNum
+        let co = {}
+        // 特定业务 不重新计算
+        let comObj = isComputeCostPrice(o)
+        if(!comObj.isCompute){
+            ElMessage.error(comObj.text)
+            return;
+        }
+
+        o.assetPriceEX = `
+            新市值价 = 输入的值就是新市值价，值为: ${newPrice}<br />
+            市价 = 新市值价 - 利息(原市值价 - 原最新价)<br />
+            市价 = ${newPrice} - (${o.assetPrice} - ${o.shiJia}) = ${new Big(newPrice).minus(new Big(o.assetPrice).minus(new Big(o.shiJia))).toFixed(4)}<br />
+        `
+        o.assetPrice = newPrice
+
+        // 市值 = 市值价（含利息）* 持仓
+        let marketValue = new Big(o.assetPrice).times(new Big(o.chiCang)).toFixed(2).toString();
+
+        co.oYingKuiLv = o.yingKuiLv
+        if(parseFloat(o.chengBen) > 0){
+            o.yingKuiLv = new Big(o.assetPrice).minus(new Big(o.chengBen)).times(100).div(new Big(o.chengBen)).toFixed(2).toString();
+            o.yingKuiLvEX = `
+                盈亏率 = (新市值价 - 成本价) / 成本价 * 100<br />
+                盈亏率 = (${o.assetPrice} - ${o.chengBen}) / ${o.chengBen} * 100 = ${o.yingKuiLv}%
+            `
+        } else {
+            o.yingKuiLv = '0.00';
+            o.yingKuiLvEX = ` 成本价小于等于0，盈亏率显示0.00`
+        }
+        getTodayPlItem(o, exchangeRateHKDtoUSD, HKStockExchangeRateList)
+
+        let cRes = calFare({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap})
+
+        // 港股通
+        if(accountTypeMap['0_HK'].includes(o.wtAccountType)){
+            o.shiZhi = new Big(marketValue).times(new Big(HKStockExchangeRateList[o.wtAccountType].middleRate)).toFixed(2).toString();
+            o.shiZhiEX = `
+                市值 = 市值价 * 持仓 * 港元中间汇率<br />
+                市值 = ${o.assetPrice} * ${o.chiCang} * ${HKStockExchangeRateList[o.wtAccountType].middleRate} = ${o.shiZhi}
+            `
+        // 沪B转H市值 = 市值价（含利息）* 持仓 * 汇率
+        } else if (accountTypeMap['1'].indexOf(o.wtAccountType) > -1 && o.stockCodeType === 'h'){
+            // console.log('aaaa23333INNormal', o.wtAccountType, o.code, code)
+            o.shiZhi = new Big(marketValue).times(new Big(exchangeRateHKDtoUSD)).toFixed(2).toString();
+            o.shiZhiEX = `
+                沪B转H市值 = 市值价 * 持仓 * 汇率<br />
+                市值 = ${o.assetPrice} * ${o.chiCang} * ${exchangeRateHKDtoUSD} = ${o.shiZhi}
+            `
+        } else{
+            o.shiZhi = marketValue;
+            o.shiZhiEX = `
+                市值 = 市值价 * 持仓<br />
+                市值 = ${o.assetPrice} * ${o.chiCang} = ${o.shiZhi}
+            `
+        }
+            
+        try{
+            o.yingKuiWithoutFare = new Big(o.shiZhi).minus(new Big(o.costBalance)).toFixed(2).toString(); 
+            o.yingKuiWithoutFareEX = `
+                盈亏不计算费用 = 市值 - 成本价<br />
+                盈亏（不含预估卖出费用） = ${o.shiZhi} - ${o.costBalance} = ${o.yingKuiWithoutFare} <br />
+            `
+
+            o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(cRes.fare)).toFixed(2).toString();
+            o.yingKuiEX = `
+                盈亏 = 市值 - 持仓成本 - 预估卖出费用<br />
+                盈亏 = ${o.shiZhi} - ${o.costBalance} - ${cRes.fare} = ${o.yingKui} <br />
+                ${o.yingKuiWithoutFareEX}
+                预估卖出费用计算过程如下：<br />
+                账户类型wtAccountType:${o.wtAccountType}---- 股票类型stockCodeType:${o.stockCodeType}----子股票类型subStockType:${o.subStockType} <br />
+                ${cRes.fareText}
+            `
+        }
+        catch(e){
+            console.error(e)
+            o.yingKui = '--'; 
+            o.yingKuiWithoutFare = '--'; 
+        }
+    }
+    catch(e){
+        console.error(e);
+    }
 }
 
 export function checkMarketAva (markettype,marketcode) {

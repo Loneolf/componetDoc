@@ -221,21 +221,27 @@ export function formatLocalTime(data = new Date()) {
 }
 
 export function isComputeCostPrice (obj) {
+    let text = '';
+    let isCompute = true
     // 代码黑名单
     if((obj.code == '161838' || obj.code == '161022') && obj.wtAccountType == 'SZACCOUNT'){
-        return false;
+        text =  `代码code为${obj.code}，且市场类型为${obj.wtAccountType} 属于代码黑名单，不进行刷新计算`
+        isCompute = false
     }
     // 标准券不记盈亏
     if(obj.code == '888886' || obj.code == '200000'|| obj.code == '131990' || obj.code == '131991' || obj.code == '888880'){
-        return false;
+        text =  `代码code为${obj.code}的标准券不进行刷新计算`
+        isCompute = false
     }
     // 深圳的特殊业务, 深圳-基金认购'K'-159代码段不计算盈亏
     if(obj.wtAccountType == 'SZACCOUNT' && (obj.stockCodeType == '8' || (obj.stockCodeType == 'K' && obj.code.startsWith('159')))){
-        return false;
+        text = `市场类型为${obj.wtAccountType} 并且stockCodeType为${obj.stockCodeType}，深圳特殊业务，不进行刷新计算`
+        isCompute = false
     }
-    // 上海-证券类别为M、K、S、L不计算盈亏
+    // 上海-证券类别为M、K、S、L不进行刷新计算
     if(obj.wtAccountType == 'SHACCOUNT' && (obj.stockCodeType == 'M' || obj.stockCodeType == 'K' || obj.stockCodeType == 'S' || obj.stockCodeType == 'L' || (obj.stockCodeType == 'A' && obj.code.startsWith('519')))){
-        return false;
+        text = `市场类型为${obj.wtAccountType} 并且stockCodeType为${obj.stockCodeType}，上海特殊业务，不进行刷新计算`
+        isCompute = false
     }
     // 沪深京
     // 1.标准券（888886，200000，131990，131991，888880）
@@ -244,9 +250,13 @@ export function isComputeCostPrice (obj) {
     // 4.普通申购（stock_type=4）
     // 5.债券申购（stock_type=G）
     if(obj.stockCodeType == '3' || obj.stockCodeType == '4' || obj.stockCodeType == 'G' || (obj.stockCodeType == 'Z' && obj.subStockType == 'z1')){
-        return false;
+        text = `stockCodeType 为${obj.stockCodeType}，subStockType为${obj.subStockType}，沪深京特殊业务，不计算盈亏`
+        isCompute = false
     }
-    return true;
+    return {
+        text,
+        isCompute
+    };
 }
 
 export default {

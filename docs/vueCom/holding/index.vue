@@ -314,7 +314,7 @@
     import * as DealMainData from './dealMainData'
     import { geshiValue } from './dealMainData'
     import * as DealAccontData from './dealAccontData'
-    import { deal60Data } from './deal60Data'
+    import { deal60Data, selfUpDataF } from './deal60Data'
     import { calculateOData } from './calculate'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
@@ -372,14 +372,6 @@
         console.log('dataList', JSON.parse(JSON.stringify(sortList)))
         return sortList
     });
-
-    function selfUpdata(si) {
-        if (isNaN(si.selfUpNum)) {
-            ElMessage.error('请输入正确的数字')
-            return 
-        }
-        console.log('aaaa233', si)
-    }
 
     // 提取数据
     function extract(value) {
@@ -455,13 +447,34 @@
         })
     }
 
+    // 手动更新单条数据
+    function selfUpdata(si) {
+        if (isNaN(si.selfUpNum) || !si.selfUpNum) {
+            ElMessage.error('请输入正确的数字')
+            return 
+        }
+        if (si.selfUpNum == si.assetPrice) {
+            ElMessage.error('输入的最新市值价无变更，请核对后重新输入')
+            return
+        }
+        let fareData = getActionData('5850')
+        console.log('aaaa23333fareData', fareData)
+        let list = getActionData('117', 'all').dealData.data
+        // 60数据刷新
+        selfUpDataF(si, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
+        // console.log('aaaa23333up60', res) 
+        // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
+        accountList.value = DealAccontData.upAccountData(accountList.value, list)
+
+        console.log('aaaa233', si)
+    }
+
     // 60刷新
     function up60(value) {
         if (!value) {
             ElMessage.error('请输入60接口数据')
             return
         }
-        // let data60 = getActionData('60')
         let data60 = strToJson(value)
         let fareData = getActionData('5850')
         console.log('aaaa23333fareData', fareData)
