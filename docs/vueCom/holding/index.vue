@@ -339,14 +339,6 @@
     const exchangeRateHKDtoUSD = ref('')
     const INDEXO = ref({})
 
-    // // 当前主题
-    // const { themeMode } = useData()
-
-    // watch(themeMode, (newMode, oldMode) => {
-    //     console.log(`主题从 ${oldMode} 变更为 ${newMode}`)
-    //     // 在这里可以添加根据主题变化执行的其他操作
-    // })
-
     onMounted(() => {
         // parseBtn()
     })
@@ -451,6 +443,7 @@
         })
     }
 
+    // 清除数据
     function clearData(noInput = false) {
         accountList.value = []
         allOpratedata.value.forEach(item => {

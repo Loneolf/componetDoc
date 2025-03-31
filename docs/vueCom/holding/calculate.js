@@ -72,11 +72,19 @@ export function calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HK
         // console.log('aaaaaaincalculate', o.name, !!o.wtAccountType, !!fareMap[o.wtAccountType], !!fareMap[o.wtAccountType][o.stockCodeType])
         let cRes = calFare({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HKStockExchangeRateList, accountTypeMap})
         co.yingKui = new Big(co.shiZhi).minus(new Big(o.costBalance)).minus(new Big(cRes.fare)).toFixed(2).toString();
+
+        o.yingKuiWithoutFare = new Big(o.shiZhi).minus(new Big(o.costBalance)).toFixed(2).toString(); 
+        o.yingKuiWithoutFareEX = `
+            盈亏不计算预估卖出费用 = 市值 - 持仓成本<br />
+            盈亏（不含预估卖出费用） = ${o.shiZhi} - ${o.costBalance} = ${o.yingKuiWithoutFare} <br />
+        `
+
         o.yingKuiEX = `
             盈亏 = 市值 - 持仓成本 - 预估卖出费用<br />
             盈亏 = ${co.shiZhi} - ${o.costBalance} - ${cRes.fare} = ${co.yingKui} <br />
             接口返回盈亏：${o.yingKui} 计算盈亏：${co.yingKui} <br />
             <span class='fontWeight'>结论：${o.yingKui == co.yingKui? '相等' : '不相等'}</span><br />
+            ${o.yingKuiWithoutFareEX}
             预估卖出费用计算过程如下：<br />
             账户类型wtAccountType:${o.wtAccountType}---- 股票类型stockCodeType:${o.stockCodeType}----子股票类型subStockType:${o.subStockType} <br />
             ${cRes.fareText}
@@ -85,18 +93,7 @@ export function calYingKu({o, co, fareMap, marketValue, exchangeRateHKDtoUSD, HK
     catch(e){
         console.error(e)
         o.yingKui = '--'; 
-    }
-    finally{
-        try{
-            o.yingKuiWithoutFare = new Big(o.shiZhi).minus(new Big(o.costBalance)).toFixed(2).toString(); 
-            o.yingKuiWithoutFareEX = `
-                盈亏不计算费用 = 市值 - 持仓成本<br />
-                盈亏 = ${o.shiZhi} - ${o.costBalance} = ${o.yingKuiWithoutFare}
-            `
-        }
-        catch(e){
-            o.yingKuiWithoutFare = '--'; 
-        }
+        o.yingKuiWithoutFare = '--'; 
     }
 }
 

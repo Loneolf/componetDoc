@@ -6,8 +6,6 @@ import { calFare } from './calculate.js'
 export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRateHKDtoUSD, fareMap) => {
     if (!oData.NEWMARKETNO || !oData.NEWMARKETNO.length) return;
     // 股票市场列表
-    let newmarket_arr = oData.NEWMARKETNO.split('|');
-    let stock_pro_arr = oData.STOCKPROP.split('|');
     if(oData.GRID0 && oData.GRID0.length>0){
         // oData.GRID0.shift();
         for(let i=0; i<oData.GRID0.length; i++) {
@@ -82,10 +80,17 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     }
                         
                     try{
+                        o.yingKuiWithoutFare = new Big(o.shiZhi).minus(new Big(o.costBalance)).toFixed(2).toString(); 
+                        o.yingKuiWithoutFareEX = `
+                            盈亏不计算费用 = 市值 - 成本价<br />
+                            盈亏（不含预估卖出费用） = ${o.shiZhi} - ${o.costBalance} = ${o.yingKuiWithoutFare} <br />
+                        `
+
                         o.yingKui = new Big(o.shiZhi).minus(new Big(o.costBalance)).minus(new Big(cRes.fare)).toFixed(2).toString();
                         o.yingKuiEX = `
                             盈亏 = 市值 - 持仓成本 - 预估卖出费用<br />
                             盈亏 = ${o.shiZhi} - ${o.costBalance} - ${cRes.fare} = ${o.yingKui} <br />
+                            ${o.yingKuiWithoutFareEX}
                             预估卖出费用计算过程如下：<br />
                             账户类型wtAccountType:${o.wtAccountType}---- 股票类型stockCodeType:${o.stockCodeType}----子股票类型subStockType:${o.subStockType} <br />
                             ${cRes.fareText}
@@ -94,19 +99,8 @@ export const deal60Data = (oData, gridData, HKStockExchangeRateList, exchangeRat
                     catch(e){
                         console.error(e)
                         o.yingKui = '--'; 
+                        o.yingKuiWithoutFare = '--'; 
                     }
-                    finally{
-                        try{
-                            o.yingKuiWithoutFare = new Big(o.shiZhi).minus(new Big(o.costBalance)).toFixed(2).toString(); 
-                            o.yingKuiWithoutFareEX = `
-                                盈亏不计算费用 = 市值 - 成本价<br />
-                                盈亏 = ${o.shiZhi} - ${o.costBalance} = ${o.yingKuiWithoutFare}
-                            `
-                        }
-                        catch(e){
-                            o.yingKuiWithoutFare = '--'; 
-                        } 
-                    }   
                 })
             }
             catch(e){
