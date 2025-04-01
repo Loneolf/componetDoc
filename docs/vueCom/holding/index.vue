@@ -459,13 +459,11 @@
         }
         let fareData = getActionData('5850')
         console.log('aaaa23333fareData', fareData)
-        let list = getActionData('117', 'all').dealData.data
-        // 60数据刷新
         selfUpDataF(si, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
         // console.log('aaaa23333up60', res) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        accountList.value = DealAccontData.upAccountData(accountList.value, list)
-
+        accountList.value = DealAccontData.upAccountData(accountList.value, dataList.value)
+        ElMessage.success('手动刷新完毕')
         console.log('aaaa233', si)
     }
 
@@ -480,10 +478,11 @@
         console.log('aaaa23333fareData', fareData)
         let list = getActionData('117', 'all').dealData.data
         // 60数据刷新
-        let res = deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
+        deal60Data(data60, list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
         // console.log('aaaa23333up60', res) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
-        accountList.value = DealAccontData.upAccountData(accountList.value, res)
+        accountList.value = DealAccontData.upAccountData(accountList.value, dataList.value)
+        ElMessage.success('刷新完毕')
     }
 
     // 切换账户

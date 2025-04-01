@@ -403,95 +403,82 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
 
 export function upAccountData(accountList, dataList) {
     var accountListTemp = JSON.parse(JSON.stringify(accountList));
-    accountListTemp.forEach((o)=>{
-        for(var k in o){
-            if(k === 'sz' || k === 'yl' || k === 'todayPl' || k === 'ratio'){
-                o[k] = 0;
+    accountListTemp.forEach((item)=>{
+        let list = dataList.find((o)=>{
+            return o.bztype == item.bztype;
+        })?.list
+        item.osz = item.sz;
+        item.oyl = item.yl;
+        item.ototal = item.total;
+        item.szEX = '持仓市值累加过程如下： <br />'
+        item.ylEX = '持仓盈亏累加过程如下： <br />'
+        item.todayPlFrom = '持仓当日参考盈亏 <br />'
+        item.sz = 0;
+        item.yl = 0;
+        item.todayPl = 0;
+
+        list?.forEach((si)=>{
+            item.sz += isNaN(si.shiZhi) ? 0 : Number(si.shiZhi);
+            item.szEX += `${si.name}: ${si.shiZhi} 、`;
+            item.yl += isNaN(si.yingKui)? 0 : Number(si.yingKui);
+            item.ylEX += `${si.name}: ${si.yingKui} 、`;
+            item.todayPl += isNaN(si.todayPl)? 0 : Number(si.todayPl);
+            item.todayPlFrom += `${si.name}: ${si.todayPl} 、`;
+        })
+        item.sz = new Big(item.sz).toFixed(2).toString();
+        item.yl = new Big(item.yl).toFixed(2).toString();
+        item.todayPl = new Big(item.todayPl).toFixed(2).toString();
+
+        item.szEX += `<br />持仓市值累加结果为：${item.sz}`;
+        item.ylEX += `<br />持仓盈亏累加结果为：${item.yl}`;
+        item.todayPlFrom += `<br /> 持仓当日参考盈亏累加结果为：${item.todayPl}`;
+        // 需要计算完总市值，再重新计算个股持仓占比
+        list?.forEach((si)=>{
+            try {
+                si.ratio = new Big(si.shiZhi).div(new Big(item.sz)).times(new Big(100)).toFixed(2).toString() + '%';
+                si.ratioEX = `个股市值 ${si.shiZhi} / 总市值 ${item.sz} = ${si.ratio}`
+            } catch (error) {
+                
             }
-            if(k === 'szEX' || k === 'ylEX' || k === 'todayPlFrom'){
-                o[k] = ''; 
-            }
+        })
+        console.log('aaaaaszDiffer', item.osz, item.sz);
+        try {
+            item.szDiffer = new Big(item.sz).minus(new Big(item.osz)).toFixed(2).toString();
+        } catch (error) {
+            item.szDiffer = '0.00'            
         }
     });
-    let len = dataList.length;
-    dataList.forEach((o1, index)=>{
-        // console.log('aaaares', o1.todayPl, len, Amp.bzTypeMap[o1.wtAccountType])
-        try{
-            var accountItem = accountListTemp.find((o2)=>{
-                return o2.bztype == bzTypeMap[o1.wtAccountType];
-            });
-            if(accountItem){
-                if(o1.sz != '--'){
-                    accountItem.sz = new Big(accountItem.sz).plus(new Big(o1.shiZhi)).toFixed(2).toString();
-                    accountItem.szEX += `(${o1.name}：${o1.shiZhi}) ${len === index  ? ' || ' : ' ' }`
-                }             
-                if(o1.yingKui != '--'){
-                    accountItem.yl = new Big(accountItem.yl).plus(new Big(o1.yingKui)).toFixed(2).toString();
-                    accountItem.ylEX += `(${o1.name}：${o1.yingKui}) ${len === index ?' || ' : ' ' }`
-                }
 
-                if(o1.todayPl != '--'){
-                    // console.log('aaaaintadayPl', accountItem.todayPlFrom)
-                    accountItem.todayPl = new Big(accountItem.todayPl).plus(new Big(o1.todayPl)).toFixed(2).toString();
-                    accountItem.todayPlFrom += `(${o1.name}：${o1.todayPl}) ${len === index ? ' || ' : ' ' }`
-                }   
-            }   
-        }
-        catch(e){
-            console.error(e);
+    let fl = accountListTemp.filter((item)=>{return item.bztype == '0' || item.bztype == '0_HK'});
+    if (fl?.length >= 2) {
+        let rmbSzDiffer = new Big(fl[0].szDiffer).plus(new Big(fl[1].szDiffer)).toFixed(2).toString();
+        fl[0].szDiffer = fl[1].szDiffer = rmbSzDiffer;
+    }
+
+    accountListTemp.forEach((item)=>{
+        try {
+            item.ototal = item.total
+            item.total = new Big(item.total).plus(new Big(item.szDiffer)).toFixed(2).toString();
+            if (fl?.length >=2 && (item.bztype == '0' || item.bztype == '0_HK')) {
+                item.totalEX = `
+                    同时存在人民币港股和人民币A股市场，总资产 = 人民币总资产 + 人民币持仓市值变化值 + 港股持仓市值变化值 <br /> 
+                    总资产 = ${item.ototal} + (${fl[0].sz} - ${fl[0].osz}) + (${fl[1].sz} - ${fl[1].osz}) = ${item.total}
+                `
+            } else {
+                item.totalEX = `
+                    总资产 = 持仓总资产 + 持仓总的市值变化值（新的持仓累加值 - 旧的持仓累加值） <br /> 
+                    总资产 = ${item.ototal} + (${item.sz} - ${item.osz}) = ${item.total}) <br />
+                `
+            }
+        } catch (error) {
+            item.total = '--'
+            item.totalEX = `计算总资产异常`
         }
     })
 
-    accountListTemp.forEach((o, i)=>{
-        if(o.bztype == '0' || o.bztype == '0_HK'){
-            try{
-                var rmbIndex = accountList.findIndex((item)=>{
-                    return item.bztype == '0'; 
-                });
-                var rmbHKIndex = accountList.findIndex((item)=>{
-                    return item.bztype == '0_HK'; 
-                });
-                var rmbSzDiffer = '0.00';
-                try{
-                    rmbSzDiffer = new Big(accountListTemp[rmbIndex].sz).minus(new Big(accountList[rmbIndex].sz));
-                }
-                catch(e){
-                    rmbSzDiffer = '0.00';
-                }
-                var rmbHKSzDiffer = '0.00';
-                try{
-                    rmbHKSzDiffer = new Big(accountListTemp[rmbHKIndex].sz).minus(new Big(accountList[rmbHKIndex].sz));
-                }
-                catch(e){
-                    rmbHKSzDiffer = '0.00';
-                }
-                o.total = new Big(o.total).plus(new Big(rmbSzDiffer)).plus(new Big(rmbHKSzDiffer)).toFixed(2).toString();
-            }
-            catch(e){
-                console.error(e)
-                o.total = '--';
-            }
-        }
-        else{
-            try{
-                var szDiffer = '0.00';
-                try{
-                    szDiffer = new Big(o.sz).minus(new Big(accountList[i].sz));
-                }
-                catch(e){
-                    szDiffer = '0.00';
-                }
-                o.total = new Big(o.total).plus(new Big(szDiffer)).toFixed(2).toString();
-            }
-            catch(e){
-                console.error(e)
-                o.total = '--';
-            }
-        }
-    });
+    console.log('aaaaccountListTemp', accountListTemp);
     return accountListTemp;
 }
-
 
 export function calAccontData(accountList, dataList) {
     var accountListTemp = JSON.parse(JSON.stringify(accountList));
@@ -500,8 +487,8 @@ export function calAccontData(accountList, dataList) {
             return o.bztype == item.bztype;
         })?.list
         
-        item.szEX += '<br />'
-        item.ylEX += '<br />'
+        item.szEX = ''
+        item.ylEX = ''
         let szEXO = '接口返回市值累加 <br />';
         let szEXC = '使用计算进行的市值累加<br />';
         let szO = 0;
