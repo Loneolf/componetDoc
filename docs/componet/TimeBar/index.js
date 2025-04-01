@@ -5,6 +5,7 @@
 define(function (require, exports, module) {
     var timePicker = require('../TimeSelect/index');
     require('./assets/index.css#');
+    var template = require('./template.html');
     //初始化
     function init(componentsName, Vue) {
         timePicker.init('time-picker');
@@ -45,30 +46,7 @@ define(function (require, exports, module) {
                 },
             },
             
-            template:  `
-                <div class="timeBarBox">
-                    <div class="tabBox">
-                        <div 
-                            class="tabItem" 
-                            v-for="item in timeArr"
-                            :class="item.value == activeTab ? 'activeBar' : ''" 
-                            :key="item.value"
-                            @click="tabClick(item)"
-                        >{{item.text}}</div>
-                    </div>
-                    <time-picker
-                        :is-show="activeTab == 'userDefined'"
-                        :formatter="formatter" 
-                        :min-date="minDate" 
-                        :max-date="maxDate" 
-                        :begin-date="beginDate" 
-                        :end-date="endDate" 
-                        :max-diff="31"
-                        @confirm="onConfirm" 
-                        @datechange="onDateChange"
-                    ></time-picker>
-                </div>
-            `,
+            template:  template,
 
             data: function data() {
                 return {
