@@ -74,6 +74,20 @@ export function strToJson(str, isCap = true) {
       str = str.replace(/Grid=/g, 'GRID0=');
       return serveDataToObj(str, isCap)
   }
+  if (str.includes("BinData=") && !str.includes('BinData=<html>')) {
+    const lines = str.split('\n');
+    let res = {}
+    lines.forEach(line => {
+      if (line.includes('BinData=')) {
+        str = line.replace('BinData=', '')
+        res.data = JSON.parse(str)
+      }
+      if (line.includes('Action=')) {
+        res.ACTION = line.replace('Action=', '')
+      }
+    });
+    return res
+  }
   return JSON.parse(str)
 }
 

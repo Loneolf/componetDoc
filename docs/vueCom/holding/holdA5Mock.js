@@ -4062,6 +4062,49 @@ export const mockdata60 = {
 
 export const stockHoldingSortList1593236 = {"0":["1","0","0","0","0","0"],"1":["1","0","0","0","0","0"],"2":["1","0","0","0","0","0"],"0_HK":["1","0","0","0","0","0","0"]}
 
+export const mockData48230 = `
+请求: -- 18:56:40.155 -- <6.48>20B7DF637772F3[0]
+IP=10.23.179.34
+Reqno=326
+IntactToServer=@ClZvbHVtZUluZm8JAAAAMTdBQy0zOTcx
+Action=48230
+TFrom=newandroid
+MobileCode=10000000000
+iPhoneKey=1743572842984
+CFrom=zxzq.android
+Token=qmocPI221@17AC-3971466dTq0fN
+imei=a4b6bd7a0d4bae0d
+MobileType=3
+ReqLinkType=1
+newindex=1
+path=ae
+phonemac=02:00:00:00:00:00
+connectiontype=3G/4G
+uniqueid=D4699D7E-22B0-0736-E029-CFA20814C46B
+ReqNum=a4b6bd7a0d4bae0d=0=0=1=0=1743572842984
+clientversion=6.01.003
+GMGZJK=1
+mobilekind=android 12
+lipadd=10.66.28.165
+PostString={"sysNo":"cs118","version":"1.0","functionNo":"006","extendJson":"{\"stockCodes\":\"112939.1|114305.1|123013.1|135468.1|159650.1|360001.1|502058.1|511980.1|519509.1|519800.1|600000.1|600231.1|688001.1|704000.1|000001.2|100303.2|160105.2|300834.2|400071.9|810003.9|840001.9|200054.H|200761.H|238926.H|299903.H\"}"}
+tztreqfrom=android.webview
+ReqTag=6274752=48=2=0.1.225022672=1743572842986
+csgmstate=0
+phonekind=FOA-AL00
+android_id=a4b6bd7a0d4bae0d
+EmptyFields=imsi&
+tztSDKType=0
+
+应答: -- 18:56:40.258 -- <6.48>20B7DF637772F3[102]
+ErrorNo=100
+BinData={"code":"0","msg":"成功","data":{"list":[{"stock_code":"000001","exchange_type":"2","stock_account":"0054489533","real_buy_balance":"7605.10","real_sell_balance":"0.00","real_buy_amount":"5000.00","real_sell_amount":"0.00","trust_seat":"259700","circulate_type":"1","stock_attr":"00"},{"stock_code":"000001","exchange_type":"2","stock_account":"0054489533","real_buy_balance":"2000.00","real_sell_balance":"0.00","real_buy_amount":"1000.00","real_sell_amount":"0.00","trust_seat":"259711","circulate_type":"1","stock_attr":"00"}],"price_list":[{"stock_code":"200054","exchange_type":"H","init_date":"20241031","pre_dr_price":"1.2200"},{"stock_code":"200761","exchange_type":"H","init_date":"20241031","pre_dr_price":"1.5500"},{"stock_code":"299903","exchange_type":"H","init_date":"20241031","pre_dr_price":"7.2400"},{"stock_code":"112939","exchange_type":"1","init_date":"20241031","pre_dr_price":"1.1410"},{"stock_code":"114305","exchange_type":"1","init_date":"20241031","pre_dr_price":"102.7610"},{"stock_code":"123013","exchange_type":"1","init_date":"20241031","pre_dr_price":"20.2840"},{"stock_code":"135468","exchange_type":"1","init_date":"20241031","pre_dr_price":"39.5500"},{"stock_code":"159650","exchange_type":"1","init_date":"20241031","pre_dr_price":"84.0200"},{"stock_code":"360001","exchange_type":"1","init_date":"20241031","pre_dr_price":"105.2800"},{"stock_code":"502058","exchange_type":"1","init_date":"20241031","pre_dr_price":"1.9130"},{"stock_code":"511980","exchange_type":"1","init_date":"20241031","pre_dr_price":"100.0290"},{"stock_code":"519509","exchange_type":"1","init_date":"20241031","pre_dr_price":"0.3775"},{"stock_code":"519800","exchange_type":"1","init_date":"20241031","pre_dr_price":"0.0100"},{"stock_code":"600000","exchange_type":"1","init_date":"20241031","pre_dr_price":"9.9400"},{"stock_code":"600231","exchange_type":"1","init_date":"20241031","pre_dr_price":"1.9100"},{"stock_code":"688001","exchange_type":"1","init_date":"20241031","pre_dr_price":"127.1100"},{"stock_code":"000001","exchange_type":"2","init_date":"20241031","pre_dr_price":"11.3200"},{"stock_code":"100303","exchange_type":"2","init_date":"20241031","pre_dr_price":"100.3000"},{"stock_code":"160105","exchange_type":"2","init_date":"20241031","pre_dr_price":"1.0560"},{"stock_code":"300834","exchange_type":"2","init_date":"20241031","pre_dr_price":"20.3200"},{"stock_code":"400071","exchange_type":"9","init_date":"20241031","pre_dr_price":"0.0900"},{"stock_code":"810003","exchange_type":"9","init_date":"20241031","pre_dr_price":"97.0000"},{"stock_code":"840001","exchange_type":"9","init_date":"20241031","pre_dr_price":"6.9800"}]}}
+Action=48230
+Reqno=326
+iPhoneKey=1743572842984
+Token=qmocPI221@17AC-3971466dTq0fN
+IntactToServer=@ClZvbHVtZUluZm8JAAAAMTdBQy0zOTcx
+`
+
 export const fare = {
     "SBACCOUNT": {
         "0": {

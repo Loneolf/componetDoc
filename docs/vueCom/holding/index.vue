@@ -391,18 +391,25 @@
                 }
             })
         });
-        console.log('aaaaaaextract', result)
         // 将保留下来的应答，根据action，填写到对应的输入框
         result?.forEach(ri => {
-            let action 
+            let action
+            let res
             try {
-                let Data = strToJson(ri)
-                action = Data?.Action || Data?.action || Data?.ACTION
+                res = strToJson(ri)
+                console.log('aaaaaaextract', res)
+                action = res?.ACTION
             } catch (e) {
-                console.log('aaaaaaextract', e, ri)
+                // console.log('aaaaaaextract', e, ri)
             }
             if (!action) return
-            let oprateItem = allOpratedata.value.find(item => item.action === action)
+            let oprateItem = allOpratedata.value.find(item => {
+                // 盘后的48230需要额外处理，因为返回了数个48230
+                if (action === '48230') {
+                    return item.action === action && res?.data?.data?.list 
+                }
+                return item.action === action
+            })
             if (oprateItem) {
                 oprateItem.showText = ri 
             }
@@ -532,6 +539,7 @@
                         }
                         // console.log('aaaa2333item5850', JSON.parse(JSON.stringify(item)))
                     }
+
                 } catch (error) {
                     console.error(error)                    
                 }
