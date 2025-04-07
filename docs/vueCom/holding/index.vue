@@ -691,7 +691,7 @@
     }
 
     function copyDetail(item) {
-        let str = item.data ? JSON.stringify(item.data) : item.showText
+        let str = item.data ? JSON.stringify(item.data, null, 4) : item.showText
         copyString(str)
     }
 
