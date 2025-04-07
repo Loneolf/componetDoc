@@ -104,6 +104,10 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        chiCangItem.realSellAmount = itemArr[data.REALSELLAMOUNTINDEX];
        chiCangItem.parValue = itemArr[data.PARVALUEINDEX];
        chiCangItem.preDrPrice = itemArr[data.PREDRPRICEINDEX];
+       // A5 唯一判别表示，存管单元，股份性质，流通类型
+       chiCangItem.fidtrustseat = itemArr[data.FIDTRUSTSEATINDEX];
+       chiCangItem.stbproperty = itemArr[data.STBPROPERTYINDEX];
+       chiCangItem.circulatype = itemArr[data.CIRCULATETYPEINDEX];
 
        let stockname_long_temp = chiCangItem.stockNameLongId;
        let stockname_temp = chiCangItem.stockName;
@@ -227,6 +231,9 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
 
         chiCangItem.assetPrice = _data_arr[INDEX.ASSETPRICEINDEX];
         chiCangItem.rmbCostPrice = _data_arr[INDEX.RMBCOSTPRICEINDEX];
+        chiCangItem.fidtrustseat = _data_arr[data.FIDTRUSTSEATINDEX];
+        chiCangItem.stbproperty = _data_arr[data.STBPROPERTYINDEX];
+        chiCangItem.circulatype = _data_arr[data.CIRCULATETYPEINDEX];
 
         // console.log('aaaa5106name', chiCangItem.stockName)
         // chiCangItem.name = geshiValue(chiCangItem.stockName,INDEX.STOCKNAMEINDEX, undefined, INDEX);
@@ -369,7 +376,7 @@ export function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchang
         chiCangItem.todayPlEX = `
             当日参考盈亏 = 昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏<br/>
             昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
-            今日新买入的股票到现在的盈亏: 今日买入的股票数量 *（最新价 - 今日买入的股票均价）: ${chiCangItem.realBuyAmount} * (${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance}) = ${todayBuyPl}<br/>
+            今日新买入的股票到现在的盈亏: 今日买入的股票数量 *市值价 - 今日买入的股票均价: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} = ${todayBuyPl}<br/>
             今日卖出的股票到卖出时点的盈亏: 今日卖出金额 - (今日卖出股票均价 * 前收盘价)): ${chiCangItem.realSellBalance} - ${chiCangItem.realSellAmount} * ${chiCangItem.preDrPrice} = ${todaySellPl}<br/>
             当日参考盈亏 = ${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} = ${chiCangItem.todayPl}
         `

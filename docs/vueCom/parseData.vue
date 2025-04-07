@@ -170,7 +170,7 @@
         }
     }
     .vxe-table--render-default .vxe-table--scroll-y-handle {
-        height: auto!important;
+        height: initial!important;
     }
   .getFieldIndexBox{
       .topBox {

@@ -21,7 +21,7 @@
                         :content="oprateItem.showText"
                     >
                         <template #reference>
-                            <el-button class="m-2" @click="$copyString(oprateItem.showText)">详情</el-button>
+                            <el-button class="m-2" @click="copyDetail(oprateItem)">详情</el-button>
                         </template>
                     </el-popover>
                     <el-popover
@@ -38,6 +38,7 @@
                     <!-- <el-button v-if="oprateItem.showText" @click="$copyString(oprateItem.showText)">复制</el-button> -->
                     <el-button  type="primary" v-if="oprateItem.isUpBtn" @click="up60(oprateItem.showText)">更新</el-button>
                     <el-button  type="primary" v-if="oprateItem.showParse" @click="extract(oprateItem.showText)">提取</el-button>
+                    <el-button  type="primary" v-if="oprateItem.isAfter" @click="afterCal(oprateItem.showText)">盘后盈亏计算</el-button>
                 </p>
                 <textarea v-model="oprateItem.showText" class="textarea"  />
             </div>
@@ -318,7 +319,7 @@
     import { calculateOData } from './calculate'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
-    import { strToJson } from '@com/util.js'
+    import { strToJson, copyString } from '@com/util.js'
     
     const allOpratedata = ref(Amp.opratedata)
     const accountList = ref([
@@ -454,6 +455,67 @@
         })
     }
 
+    // 盘后计算当日盈亏
+    function afterCal(value) {
+        if (!value) {
+            ElMessage.error('请粘贴盘后接口数据')
+            return
+        }
+        let afterData = strToJson(value)?.data?.data
+        if (!afterData) {
+            ElMessage.error('数据解析异常，请核验')
+            return
+        }
+        let list = getActionData('117', 'dealData').data
+        list?.forEach((chiCangItem) => {
+            let upInfo = ''
+            if(afterData?.list?.length) {
+                let obj = afterData?.list?.find((o)=>{
+                    if (!o.trust_seat) o.trust_seat = undefined
+                    if (!o.circulate_type) o.circulate_type = undefined
+                    if (!o.stock_attr) o.stock_attr = undefined
+                    
+                    let A5Key = o.trust_seat == chiCangItem.fidtrustseat && o.circulate_type == chiCangItem.circulatype && o.stock_attr == chiCangItem.stbproperty;
+                    console.log('aa2333', A5Key)
+                    return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType && o.stock_account == chiCangItem.account && A5Key;
+                });
+                if(obj){
+                    if (chiCangItem.realBuyAmount - obj.real_buy_amount != 0) {
+                        upInfo += `回报买入数量更新：${chiCangItem.realBuyAmount} -> ${obj.real_buy_amount}<br/>`
+                    }
+                    if (chiCangItem.realBuyBalance - obj.real_buy_balance!= 0) {
+                        upInfo += `回报买入金额更新：${chiCangItem.realBuyBalance} -> ${obj.real_buy_balance}<br/>` 
+                    }
+                    if (chiCangItem.realSellAmount - obj.real_sell_amount!= 0) {
+                        upInfo += `回报卖出数量更新：${chiCangItem.realSellAmount} -> ${obj.real_sell_amount}<br/>` 
+                    }
+                    if (chiCangItem.realSellBalance - obj.real_sell_balance!= 0) {
+                        upInfo += `回报卖出金额更新：${chiCangItem.realSellBalance} -> ${obj.real_sell_balance}<br/>` 
+                    }
+                    chiCangItem.realBuyAmount = obj.real_buy_amount;
+                    chiCangItem.realBuyBalance = obj.real_buy_balance;
+                    chiCangItem.realSellAmount = obj.real_sell_amount;
+                    chiCangItem.realSellBalance = obj.real_sell_balance;
+                }
+            }
+            
+            if(afterData?.price_list?.length){
+                let obj = afterData.price_list.find((o)=>{
+                    return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType;
+                });
+                if(obj){
+                    if (chiCangItem.preDrPrice - obj.pre_dr_price!= 0) {
+                        upInfo += `前收盘价格更新：${chiCangItem.preDrPrice} -> ${obj.pre_dr_price}<br/>` 
+                    }
+                    chiCangItem.preDrPrice = obj.pre_dr_price;
+                }
+            }
+            DealMainData.getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD.value, HKStockExchangeRateList.value)
+            chiCangItem.todayPlEX = upInfo + chiCangItem.todayPlEX;
+        })
+        console.log('aaaaafterData', afterData)
+    }
+
     // 手动更新单条数据
     function selfUpdata(si) {
         if (isNaN(si.selfUpNum) || !si.selfUpNum) {
@@ -477,7 +539,7 @@
     // 60刷新
     function up60(value) {
         if (!value) {
-            ElMessage.error('请输入60接口数据')
+            ElMessage.error('请粘贴60接口数据')
             return
         }
         let data60 = strToJson(value)
@@ -502,7 +564,7 @@
         if (!list.some(item => item.action === '117' && item.showText)) {
             accountList.value = []
             getActionData('117', 'all').dealData = undefined
-            ElMessage.error('请输入117持仓接口数据')
+            ElMessage.error('请粘贴117持仓接口数据')
             return 
         }
         
@@ -626,6 +688,11 @@
                 // that.getOTCData(function(OTCData, OTCStatus){
                 // });
         }
+    }
+
+    function copyDetail(item) {
+        let str = item.data ? JSON.stringify(item.data) : item.showText
+        copyString(str)
     }
 
     // 获取对应action 输入框中的数据，可以换key获取指定的对应数据

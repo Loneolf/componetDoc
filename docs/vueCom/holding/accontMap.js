@@ -140,7 +140,7 @@ export const opratedata = [
         action: '48230',
         data: "",
         showText: isMock ? JSON.stringify(mockData.mockData48230, null, 4) : "",
-        isUpBtn: true,
+        isAfter: true,
     },
 ]
 
