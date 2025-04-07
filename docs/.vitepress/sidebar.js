@@ -38,6 +38,11 @@ export default {
 					hasAside: false,
 				},
 				{
+					text: "JSON格式化",
+					link: "/tools/jsonFormat",
+					hasAside: false,
+				},
+				{
 					text: "css转化",
 					link: "/tools/cssTurn",
 					hasAside: false,
