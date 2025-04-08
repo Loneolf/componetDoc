@@ -33,13 +33,13 @@ export default {
                     hasAside: false,
 				},
 				{
-					text: "埋点excel读取",
-					link: "/tools/readExcel",
+					text: "JSON格式化",
+					link: "/tools/jsonFormat",
 					hasAside: false,
 				},
 				{
-					text: "JSON格式化",
-					link: "/tools/jsonFormat",
+					text: "埋点excel读取",
+					link: "/tools/readExcel",
 					hasAside: false,
 				},
 				{

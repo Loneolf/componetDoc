@@ -1,19 +1,19 @@
 <template>
     <div className="stringChangeBox">
-			<div className="topOprateBox">
-                <el-button class="marginBtn" type="primary" @click="$copyString(showData)">复制结果</el-button>
-			</div>
-			<div className="stringChangeContent">
-				<div className="leftBox">
-					<textarea v-model="taValue" className="textarea" @input="changeHandle" />
-				</div>
-				<div className="rightBox">
-                    <pre v-if="showData && showPre" className="showBox preShowBox">{{ showData }}</pre>
-                    <div v-if="showData && !showPre" className="showBox">{{ showData }}</div>
-					<p v-else :class="tipText === '请粘贴正确的请求数据'? 'tip errorTip' : 'tip'">{{tipText}}</p>
-				</div>
-			</div>
-		</div>
+        <div className="topOprateBox">
+            <el-button class="marginBtn" type="primary" @click="$copyString(showData)">复制结果</el-button>
+        </div>
+        <div className="stringChangeContent">
+            <div className="leftBox">
+                <textarea v-model="taValue" className="textarea" @input="changeHandle" />
+            </div>
+            <div className="rightBox">
+                <pre v-if="showData && showPre" className="showBox preShowBox">{{ showData }}</pre>
+                <div v-if="showData && !showPre" className="showBox">{{ showData }}</div>
+                <p v-else :class="tipText === '请粘贴正确的请求数据'? 'tip errorTip' : 'tip'">{{tipText}}</p>
+            </div>
+        </div>
+    </div>
 </template>
   
 <script setup>
