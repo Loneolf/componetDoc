@@ -20,7 +20,7 @@ export function computeAccountData(gridData, oData, oData1, OTCData, OTCStatus){
         accountItem.kqEX = `取值117接口"GRID2"列表中对应"2_AVAILABLEINDEX"字段值`
         accountItem.kyEX = `取值117接口"GRID2"列表中对应"2_USABLEINDEX"字段值`
         if (type == '0' || type =='RMB' || type=='rmb') {
-            console.log('aaa2233RMB', oData.MKTVAL_RMB, oData.TOTALASSET_RMB, oData)
+            // console.log('aaa2233RMB', oData.MKTVAL_RMB, oData.TOTALASSET_RMB, oData)
             accountItem.bztype = '0';
             var rmbHoldingList = gridData.filter((o)=>{
                 return accountTypeMap[accountItem.bztype].indexOf(o.wtAccountType) > -1;
