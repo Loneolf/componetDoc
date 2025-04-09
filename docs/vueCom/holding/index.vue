@@ -160,7 +160,7 @@
                 >
                     <div class="listItem" v-for="si in item.list" :key="si.domKey">
                         <p>
-                            <span class="name">{{ si.name }}</span>-----
+                            <span class="name" @click="$copyString(si.name)">{{ si.name }}</span>-----
                             <span class="itemSi">
                                 <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
                                 <el-popover
@@ -177,7 +177,7 @@
                             </span>
                             <span class="itemSplit">|</span>
                             <span class="itemSi">
-                                <label>当日盈亏</label>：<span>{{ si.todayPl}}</span>
+                                <label>当日盈亏</label>：<span @click="$copyString(si.todayPl)">{{ si.todayPl}}</span>
                                 <el-popover
                                     v-if="si.todayPlEX"
                                     placement="bottom"
@@ -185,7 +185,7 @@
                                     trigger="hover"
                                 >
                                     <template #reference>
-                                        <el-button class="m-2">来源</el-button>
+                                        <el-button class="m-2"  @click="$copyString(si.todayPlEX)">来源</el-button>
                                     </template>
                                     <p class="popverp" v-html="si.todayPlEX"></p>
                                 </el-popover>
@@ -512,6 +512,8 @@
             }
             DealMainData.getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD.value, HKStockExchangeRateList.value)
             chiCangItem.todayPlEX = upInfo + chiCangItem.todayPlEX;
+
+            accountList.value = DealAccontData.upAccountData(accountList.value, dataList.value)
         })
         console.log('aaaaafterData', afterData)
     }
