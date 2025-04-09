@@ -4,6 +4,7 @@
             <el-button type="primary" @click="parseBtn">解析117</el-button>
             <el-button type="primary" @click="calculate">数据计算</el-button>
             <el-button type="primary" @click="clearData()">清空内容</el-button>
+            <el-button type="primary" @click="downExcl">Excel下载</el-button>
         </div>
         <div class="sourceData">
             <div 
@@ -320,6 +321,8 @@
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
     import { strToJson, copyString } from '@com/util.js'
+    // 生成Excel表格并支持下载
+    import * as XLSX from "xlsx";
     
     const allOpratedata = ref(Amp.opratedata)
     const accountList = ref([
@@ -690,6 +693,46 @@
                 // that.getOTCData(function(OTCData, OTCStatus){
                 // });
         }
+    }
+
+    function downExcl() {
+        console.log('aaa2333down')
+        const data = [
+            ['姓名', '年龄', '城市'],
+            ['张三', 28, '北京'],
+            ['李四', 32, '上海'],
+            ['王五', 25, '广州']
+        ];
+        const data2 = [
+            ['姓名', '年龄', '城市'],
+            ['张三2', 28, '北京2'],
+            ['李四2', 32, '上海2'],
+            ['王五2', 25, '广州2']
+        ]
+        const ws = XLSX.utils.aoa_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+        const ws2 = XLSX.utils.aoa_to_sheet(data2);
+        XLSX.utils.book_append_sheet(wb, ws2, 'Sheet2');
+
+
+        const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
+
+        function s2ab(s) {
+            const buf = new ArrayBuffer(s.length);
+            const view = new Uint8Array(buf);
+            for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xFF;
+            return buf;
+        }
+
+        const blob = new Blob([s2ab(wbout)], { type: 'application/octet-stream' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'parseData.xlsx';
+        a.click();
+        URL.revokeObjectURL(url);
     }
 
     function copyDetail(item) {
