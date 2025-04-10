@@ -736,8 +736,8 @@
     }
 
     function copyDetail(item) {
-        let str = item.data ? JSON.stringify(item.data, null, 4) : item.showText
-        copyString(str)
+        // let str = item.data ? JSON.stringify(item.data, null, 4) : item.showText
+        copyString(item.showText)
     }
 
     // 获取对应action 输入框中的数据，可以换key获取指定的对应数据
