@@ -696,27 +696,39 @@
     }
 
     function downExcl() {
-        console.log('aaa2333down')
-        const data = [
-            ['姓名', '年龄', '城市'],
-            ['张三', 28, '北京'],
-            ['李四', 32, '上海'],
-            ['王五', 25, '广州']
-        ];
-        const data2 = [
-            ['姓名', '年龄', '城市'],
-            ['张三2', 28, '北京2'],
-            ['李四2', 32, '上海2'],
-            ['王五2', 25, '广州2']
-        ]
-        const ws = XLSX.utils.aoa_to_sheet(data);
+        let defaultTitle = ['名称', '市值', '当日盈亏', '当日盈亏来源', '盈亏', '盈亏来源', '盈亏率', '盈亏率来源', '持仓', '可用', '成本', '市价', '个股仓位', '个股仓位来源']
+        let map = {
+            '名称': 'name',
+            '市值': 'shiZhi',
+            '当日盈亏': 'todayPl',
+            '当日盈亏来源': 'todayPlEX',
+            '盈亏': 'yingKui',
+            '盈亏来源': 'yingKuiEX',
+            '盈亏率': 'yingKuiLv',
+            '盈亏率来源': 'yingKuiLvEX',
+            '持仓': 'chiCang',
+            '可用': 'keYong',
+            '成本': 'chengBen',
+            '市价': 'assetPrice',
+            '个股仓位': 'ratio',
+            '个股仓位来源': 'ratioEX',
+        }
         const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-
-        const ws2 = XLSX.utils.aoa_to_sheet(data2);
-        XLSX.utils.book_append_sheet(wb, ws2, 'Sheet2');
-
-
+        dataList.value?.forEach(listItem => {
+            let data = [defaultTitle]
+            if (!listItem.list?.length) return
+            listItem.list.forEach(item => {
+                let dataI = []
+                defaultTitle.forEach(title => {
+                    dataI.push(item[map[title]].replace(/<br\s*\/?>/gi, ''))
+                })
+                data.push(dataI)
+            })
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, Amp.moneyTypeMap[listItem.bztype]);
+            // console.log('aaa2333data', data)
+        })
+        
         const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'binary' });
 
         function s2ab(s) {
