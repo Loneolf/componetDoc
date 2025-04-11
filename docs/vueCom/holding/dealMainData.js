@@ -313,7 +313,7 @@ export function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchang
         chiCangItem.todayPlHKD = '--';
         if (!computeObj.isCompute) {
             chiCangItem.todayPlEX = `${computeObj.text}`
-        } else if (unusualAssetPrice || unusualPrePrice) {
+        } else if (unusualAssetPrice) {
             chiCangItem.todayPlEX = `当前最新价异常，不进行计算: ${chiCangItem.assetPrice}`
         } else if (unusualPrePrice) {
             chiCangItem.todayPlEX = `前收盘价异常，不进行计算: ${chiCangItem.preDrPrice}`

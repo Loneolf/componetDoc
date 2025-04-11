@@ -156,11 +156,11 @@
                 <div 
                     class="listWrap" 
                     v-for="item in dataList" 
-                    :key="item.bztype" 
+                    :key="item.bztype"
                     v-show="item.bztype === activeAccont"
                 >
                     <div class="listItem" v-for="si in item.list" :key="si.domKey">
-                        <p>
+                        <p v-show="false">
                             <span class="name" @click="$copyString(si.name)">{{ si.name }}</span>-----
                             <span class="itemSi">
                                 <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
@@ -373,7 +373,7 @@
             // console.log('aaaa23333', JSON.parse(JSON.stringify(accontKey[key])))
             sortList.push(accontKey[key]) 
         }
-        console.log('dataList', JSON.parse(JSON.stringify(sortList)))
+        // console.log('dataList', JSON.parse(JSON.stringify(sortList)))
         return sortList
     });
 
@@ -401,7 +401,7 @@
             let res
             try {
                 res = strToJson(ri)
-                console.log('aaaaaaextract', res)
+                // console.log('aaaaaaextract', res)
                 action = res?.ACTION
             } catch (e) {
                 // console.log('aaaaaaextract', e, ri)
@@ -422,9 +422,9 @@
 
     // 刷新前 数据计算
     function calculate() {
-        console.log('aaaacalculater')
+        // console.log('aaaacalculater')
         let fareData = getActionData('5850')
-        console.log('aaaa23333fareData', fareData)
+        // console.log('aaaa23333fareData', fareData)
         if (!fareData) {
             ElMessage.error('请输入需要计算的费率，5850接口数据')
             return
@@ -436,7 +436,7 @@
         }
         calculateOData(list, HKStockExchangeRateList.value, exchangeRateHKDtoUSD.value, fareData)
 
-        console.log('aaaa23333calculate', JSON.parse(JSON.stringify(dataList.value))) 
+        // console.log('aaaa23333calculate', JSON.parse(JSON.stringify(dataList.value))) 
         // 顶部数据也要刷新，如总市值，浮动盈亏，当日盈亏都需要重新计算
         accountList.value = DealAccontData.calAccontData(accountList.value, dataList.value)
         ElMessage({
