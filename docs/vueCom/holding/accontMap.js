@@ -62,6 +62,25 @@ export const hsExchangeTypeReverseMap = {
     'R': 'R'
 }
 
+export const excelItems = ['名称', '市值', '当日盈亏', '当日盈亏来源', '盈亏', '盈亏来源', '盈亏率', '盈亏率来源', '持仓', '可用', '成本', '市价', '个股仓位', '个股仓位来源']
+
+export const excelTitleMap = {
+    '名称': 'name',
+    '市值': 'shiZhi',
+    '当日盈亏': 'todayPl',
+    '当日盈亏来源': 'todayPlEX',
+    '盈亏': 'yingKui',
+    '盈亏来源': 'yingKuiEX',
+    '盈亏率': 'yingKuiLv',
+    '盈亏率来源': 'yingKuiLvEX',
+    '持仓': 'chiCang',
+    '可用': 'keYong',
+    '成本': 'chengBen',
+    '市价': 'assetPrice',
+    '个股仓位': 'ratio',
+    '个股仓位来源': 'ratioEX',
+}
+
 export const opratedata = [
     {
         title: '数据提取',

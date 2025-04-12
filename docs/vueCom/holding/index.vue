@@ -3,8 +3,8 @@
         <div class="oprateBtn">
             <el-button type="primary" @click="parseBtn">解析117</el-button>
             <el-button type="primary" @click="calculate">数据计算</el-button>
+            <el-button type="primary" @click="downDialog = true">Excel下载</el-button>
             <el-button type="primary" @click="clearData()">清空内容</el-button>
-            <el-button type="primary" @click="downExcl">Excel下载</el-button>
         </div>
         <div class="sourceData">
             <div 
@@ -160,7 +160,7 @@
                     v-show="item.bztype === activeAccont"
                 >
                     <div class="listItem" v-for="si in item.list" :key="si.domKey">
-                        <p v-show="false">
+                        <p>
                             <span class="name" @click="$copyString(si.name)">{{ si.name }}</span>-----
                             <span class="itemSi">
                                 <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
@@ -306,6 +306,26 @@
                 </div>
             </div>
         </div>
+        <el-dialog v-model="downDialog" title="选择要下载的项目" width="600">
+            我是dialog的内容
+            <el-checkbox
+                v-model="checkAll"
+                :indeterminate="isIndeterminate"
+                @change="handleCheckAllChange"
+            >全选</el-checkbox>
+            <el-checkbox-group
+                v-model="excelItemSelect"
+                @change="handleCheckChange"
+            >
+                <el-checkbox v-for="excelItem in excelItems" :key="excelItem" :label="excelItem" :value="excelItem">
+                    {{ excelItem }}
+                </el-checkbox>
+            </el-checkbox-group>
+            <div class="dialog-footer">
+                <el-button @click="downDialog = false">取消</el-button>
+                <el-button type="primary" @click="downExcel">确定</el-button>
+            </div>
+        </el-dialog>
     </div>
 </template>
   
@@ -320,6 +340,7 @@
     import { calculateOData } from './calculate'
     import * as Nutil from './dealUtil'
     import * as Amp from './accontMap'
+    import { excelItems } from './accontMap'
     import { strToJson, copyString } from '@com/util.js'
     // 生成Excel表格并支持下载
     import * as XLSX from "xlsx";
@@ -342,6 +363,15 @@
     // const exchangeRateHKDtoUSD = ref('0.12813000')
     const exchangeRateHKDtoUSD = ref('')
     const INDEXO = ref({})
+
+    // 下载excel 相关
+    const downDialog = ref(false)
+    // 以选项，默认选择名称，当日盈亏，当日盈亏来源
+    const excelItemSelect = ref(['名称', '当日盈亏', '当日盈亏来源'])
+    // 不确定状态，全选按钮在全选与非全选之间的状态，可去掉
+    const isIndeterminate = ref(false)
+    // 全选按钮是否选中
+    const checkAll = ref(false)
 
     onMounted(() => {
         // parseBtn()
@@ -695,32 +725,37 @@
         }
     }
 
-    function downExcl() {
-        let defaultTitle = ['名称', '市值', '当日盈亏', '当日盈亏来源', '盈亏', '盈亏来源', '盈亏率', '盈亏率来源', '持仓', '可用', '成本', '市价', '个股仓位', '个股仓位来源']
-        let map = {
-            '名称': 'name',
-            '市值': 'shiZhi',
-            '当日盈亏': 'todayPl',
-            '当日盈亏来源': 'todayPlEX',
-            '盈亏': 'yingKui',
-            '盈亏来源': 'yingKuiEX',
-            '盈亏率': 'yingKuiLv',
-            '盈亏率来源': 'yingKuiLvEX',
-            '持仓': 'chiCang',
-            '可用': 'keYong',
-            '成本': 'chengBen',
-            '市价': 'assetPrice',
-            '个股仓位': 'ratio',
-            '个股仓位来源': 'ratioEX',
+    const handleCheckAllChange = (val) => {
+        excelItemSelect.value = val ? excelItems : []
+        isIndeterminate.value = false
+    }
+    const handleCheckChange = (value) => {
+        const checkedCount = value.length
+        checkAll.value = checkedCount === excelItems.length
+        isIndeterminate.value = checkedCount > 0 && checkedCount < excelItems.length
+    }
+
+    function downExcel() {
+        if (!excelItemSelect.value?.length) {
+            ElMessage.error('请选择要下载的项目')
+            return
         }
+        if(!dataList.value?.length){
+            ElMessage.error('当前没有可下载数据')
+            return
+        }
+        downDialog.value = false
+
         const wb = XLSX.utils.book_new();
+        // 遍历持仓数据，生成每个账户的Excel表格，每个账户都是一个sheet，sheet名称为账户类型
         dataList.value?.forEach(listItem => {
-            let data = [defaultTitle]
+            let data = [excelItemSelect.value]
             if (!listItem.list?.length) return
             listItem.list.forEach(item => {
                 let dataI = []
-                defaultTitle.forEach(title => {
-                    dataI.push(item[map[title]].replace(/<br\s*\/?>/gi, ''))
+                excelItemSelect.value.forEach(title => {
+                    // 将解释中的换行符替换为空格
+                    dataI.push(item[Amp.excelTitleMap[title]].replace(/<br\s*\/?>/gi, ''))
                 })
                 data.push(dataI)
             })
