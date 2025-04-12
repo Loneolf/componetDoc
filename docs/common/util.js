@@ -34,6 +34,14 @@ export function copyString(params) {
 		});
 }
 
+export function zget(data) {
+	try {
+		return JSON.parse(JSON.stringify(data.value))
+	} catch (error) {
+		console.error('zget', error)
+	}
+}
+
 export function serveDataToObj(data, isCap) {
 	const lines = data.split("\n");
 	// console.log('aaa2333lines', lines)

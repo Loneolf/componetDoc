@@ -6,6 +6,7 @@ import {
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import vitePluginRaw from 'vite-plugin-raw';
 import path from "path";
+import DefineOptions from 'unplugin-vue-define-options/vite'
 
 
 import sidebar from "./sidebar";
@@ -27,7 +28,9 @@ export default defineConfig({
 			vueJsx(),
 			vitePluginRaw({
 				match: /\.html$/,
-			})
+			}),
+			// 定义组件, 可以直接使用defineOptions
+			DefineOptions(),
 		],
 
 		resolve: {

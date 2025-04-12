@@ -52,6 +52,11 @@ export default {
 					link: "/tools/stringTurn",
                     hasAside: false,
 				},
+				{
+                    text: "测试、调试",
+					link: "/tools/test",
+                    hasAside: false,
+				},
 			],
 		},
 	],

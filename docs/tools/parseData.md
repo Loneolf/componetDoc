@@ -1,5 +1,5 @@
 ---
-pageClass: toolsPage
+pageClass: parseData
 aside: false
 ---
 

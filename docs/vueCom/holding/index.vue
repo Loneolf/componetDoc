@@ -152,157 +152,150 @@
                     <br />
                 </div>
             </div>
-            <div v-if="dataList.length" class="listBox">
-                <div 
-                    class="listWrap" 
-                    v-for="item in dataList" 
-                    :key="item.bztype"
-                    v-show="item.bztype === activeAccont"
-                >
-                    <div class="listItem" v-for="si in item.list" :key="si.domKey">
-                        <p>
-                            <span class="name" @click="$copyString(si.name)">{{ si.name }}</span>-----
-                            <span class="itemSi">
-                                <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.shiZhiEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.shiZhiEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>当日盈亏</label>：<span @click="$copyString(si.todayPl)">{{ si.todayPl}}</span>
-                                <el-popover
-                                    v-if="si.todayPlEX"
-                                    placement="bottom"
-                                    :width="900"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2"  @click="$copyString(si.todayPlEX)">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.todayPlEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>盈亏</label>：<span>{{ geshiValue(si.yingKui, INDEXO.YKINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.yingKuiEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.yingKuiEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>盈亏率</label>：<span>{{ si.yingKuiLv}}%</span>
-                                <el-popover
-                                    v-if="si.yingKuiLvEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.yingKuiLvEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>持仓</label>：<span>{{ geshiValue(si.chiCang, INDEXO.STOCKNUMINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.chiCangEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.chiCangEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>可用</label>：<span>{{  geshiValue(si.keYong, INDEXO.KYINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.keYongEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.keYongEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>成本</label>：<span>{{ geshiValue(si.chengBen, INDEXO.KEEPPRICEINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.chengBenEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.chengBenEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>市价</label>：<span>{{  geshiValue(si.assetPrice, INDEXO.ASSETPRICEINDEX, undefined, INDEXO) }}</span>
-                                <el-popover
-                                    v-if="si.assetPriceEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.assetPriceEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="itemSi">
-                                <label>个股仓位</label>：<span>{{  si.ratio }}</span>
-                                <el-popover
-                                    v-if="si.ratioEX"
-                                    placement="bottom"
-                                    :width="600"
-                                    trigger="hover"
-                                >
-                                    <template #reference>
-                                        <el-button class="m-2">来源</el-button>
-                                    </template>
-                                    <p class="popverp" v-html="si.ratioEX"></p>
-                                </el-popover>
-                            </span>
-                            <span class="itemSplit">|</span>
-                            <span class="selfUpdata">
-                                <el-input v-model="si.selfUpNum" style="width: 140px" placeholder="请输入更新数据" />
-                                <el-button @click="selfUpdata(si)">手动更新</el-button>
-                            </span>
-                        </p>
-                    </div>
+            <div class="listBox" v-bind="containerProps" :style="{height: '1000px'}">
+                <div v-bind="wrapperProps">
+                    <p class="listItem" v-for="{data: si} in list" :key="si.domKey" style="height: 100px">
+                        <span class="name">{{ si.name }}</span>-----
+                        <span class="itemSi">
+                            <label>市值</label>：<span>{{ geshiValue(si.shiZhi, INDEXO.STOCKVALUEINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.shiZhiEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.shiZhiEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>当日盈亏</label>：<span>{{ si.todayPl}}</span>
+                            <el-popover
+                                v-if="si.todayPlEX"
+                                placement="bottom"
+                                :width="900"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.todayPlEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>盈亏</label>：<span>{{ geshiValue(si.yingKui, INDEXO.YKINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.yingKuiEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.yingKuiEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>盈亏率</label>：<span>{{ si.yingKuiLv}}%</span>
+                            <el-popover
+                                v-if="si.yingKuiLvEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.yingKuiLvEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>持仓</label>：<span>{{ geshiValue(si.chiCang, INDEXO.STOCKNUMINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.chiCangEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.chiCangEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>可用</label>：<span>{{  geshiValue(si.keYong, INDEXO.KYINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.keYongEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.keYongEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>成本</label>：<span>{{ geshiValue(si.chengBen, INDEXO.KEEPPRICEINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.chengBenEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.chengBenEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>市价</label>：<span>{{  geshiValue(si.assetPrice, INDEXO.ASSETPRICEINDEX, undefined, INDEXO) }}</span>
+                            <el-popover
+                                v-if="si.assetPriceEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.assetPriceEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="itemSi">
+                            <label>个股仓位</label>：<span>{{  si.ratio }}</span>
+                            <el-popover
+                                v-if="si.ratioEX"
+                                placement="bottom"
+                                :width="600"
+                                trigger="hover"
+                            >
+                                <template #reference>
+                                    <el-button class="m-2">来源</el-button>
+                                </template>
+                                <p class="popverp" v-html="si.ratioEX"></p>
+                            </el-popover>
+                        </span>
+                        <span class="itemSplit">|</span>
+                        <span class="selfUpdata">
+                            <el-input v-model="si.selfUpNum" style="width: 140px" placeholder="请输入更新数据" />
+                            <el-button @click="selfUpdata(si)">手动更新</el-button>
+                        </span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -342,6 +335,7 @@
     import * as Amp from './accontMap'
     import { excelItems } from './accontMap'
     import { strToJson, copyString } from '@com/util.js'
+    import { useVirtualList } from '@vueuse/core'
     // 生成Excel表格并支持下载
     import * as XLSX from "xlsx";
     
@@ -407,6 +401,16 @@
         return sortList
     });
 
+    const showList = computed(() => {
+        console.log("aaaashowLIst", dataList.value.find(item => item.bztype === activeAccont.value)?.list)
+        return dataList.value.find(item => item.bztype === activeAccont.value)?.list || []
+    })
+    
+    const { list, containerProps, wrapperProps } = useVirtualList(
+        showList,
+        { itemHeight: 100},
+    )
+
     // 提取数据
     function extract(value) {
         if (!value) {
@@ -453,6 +457,7 @@
     // 刷新前 数据计算
     function calculate() {
         // console.log('aaaacalculater')
+        console.log('aaa2333get', zget(dataList))
         let fareData = getActionData('5850')
         // console.log('aaaa23333fareData', fareData)
         if (!fareData) {

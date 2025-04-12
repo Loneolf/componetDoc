@@ -1,5 +1,5 @@
 ---
-pageClass: toolsPage
+pageClass: filedsIndexPage
 aside: false
 ---
 

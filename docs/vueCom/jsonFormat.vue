@@ -14,7 +14,7 @@
                     showLineNumber
                     showIcon
                     virtual
-                    height="700"
+                    :height="700"
                     selectableType="multiple"
                 ></vue-json-pretty>
                 <p v-else :class="tipText === '请粘贴正确的请求数据'? 'tip errorTip' : 'tip'">{{tipText}}</p>
