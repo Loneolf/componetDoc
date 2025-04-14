@@ -16,6 +16,5 @@ yarn.lock
 .history
 
 .eslintcache
-.history
 *.tgz
 myConfig.js

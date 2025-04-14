@@ -424,9 +424,9 @@ export function upAccountData(accountList, dataList) {
             item.ylEX += `${si.name}: ${si.yingKui} 、`;
             item.todayPl += isNaN(si.todayPl)? 0 : Number(si.todayPl);
             item.todayPlFrom += `${si.name}: ${si.todayPl} 、`;
-            console.log('aaaa分割线··························································')
-            console.log(si.name, si.todayPl)
-            console.log(si.todayPlEX)
+            // console.log('aaaa分割线··························································')
+            // console.log(si.name, si.todayPl)
+            // console.log(si.todayPlEX)
         })
         item.sz = new Big(item.sz).toFixed(2).toString();
         item.yl = new Big(item.yl).toFixed(2).toString();
@@ -479,7 +479,7 @@ export function upAccountData(accountList, dataList) {
         }
     })
 
-    console.log('aaaaccountListTemp', accountListTemp);
+    // console.log('aaaaccountListTemp', accountListTemp);
     return accountListTemp;
 }
 

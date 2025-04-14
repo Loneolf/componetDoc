@@ -48,7 +48,7 @@
             <label>请输入港币兑美元汇率</label><el-input v-model="exchangeRateHKDtoUSD" style="width:240px" placeholder="如果没有沪B转H，无需填写该值" />
         </div>
         <br />
-        <div class="parseContent">
+        <div class="parseContent" v-loading="loading">
             <div v-if="accountList.length" class="titleArea">
                 <div class="accontBtn">
                     <span
@@ -300,7 +300,6 @@
             </div>
         </div>
         <el-dialog v-model="downDialog" title="选择要下载的项目" width="600">
-            我是dialog的内容
             <el-checkbox
                 v-model="checkAll"
                 :indeterminate="isIndeterminate"
@@ -357,6 +356,7 @@
     // const exchangeRateHKDtoUSD = ref('0.12813000')
     const exchangeRateHKDtoUSD = ref('')
     const INDEXO = ref({})
+    const loading = ref(false)
 
     // 下载excel 相关
     const downDialog = ref(false)
@@ -402,7 +402,7 @@
     });
 
     const showList = computed(() => {
-        console.log("aaaashowLIst", dataList.value.find(item => item.bztype === activeAccont.value)?.list)
+        // console.log("aaaashowLIst", dataList.value.find(item => item.bztype === activeAccont.value)?.list)
         return dataList.value.find(item => item.bztype === activeAccont.value)?.list || []
     })
     
@@ -504,56 +504,66 @@
             ElMessage.error('数据解析异常，请核验')
             return
         }
-        let list = getActionData('117', 'dealData').data
-        list?.forEach((chiCangItem) => {
-            let upInfo = ''
-            if(afterData?.list?.length) {
-                let obj = afterData?.list?.find((o)=>{
-                    if (!o.trust_seat) o.trust_seat = undefined
-                    if (!o.circulate_type) o.circulate_type = undefined
-                    if (!o.stock_attr) o.stock_attr = undefined
+        let time = new Date().getTime()
+        loading.value = true
+        setTimeout(() => {
+            try {
+                let list = getActionData('117', 'dealData').data
+                list?.forEach((chiCangItem) => {
+                    let upInfo = ''
+                    if(afterData?.list?.length) {
+                        let obj = afterData?.list?.find((o)=>{
+                            if (!o.trust_seat) o.trust_seat = undefined
+                            if (!o.circulate_type) o.circulate_type = undefined
+                            if (!o.stock_attr) o.stock_attr = undefined
+                            
+                            let A5Key = o.trust_seat == chiCangItem.fidtrustseat && o.circulate_type == chiCangItem.circulatype && o.stock_attr == chiCangItem.stbproperty;
+                            return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType && o.stock_account == chiCangItem.account && A5Key;
+                        });
+                        if(obj){
+                            if (chiCangItem.realBuyAmount - obj.real_buy_amount != 0) {
+                                upInfo += `回报买入数量更新：${chiCangItem.realBuyAmount} -> ${obj.real_buy_amount}<br/>`
+                            }
+                            if (chiCangItem.realBuyBalance - obj.real_buy_balance!= 0) {
+                                upInfo += `回报买入金额更新：${chiCangItem.realBuyBalance} -> ${obj.real_buy_balance}<br/>` 
+                            }
+                            if (chiCangItem.realSellAmount - obj.real_sell_amount!= 0) {
+                                upInfo += `回报卖出数量更新：${chiCangItem.realSellAmount} -> ${obj.real_sell_amount}<br/>` 
+                            }
+                            if (chiCangItem.realSellBalance - obj.real_sell_balance!= 0) {
+                                upInfo += `回报卖出金额更新：${chiCangItem.realSellBalance} -> ${obj.real_sell_balance}<br/>` 
+                            }
+                            chiCangItem.realBuyAmount = obj.real_buy_amount;
+                            chiCangItem.realBuyBalance = obj.real_buy_balance;
+                            chiCangItem.realSellAmount = obj.real_sell_amount;
+                            chiCangItem.realSellBalance = obj.real_sell_balance;
+                        }
+                    }
                     
-                    let A5Key = o.trust_seat == chiCangItem.fidtrustseat && o.circulate_type == chiCangItem.circulatype && o.stock_attr == chiCangItem.stbproperty;
-                    console.log('aa2333', A5Key)
-                    return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType && o.stock_account == chiCangItem.account && A5Key;
-                });
-                if(obj){
-                    if (chiCangItem.realBuyAmount - obj.real_buy_amount != 0) {
-                        upInfo += `回报买入数量更新：${chiCangItem.realBuyAmount} -> ${obj.real_buy_amount}<br/>`
+                    if(afterData?.price_list?.length){
+                        let obj = afterData.price_list.find((o)=>{
+                            return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType;
+                        });
+                        if(obj){
+                            if (chiCangItem.preDrPrice - obj.pre_dr_price!= 0) {
+                                upInfo += `前收盘价格更新：${chiCangItem.preDrPrice} -> ${obj.pre_dr_price}<br/>` 
+                            }
+                            chiCangItem.preDrPrice = obj.pre_dr_price;
+                        }
                     }
-                    if (chiCangItem.realBuyBalance - obj.real_buy_balance!= 0) {
-                        upInfo += `回报买入金额更新：${chiCangItem.realBuyBalance} -> ${obj.real_buy_balance}<br/>` 
-                    }
-                    if (chiCangItem.realSellAmount - obj.real_sell_amount!= 0) {
-                        upInfo += `回报卖出数量更新：${chiCangItem.realSellAmount} -> ${obj.real_sell_amount}<br/>` 
-                    }
-                    if (chiCangItem.realSellBalance - obj.real_sell_balance!= 0) {
-                        upInfo += `回报卖出金额更新：${chiCangItem.realSellBalance} -> ${obj.real_sell_balance}<br/>` 
-                    }
-                    chiCangItem.realBuyAmount = obj.real_buy_amount;
-                    chiCangItem.realBuyBalance = obj.real_buy_balance;
-                    chiCangItem.realSellAmount = obj.real_sell_amount;
-                    chiCangItem.realSellBalance = obj.real_sell_balance;
-                }
+                    DealMainData.getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD.value, HKStockExchangeRateList.value)
+                    chiCangItem.todayPlEX = upInfo + chiCangItem.todayPlEX;
+    
+                    accountList.value = DealAccontData.upAccountData(accountList.value, dataList.value)
+                })
+                ElMessage.success('盘后计算当日盈亏完毕')
+            } catch (error) {
+                console.error('Error:', error);
+                ElMessage.error('数据解析异常，请核验')
             }
-            
-            if(afterData?.price_list?.length){
-                let obj = afterData.price_list.find((o)=>{
-                    return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType;
-                });
-                if(obj){
-                    if (chiCangItem.preDrPrice - obj.pre_dr_price!= 0) {
-                        upInfo += `前收盘价格更新：${chiCangItem.preDrPrice} -> ${obj.pre_dr_price}<br/>` 
-                    }
-                    chiCangItem.preDrPrice = obj.pre_dr_price;
-                }
-            }
-            DealMainData.getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD.value, HKStockExchangeRateList.value)
-            chiCangItem.todayPlEX = upInfo + chiCangItem.todayPlEX;
-
-            accountList.value = DealAccontData.upAccountData(accountList.value, dataList.value)
-        })
-        console.log('aaaaafterData', afterData)
+            console.log(new Date().getTime() - time, time)
+            loading.value = false
+        }, 50);
     }
 
     // 手动更新单条数据
