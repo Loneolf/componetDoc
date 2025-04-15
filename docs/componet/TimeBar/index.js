@@ -44,6 +44,10 @@ define(function (require, exports, module) {
                     type: String,
                     default: 'weekly',
                 },
+                'isshowtime': {
+                    type: Boolean,
+                    default: false,
+                },
             },
             
             template:  template,
@@ -90,6 +94,18 @@ define(function (require, exports, module) {
                     this.$emit('confirm');
                 },
                 
+            },
+            computed: {
+                showNormalTime: function() {
+                    return this.isshowtime && (this.activeTab === 'weekly' || this.activeTab === 'month')
+                },
+                isShowTimeData: function() {
+                    if (!this.isshowtime) {
+                        return this.activeTab === 'userDefined'
+                    } else {
+                        return true
+                    }
+                } 
             },
             
         });

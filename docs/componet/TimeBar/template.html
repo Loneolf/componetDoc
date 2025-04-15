@@ -9,13 +9,15 @@
         >{{item.text}}</div>
     </div>
     <time-picker
-        :is-show="activeTab == 'userDefined'"
+        :is-show="isShowTimeData"
+        :show-time="showNormalTime"
         :formatter="formatter" 
         :min-date="minDate" 
         :max-date="maxDate" 
         :begin-date="beginDate" 
         :end-date="endDate" 
         :max-diff="31"
+        :show-time="showNormalTime"
         @confirm="onConfirm" 
         @datechange="onDateChange"
     ></time-picker>

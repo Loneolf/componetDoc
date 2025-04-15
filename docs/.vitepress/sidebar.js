@@ -3,13 +3,17 @@ export default {
 		{
 			items: [
 				{
-					text: "时间选择器",
-					link: "/componet/TimeBar/readme",
-				},
-				{
 					text: "搜索组件",
 					link: "/componet/search/readme",
 				},
+				{
+					text: "日期选择器",
+					link: "/componet/TimeBar/readme",
+				},
+				{
+					text: "时间选择控件",
+					link: "/componet/TimeSelect/readme",
+				}
 			],
 		},
 	],

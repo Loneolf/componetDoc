@@ -12,27 +12,32 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="../../lib/base.min.css">
     <link rel="stylesheet" href="../../lib/vant/index@2.12.css">
+    <style>
+        body {
+            background: #ffffff;
+        }
+        .btn{
+            padding: 20px;
+            font-size: 16px;
+        }
+    </style>
 </head>
 
 <body>
     
     <div class="listBox" id="app" v-cloak>
-        <div class="listBox">
-            <span>近一周</span>
-            <span>近一月</span>
-            <span>自定义</span>
+        <div class="btn" @click="openTimeSelect">
+            打开时间选择器
         </div>
         <time-select
             :min-date="minDate" 
             :max-date="maxDate" 
             :begin-date="beginDate" 
             :end-date="endDate"
-            :active-tab="activeTab"
-            :istoday="false"
-            :is-show="true"
-            @confirm="onConfirm" 
+            :is-show="isShow"
+            :formatter="formatter" 
+            @confirm="onConfirm"
             @datechange="onDateChange"
-            @tabchange="onTabChange"
         ></time-select>
     </div>
         

@@ -224,6 +224,12 @@ function getDiff(newData, oldData) {
 	}
 }
 
+/**
+ * 将数据写入文件。
+ * 
+ * @param {any} data - 需要写入文件的数据，该数据会被转换为 JSON 字符串。
+ * @param {string} [p] - 可选参数，指定要写入的文件路径。如果未提供，则使用配置中的输出文件路径。
+ */
 function write(data, p) {
     fs.writeFile(
         p || path.resolve(path.resolve(), upc.outFile),
