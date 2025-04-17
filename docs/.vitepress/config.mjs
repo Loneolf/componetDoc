@@ -19,7 +19,7 @@ export default defineConfig({
 	base: process.env.base || "/doc/",
 
 	returnToTopLabel: '返回顶部', // 自定义返回顶部文字
-
+	lastUpdated: true, // 显示最后更新时间
 	vite: {
 		assetsInclude: ['**/*.html'],
 		plugins: [
