@@ -16,7 +16,7 @@
 ```
 
 ## 效果展示
-<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/search/demo/demo.html" width="375px" height="700px"></iframe>
+<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/search/demo/demo.html"></iframe>
 
 ## 基础用法
 
@@ -55,15 +55,3 @@ methods: {
 | 参数    | 说明   | 参数 | 参数示例 |
 | ------- | ------- | ------- | ------- |
 | onsearch | 触发搜索的事件，输入框无内容关闭弹框或者点击搜索项都会触发 | `{code: string/股票代码, mktype: string/市场类型}` | `{code: "600070", mktype: "SHACCOUNT"}` |
-
-<style scoped>
-    .iframeBox{
-        /* position:absolute;
-        top: 100px;
-        right: 30px; */
-        border-radius: 5px;
-        border:none;
-        background: #fff;
-        box-shadow: 0 0 10px #ccc;
-    }
-</style>

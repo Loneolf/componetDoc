@@ -11,7 +11,7 @@
 ```
 
 ## 效果展示
-<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/TimeBar/demo/demo.html" width="375px" height="700px"></iframe>
+<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/TimeBar/demo/demo.html"></iframe>
 
 
 ## 基础用法
@@ -88,17 +88,3 @@ methods: {
 | confirm | 确认函数 |  | |
 | datechange | 时间控件中的时间发生变化，给begin-data和end-data重新赋值 | beginDate, endDate |
 | tabchange | 点击tab事件 | tab | today、weekly、month、userDefined |
-
-<style scoped>
-    .iframeBox{
-        /* position:absolute;
-        top: 100px;
-        right: 30px; */
-        border-radius: 5px;
-        border:none;
-        background: #fff;
-        box-shadow: 0 0 10px #ccc;
-    }
-</style>
-
-

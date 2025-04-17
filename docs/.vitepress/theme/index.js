@@ -19,7 +19,7 @@ import { copyString, zget } from '../../common/util'
 // 在导航栏直接使用组件，需要注册为全局组件，Feedback 为反馈组件
 import Feedback from "../../vueCom/Feedback.vue";
 import "./style.css";
-import "./toolsPage.less"
+import "./common.less"
 
 // 精度数值加减库，注册为全局可使用
 if (typeof window !== 'undefined') {
