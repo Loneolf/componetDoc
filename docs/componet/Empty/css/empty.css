@@ -1,0 +1,19 @@
+.zx-empty {
+    text-align: center;
+}
+.zx-empty img {
+    width: 4.2rem;
+    height: 2.8rem;
+}
+.zx-empty .empty-text {
+    font-size: .28rem;
+    color: #aaaaaa;
+    text-align: center;
+    line-height: .28rem;
+    font-weight: 400;
+}
+@media screen and (min-width: 600px) {
+    .zx-empty {
+        margin-top: 0.5rem !important;
+    }
+}

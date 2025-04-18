@@ -13,7 +13,32 @@ export default {
 				{
 					text: "时间选择控件",
 					link: "/componet/TimeSelect/readme",
+				},
+				{
+					text: "底部按钮",
+					link: "/componet/ActionButton/readme",
+				},
+				{
+					text: "按钮组",
+					link: "/componet/BtnGroup/readme",
+				},
+				{
+					text: "空状态",
+					link: "/componet/Empty/readme",
+				},
+				{
+					text: "输入组件",
+					link: "/componet/InputField/readme",
+				},
+				{
+					text: "步骤条",
+					link: "/componet/Steps/readme",
+				},
+				{
+					text: "交易日历",
+					link: "/componet/TradeCalendar/readme",
 				}
+				
 			],
 		},
 	],

@@ -1,0 +1,43 @@
+.zx-btn-group .zx-btn {
+    width: 1.36rem;
+    border: .02rem solid rgba(231, 231, 231, 1);
+    font-size: .26rem;
+    color: #777777;
+    text-align: center;
+    font-weight: 400;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+}
+
+.zx-btn-group .zx-btn:first-child {
+    border-radius: .08rem 0rem 0rem .08rem;
+    border-right:0;
+}
+.zx-btn-group .active:first-child {
+    border-radius: .08rem 0rem 0rem .08rem;
+    border-right:.02rem solid rgba(231, 231, 231, 1)
+}
+
+.zx-btn-group .zx-btn:last-child {
+    border-radius: 0rem .08rem .08rem 0rem;
+    border-left:0;
+}
+
+.zx-btn-group .active:last-child {
+    border-radius: 0rem .08rem .08rem 0rem;
+    border-left:.02rem solid rgba(231, 231, 231, 1)
+}
+
+.zx-btn-group .zx-btn.active {
+    color: #fd242a;
+    background: #fff4f4;
+    border: .02rem solid #f9d0d0;
+}
+.flex-a{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
