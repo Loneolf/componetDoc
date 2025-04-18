@@ -1,0 +1,85 @@
+.tradecalendar-datemonth {
+    font-size: .28rem;
+    color: #222222;
+    text-align: center;
+    line-height: .28rem;
+    font-weight: 400;
+
+}
+.tradecalendar-datemonth img{
+    width: .24rem;
+    height: .24rem;
+    margin-left:0.08rem;
+}
+
+.flex{
+    display: flex;
+    
+}
+.space-between{
+    justify-content: space-between;
+}
+.tradecalendar-week{
+    font-size: .28rem;
+    color: #6D7A85;
+    line-height: .28rem;
+    font-weight: 400;
+    margin-top:.48rem;
+    margin-bottom:.32rem;
+}
+.tradecalendar-week span{
+    flex:1;
+}
+.tradecalendar-date{
+    flex-wrap: wrap;
+}
+.date-item{
+    width:20%;
+}
+.date-item span{
+    font-size: .24rem;
+    color: #6D7A85;
+    line-height: .28rem;
+    font-weight: 400; 
+}
+.date-item>div{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    width:1.28rem;
+    height: .64rem;
+    font-weight: 500;
+    font-family: CITIC-Numbers-Medium;
+    font-size: .24rem;
+    background-size:100% 100%;
+    background-image: url(/newjy/lhzy/img/gray-bg.png);
+    line-height:.24rem;
+    text-align: center;
+}
+.date-item>div.red{
+    background-image: url(/newjy/lhzy/img/red-bg.png);
+    color: #E83333;
+}
+.date-item>div.green{
+    background-image: url(/newjy/lhzy/img/green-bg.png);
+    color: #169665;
+}
+.date-item>div.selected{
+    background-image: url(/newjy/lhzy/img/gray-selected.png);
+}
+.date-item>div.red.selected{
+    background-image: url(/newjy/lhzy/img/red-selected.png);
+}
+.date-item>div.green.selected{
+    background-image: url(/newjy/lhzy/img/green-selected.png);
+}
+.date-item>div>div{
+    width:100%;
+    word-wrap: break-word;
+}
+.trade-datepicker .van-picker__confirm{
+    color:#E83333;
+}
+.trade-datepicker .van-picker__cancel{
+    color:#222;
+}
