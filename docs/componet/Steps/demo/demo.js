@@ -1,6 +1,7 @@
 "use strict";
 define(function (require, exports) {
-	var inputField = require('../js/index');
+	var steper = require('../js/index.js')
+
 	var app;
 	
 	initVue();
@@ -13,12 +14,12 @@ define(function (require, exports) {
 			},
 			
 			methods: {
-                plus: function () {
-					this.price += 100
-				}
+               handleClick:function(current){
+                   alert(current)
+               }
 			},
 			components: {
-				inputField:inputField
+				steper:steper
 			}
 		});
 	}

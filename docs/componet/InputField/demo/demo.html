@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>搜索组件</title>
+    <title>空状态</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover,minimal-ui">
     <meta name="apple-touch-fullscreen" content="yes">
@@ -25,22 +25,14 @@
 </head>
 <body>
 <div class="container" id="container" v-cloak>
-    <com-search 
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
-
-    <br />
-    <br />
-    <br />
-    <p>带有去重功能的搜索组件</p>
-    <com-search 
-        isrepetpop
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
+    <input-field style="padding-top:50px;"  step="1000" tofixed="0" :needtips="true" :thousandth="false" maxlen="4" :modelprice="price" start="0" end="10000">
+        <template v-slot:left-tip>
+            <div>跌停1.109</div>
+        </template>
+        <template #right-tip>
+            <div>跌停1.109</div>
+        </template>
+    </input-field>
 </div>
 
 

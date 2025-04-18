@@ -1,5 +1,5 @@
-# 搜索组件
-
+# 输入组件
+Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ## 前置依赖
 使用sea.js将文件模块化，并需要使用css和text插件引入css及html文件
 所有的组件都是基于Vue和vant开发，所以需要引入Vue和vant，以及jQuery进行请求数据
@@ -22,48 +22,58 @@
 
 ```js
 // 引入文件
-var comsearch = require('/vue/components/search/index');
-comsearch.init('com-search');
-// methods中需要有承载search的方法
-methods: {
-	onsearch: function (params) {
-		console.log('aaasearchgetData', params)
-	}
-},
+var inputField = require('/vue/components/jiaoyi-input-field/js/index.js');
+
+components: {
+    inputField:inputField
+}
 ```
 
 ## html中使用
 ```html
-<com-search 
-	isrepetpop
-	placeholder="请输入证券名称/代码/首字母搜索合约" 
-	type="credit"
-	@search="onsearch" 
-></com-search>
+<input-field style="padding-top:50px;"  step="1000" tofixed="0" :needtips="true" :thousandth="false" maxlen="4" :modelprice="price" start="0" end="10000">
+    <template v-slot:left-tip>
+        <div>跌停1.109</div>
+    </template>
+    <template #right-tip>
+        <div>跌停1.109</div>
+    </template>
+</input-field>
 ```
 ## API
 
 | 参数    | 说明   | 类型    | 可选值  | 默认值  |
 | ------- | ------- | ------- | ------- | ------- |
-| isrepetpop    | 是否开启重复代码弹框   | Boolear  |true/false| false |
-| placeholder    | 输入框默认显示文字   | String  || '名称/代码/首字母' |
-| type| 类型，普通账户还是信用账户，请求action32接口数据是需要携带改参数 | string |normal/cridet| normal |
+| step    | 步长   | String  |--| 0.001 |
+| placeholder    | 输入框默认显示文字   | String  |--| 委托价格 |
+| tofixed| 保留小数位数 | string |--| 3 |
+| needtips| 是否展示顶部tip | Boolean |true/false| true |
+| unit| 右侧展示单位 | string |--| -- |
+| thousandth| 是否需要千分位 |Boolean |true/false| false |
+| start| 最小值 | string |--| 0 |
+| end| 最大值 | string |--| -- |
+| maxlen| 最大长度 | string |--| 13 |
+
 
 
 ## Events
 
 | 参数    | 说明   | 参数 | 参数示例 |
 | ------- | ------- | ------- | ------- |
-| onsearch | 触发搜索的事件，输入框无内容关闭弹框或者点击搜索项都会触发 | `{code: string/股票代码, mktype: string/市场类型}` | `{code: "600070", mktype: "SHACCOUNT"}` |
+| input | 输入事件，返回值为输入的值 |  |
+| minus | 输入事件，返回值为输入的值 |  |
+| plus | 输入事件，返回值为输入的值 |  |
+
+
+## Slots
+
+| 参数    | 说明   | 
+| ------- | ------- | 
+| right-tip | 底部右侧插槽 |
+| left-tip | 底部左侧插槽 | 
 
 <style scoped>
     .iframeBox{
-        /* position:absolute;
-        top: 100px;
-        right: 30px; */
-        border-radius: 5px;
-        border:none;
-        background: #fff;
-        box-shadow: 0 0 10px #ccc;
+        height:300px;
     }
 </style>

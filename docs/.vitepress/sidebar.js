@@ -31,6 +31,10 @@ export default {
 					link: "/componet/InputField/readme",
 				},
 				{
+					text: "步骤条",
+					link: "/componet/Steps/readme",
+				},
+				{
 					text: "交易日历",
 					link: "/componet/TradeCalendar/readme",
 				}

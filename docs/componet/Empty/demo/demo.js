@@ -1,8 +1,7 @@
 "use strict";
 define(function (require, exports) {
-    var comsearch = require('../js/index');
+    var empty = require('../js/empty');
 	var app;
-	comsearch.init('com-search');
 	initVue();
 	function initVue() {
 		//根据实际情况进行初始化
@@ -12,12 +11,9 @@ define(function (require, exports) {
 
 			},
 			
-			methods: {
-                searchGetData: function (params) {
-                    console.log('aaasearchgetData', params)
-                }
-			},
-            
+            components: {
+                empty:empty
+            }
 		});
 	}
 });

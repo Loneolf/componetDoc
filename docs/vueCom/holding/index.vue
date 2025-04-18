@@ -452,6 +452,11 @@
                 oprateItem.showText = ri 
             }
         })
+        ElMessage({
+            message: '已完成',
+            type: 'success',
+            duration: 1000,
+        })
     }
 
     // 刷新前 数据计算

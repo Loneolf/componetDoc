@@ -1,5 +1,5 @@
-# 搜索组件
-
+# 交易日历
+Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ## 前置依赖
 使用sea.js将文件模块化，并需要使用css和text插件引入css及html文件
 所有的组件都是基于Vue和vant开发，所以需要引入Vue和vant，以及jQuery进行请求数据

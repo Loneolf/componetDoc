@@ -1,22 +1,37 @@
 "use strict";
 define(function (require, exports) {
-    var comsearch = require('../js/index');
+	var tradeCalendar = require("../js/index.js");
+
 	var app;
-	comsearch.init('com-search');
 	initVue();
 	function initVue() {
 		//根据实际情况进行初始化
 		app = new Vue({
 			el: "#container",
 			data: {
-
+				dateObj: {year: 2025, month: 3},
+				minDate: new Date(2025, 3, 1),
+				maxDate: new Date(2025, 11, 31),
+				profitData: [],
 			},
 			
 			methods: {
-                searchGetData: function (params) {
-                    console.log('aaasearchgetData', params)
-                }
+                itemClick: function (item,date) {
+					console.log(item,date);
+					
+				},
+				
+				handleDateConfirm: function (year, month) {
+					console.log(year, month);
+					
+				},
 			},
+			created: function () {
+
+			},
+			components:{
+				tradeCalendar:tradeCalendar
+			}
             
 		});
 	}

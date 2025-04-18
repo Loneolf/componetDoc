@@ -1,4 +1,4 @@
-# 空状态
+# 步骤条组件
 Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ## 前置依赖
 使用sea.js将文件模块化，并需要使用css和text插件引入css及html文件
@@ -16,37 +16,41 @@ Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ```
 
 ## 效果展示
-<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/Empty/demo/demo.html" width="375px" height="700px"></iframe>
+<iframe class="iframeBox" src="https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/InputField/html/demo/demo.html" width="375px" height="700px"></iframe>
 
 ## 基础用法
 
 ```js
 // 引入文件
-var empty = require('/vue/components/jiaoyi-empty/js/empty.js');
+var steper = require('/vue/components/jiaoyi-steps/js/index.js');
 
 components: {
-    empty:empty
+    steper:steper
 }
 ```
 
 ## html中使用
 ```html
-<empty img-src="../img/empty.png" width="210px"></empty>
-
+    <steper :navigator="['权重设置','参数设置','算法设置']" current="2"></steper>
 ```
 ## API
 
 | 参数    | 说明   | 类型    | 可选值  | 默认值  |
 | ------- | ------- | ------- | ------- | ------- |
-| width    | 宽度   | String  |--| 4.2rem |
-| height    | 高度   | String  |--| 2.8rem |
-| emptyText    | 底部提示文字   | String  |--| 暂无数据 |
-| imgSrc    | 图片链接   | String  |--| 6.0信小福暂无数据图片 |
+| navigator    | 导航数组   | Array  |--| [] |
+| width    | 宽度   | String  |--| 6.3rem|
+| current| 当前步骤 | string |--| 1 |
+| showIndex| 是否显示步骤索引 | Boolean |true/false| true |
+
 
 ## Events
-无
+
+| 参数    | 说明   | 参数 | 参数示例 |
+| ------- | ------- | ------- | ------- |
+| click | 点击步骤条事件 | `{current: 当前步骤}` | `{current: 1}` |
+
 <style scoped>
     .iframeBox{
-      height:300px;
+        height:200px;
     }
 </style>

@@ -24,7 +24,7 @@ right-tip:底部右侧插槽
 */
 
 define(function (require, exports, module) {
-    require('/vue/components/jiaoyi-input-field/css/index.css#')
+    require('../css/index.css#')
     var template = require('../html/template.html')
     
     //初始化

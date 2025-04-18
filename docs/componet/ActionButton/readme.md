@@ -1,5 +1,5 @@
 # 搜索组件
-
+Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ## 前置依赖
 使用sea.js将文件模块化，并需要使用css和text插件引入css及html文件
 所有的组件都是基于Vue和vant开发，所以需要引入Vue和vant，以及jQuery进行请求数据
@@ -87,9 +87,5 @@ components: {
 <style scoped>
     .iframeBox{
         height:200px;
-        border-radius: 5px;
-        border:none;
-        background: #fff;
-        box-shadow: 0 0 10px #ccc;
     }
 </style>

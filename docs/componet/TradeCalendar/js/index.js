@@ -4,8 +4,6 @@
 define(function (require, exports, module) {
     var a = require('../css/index.css#');
     var template = require('../html/index.html');
-    var api = require('../../../api/api.js');
-    var tools=require('../../../common/tools');
     module.exports = {
         props: {
             showLastMonth: {//首日非周一是否展示上个月的日期
@@ -13,7 +11,7 @@ define(function (require, exports, module) {
                 default: false
             },
             date: {//默认日期
-                default: new Date()
+                default: {year:new Date().getFullYear(),month: new Date().getMonth() + 1}
             },
             minDate: {
                 
@@ -31,33 +29,27 @@ define(function (require, exports, module) {
                 currentYear: new Date().getFullYear(),
                 currentMonth: new Date().getMonth() + 1,
                 showDatePicker: false,
-                currentDate: '',
+                currentDate: new Date(),
                 min:'',
                 max: '',
             };
         },
        
         created: function () {
-            var that = this;
-            var dateObj = this.date
-            T.readFileMesg(
-                'lhsydata',
-                function (oData) {
-                  var lhsydata = JSON.parse(decodeURI(oData))
-                  var start = tools.getYTDS(lhsydata.start_date).split('-')
-                  var end = tools.getYTDS(lhsydata.end_date).split('-')
-                  that.minDate = new Date(start[0], start[1] - 1, 1)
-                  that.maxDate = new Date(end[0], end[1] - 1,1)
-                  console.log(that.minDate,that.maxDate);
-                }
-              )
-            console.log( '最大最小范围：',this.minDate,this.maxDate);
+            var dateObj = this.date 
+            this.currentDate = new Date(dateObj.year, dateObj.month - 1,1)
            
         },
-        mounted: function() {
-           
-        },
+      
         methods: {
+            getYTDS:function getYTDS(n) {
+                n = n + '';
+                var year = n.substr(0, 4),
+                  months = n.substr(4, 2),
+                  days = n.substr(6, 8);
+                return year + "-" + months + "-" + days;
+              },
+            
             showCalendar: function showCalendar(currentYear, currentMonth) {
                 var firstDate = new Date(currentYear, currentMonth - 1, 1);
                 var lastDate = new Date(currentYear, currentMonth, 0);
@@ -87,7 +79,6 @@ define(function (require, exports, module) {
                     }
                    
                 }
-                console.log(firstDay,'firstDay',lastDay,lastDate,this.calendarArr);
                 if (firstDay > 1) {
                     for (var j = 1; j < firstDay; j++) {
                         this.calendarArr.unshift({
@@ -136,6 +127,7 @@ define(function (require, exports, module) {
         },
         watch: {
             date: function (val) {
+                console.log(val);
                 this.currentYear = val.year;
                 this.currentMonth = val.month;
                 this.showCalendar(this.currentYear, this.currentMonth);

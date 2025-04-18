@@ -25,22 +25,8 @@
 </head>
 <body>
 <div class="container" id="container" v-cloak>
-    <com-search 
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
+    <empty img-src="../img/empty.png" width="210px"></empty>
 
-    <br />
-    <br />
-    <br />
-    <p>带有去重功能的搜索组件</p>
-    <com-search 
-        isrepetpop
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
 </div>
 
 

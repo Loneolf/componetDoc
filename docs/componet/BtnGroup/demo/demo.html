@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>搜索组件</title>
+    <title></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no,viewport-fit=cover,minimal-ui">
     <meta name="apple-touch-fullscreen" content="yes">
@@ -25,22 +25,17 @@
 </head>
 <body>
 <div class="container" id="container" v-cloak>
-    <com-search 
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
-
-    <br />
-    <br />
-    <br />
-    <p>带有去重功能的搜索组件</p>
-    <com-search 
-        isrepetpop
-        placeholder="请输入证券名称/代码/首字母搜索合约" 
-        type="credit"
-        @search="searchGetData" 
-    ></com-search>
+    <btn-group :btn-config="btnConfig" height="28"  @btnclick="btnClick" style="margin-bottom:10px;"></btn-group>
+    
+    <btn-group :btn-config="btnConfig2" 
+        height="28" 
+        @btnclick="btnClick2" 
+        text-color='black'
+        active-text-color='#fff'
+        background-color='#ebebeb'
+        active-background-color='blueviolet'
+        border-color='#ebebeb'
+        active-border-color= 'blueviolet'></btn-group>
 </div>
 
 

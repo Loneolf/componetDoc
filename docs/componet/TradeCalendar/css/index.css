@@ -52,26 +52,26 @@
     font-family: CITIC-Numbers-Medium;
     font-size: .24rem;
     background-size:100% 100%;
-    background-image: url(/newjy/lhzy/img/gray-bg.png);
+    background-image: url(../img/gray-bg.png);
     line-height:.24rem;
     text-align: center;
 }
 .date-item>div.red{
-    background-image: url(/newjy/lhzy/img/red-bg.png);
+    background-image: url(../img/red-bg.png);
     color: #E83333;
 }
 .date-item>div.green{
-    background-image: url(/newjy/lhzy/img/green-bg.png);
+    background-image: url(../img/green-bg.png);
     color: #169665;
 }
 .date-item>div.selected{
-    background-image: url(/newjy/lhzy/img/gray-selected.png);
+    background-image: url(../img/gray-selected.png);
 }
 .date-item>div.red.selected{
-    background-image: url(/newjy/lhzy/img/red-selected.png);
+    background-image: url(../img/red-selected.png);
 }
 .date-item>div.green.selected{
-    background-image: url(/newjy/lhzy/img/green-selected.png);
+    background-image: url(../img/green-selected.png);
 }
 .date-item>div>div{
     width:100%;
