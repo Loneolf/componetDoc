@@ -21,6 +21,9 @@ define(function (require, exports, module) {
             },
             profitData: {
                 default: []
+            },
+            showDate: {
+                default: true
             }
         }, 
         data: function data() {
@@ -29,7 +32,7 @@ define(function (require, exports, module) {
                 currentYear: new Date().getFullYear(),
                 currentMonth: new Date().getMonth() + 1,
                 showDatePicker: false,
-                currentDate: new Date(),
+                currentDate: new Date().getDate(),
                 min:'',
                 max: '',
             };
@@ -38,9 +41,14 @@ define(function (require, exports, module) {
         created: function () {
             var dateObj = this.date 
             this.currentDate = new Date(dateObj.year, dateObj.month - 1,1)
-           
+            console.log(dateObj);
+            this.showCalendar(dateObj.year, dateObj.month)
+            
         },
-      
+        mounted: function mounted () {
+            console.log(this.profitData);
+           this.updateProfitData(this.profitData)
+        },
         methods: {
             getYTDS:function getYTDS(n) {
                 n = n + '';
@@ -123,7 +131,22 @@ define(function (require, exports, module) {
                   return val+'年';
                 }
                 return val;
-              },
+            },
+            updateProfitData: function (val) {
+                this.$nextTick(function () {
+                    for (var i = 0; i < this.calendarArr.length; i++){
+                        if (this.calendarArr[i].isLastMonth) {
+                            continue;
+                        }
+                        for (var j = 0; j < val.length; j++){
+                            if (val[j].date== this.calendarArr[i].date) {
+                                this.calendarArr[i].income=val[j].income>0?'+'+val[j].income:val[j].income
+                            }
+                            
+                        }
+                    }
+                })
+            }
         },
         watch: {
             date: function (val) {
@@ -136,20 +159,7 @@ define(function (require, exports, module) {
             },
             profitData: {
                 handler:function (val) {
-                    this.$nextTick(function () {
-                        for (var i = 0; i < this.calendarArr.length; i++){
-                            if (this.calendarArr[i].isLastMonth) {
-                                continue;
-                            }
-                            for (var j = 0; j < val.length; j++){
-                                if (val[j].trade_date.slice(6) == this.calendarArr[i].date) {
-                                    this.calendarArr[i].income=val[j].qt0_pnl>0?'+'+val[j].qt0_pnl:val[j].qt0_pnl
-                                    this.calendarArr[i].vac_pnl_id=val[j].vac_pnl_id
-                                }
-                                
-                            }
-                        }
-                    })
+                    this.updateProfitData(val)
                 },
                 deep:true
             }

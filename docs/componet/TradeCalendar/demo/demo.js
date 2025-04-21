@@ -9,10 +9,18 @@ define(function (require, exports) {
 		app = new Vue({
 			el: "#container",
 			data: {
-				dateObj: {year: 2025, month: 3},
+				dateObj: {year: 2025, month: 4},
 				minDate: new Date(2025, 3, 1),
 				maxDate: new Date(2025, 11, 31),
-				profitData: [],
+				profitData: [{
+					date: '18',
+					income: 1000,
+					selected:false
+				},{
+					date: '14',
+					income: -1000,
+					selected:true
+				}],
 			},
 			
 			methods: {

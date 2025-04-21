@@ -45,25 +45,15 @@ methods: {
 
 | 参数    | 说明   | 类型    | 可选值  | 默认值  |
 | ------- | ------- | ------- | ------- | ------- |
-| isrepetpop    | 是否开启重复代码弹框   | Boolear  |true/false| false |
-| placeholder    | 输入框默认显示文字   | String  || '名称/代码/首字母' |
-| type| 类型，普通账户还是信用账户，请求action32接口数据是需要携带改参数 | string |normal/cridet| normal |
-
-
+| showLastMonth    | 首日非周一是否展示上个月的日期   | Boolean  |true/false| false |
+| date    | 默认展示的日历月份  | Object  |--| 当月月份，示例：`{year:2025,month:4}`|
+| minDate|月份可选最小范围 | Date |--|-- |
+| maxDate| 月份可选最大范围 | Date |--| -- |
+| profitData| 日历中要填入的数据 | Array | 示例：`{date:3,income:1000,selected:false}`| [] |
+| showDate| 是否展示顶部选择月份选项 | Boolean  |true/false| true |
 ## Events
 
 | 参数    | 说明   | 参数 | 参数示例 |
 | ------- | ------- | ------- | ------- |
-| onsearch | 触发搜索的事件，输入框无内容关闭弹框或者点击搜索项都会触发 | `{code: string/股票代码, mktype: string/市场类型}` | `{code: "600070", mktype: "SHACCOUNT"}` |
-
-<style scoped>
-    .iframeBox{
-        /* position:absolute;
-        top: 100px;
-        right: 30px; */
-        border-radius: 5px;
-        border:none;
-        background: #fff;
-        box-shadow: 0 0 10px #ccc;
-    }
-</style>
+| confirm | 选择月份后触发的方法 | `{currentYear: string/选择的年, currentMonth: string/选择的月份}` | `{currentYear: "2025", currentMonth: "04"}` |
+| itemclick | 点击日历中子项触发 | `{item: Object/点击子项的数据, date: string/当前选择的日期}` | `{item: "{date:3,income:1000,selected:false}", date: "20250409"}` |

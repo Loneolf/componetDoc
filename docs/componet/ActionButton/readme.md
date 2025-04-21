@@ -1,4 +1,4 @@
-# 搜索组件
+# 按钮组
 Author:[zhangjin](mailto:ex_zhangjin@citics.com)
 ## 前置依赖
 使用sea.js将文件模块化，并需要使用css和text插件引入css及html文件
