@@ -1,13 +1,13 @@
 import * as dealUtil from './dealUtil.js'
 import * as accountMap from './accontMap.js'
 
-export function turn117ToObj(data, exchangeRateHKDtoUSD) {
+export function turn117ToObj(data, exchangeRateHKDtoUSD, data60) {
     let _data = JSON.parse(JSON.stringify(data))
 
     let INDEX = {}
     let arr = []
 
-    if (!data.GRID0.length) {
+    if (!data?.GRID0?.length) {
         return { INDEX, data: {} }
     }
     INDEX.STOCKCODEINDEX = data.STOCKCODEINDEX;
@@ -38,6 +38,21 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
     INDEX.PREDRPRICEINDEX = data.PREDRPRICEINDEX;
     data.GRID0 && data.GRID0.shift();
     
+    let data60arr = [];
+    if (data60?.GRID0?.length > 0) {
+        data60.GRID0.shift();
+        data60.GRID0.forEach(item => {
+            let ia = item.split('|')
+            data60arr.push({
+                code: ia[2],
+                name: ia[0],
+                markShijia: ia[1], 
+                markZuoshou: ia[3],
+            })
+        })
+    }
+
+    console.log('aaaaaadata60arr', data60, data60arr)
 
     data.GRID0.forEach((item, index) => {
        let itemArr = item.split('|') 
@@ -47,7 +62,7 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        chiCangItem.yingKuiEX=`取值117接口"GRID0"中对应持仓"YKINDEX"字段值`
 
        chiCangItem.yingKuiLv = itemArr[data.YKLINDEX];
-       chiCangItem.yingKuiLvEX=`取值117接口"GRID0"中对应持仓"YKINDEX"字段值`
+       chiCangItem.yingKuiLvEX=`取值117接口"GRID0"中对应持仓"YKLINDEX"字段值`
 
        chiCangItem.chiCang = itemArr[data.STOCKNUMINDEX];
        chiCangItem.chiCangEX=`取值117接口"GRID0"中对应持仓"STOCKNUMINDEX"字段值`
@@ -130,14 +145,21 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD) {
        chiCangItem.selfUpNum = ''        
 
        chiCangItem.isActive = true;
+       data60arr.forEach(item60 => {
+           if (item60.code == chiCangItem.code) {
+               chiCangItem.markShijia = item60.markShijia;
+               chiCangItem.markZuoshou = item60.markZuoshou;
+           } 
+       })
        arr.push(chiCangItem);
+
     })
     arr = getTodayPl(arr, exchangeRateHKDtoUSD)
     return { INDEX, data: arr, originData: _data}
 
 }
 
-export function turn5106ToObj(data, HKStockExchangeRateList) {
+export function turn5106ToObj(data, HKStockExchangeRateList, data60) {
     var _data = JSON.parse(JSON.stringify(data));
 
     let INDEX = {}
@@ -172,8 +194,21 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
     INDEX.ASSETPRICEINDEX = data.ASSETPRICEINDEX;
     INDEX.RMBCOSTPRICEINDEX = data.RMBCOSTPRICEINDEX;
     INDEX.PREDRPRICEINDEX = data.PREDRPRICEINDEX;
-
     data.GRID0.shift();  
+
+    let data60arr = [];
+    if (data60?.GRID0?.length > 0) {
+        data60.GRID0.shift();
+        data60.GRID0.forEach(item => {
+            let ia = item.split('|')
+            data60arr.push({
+                code: ia[2].replace(/H/g,""),
+                name: ia[0],
+                markShijia: ia[1], 
+                markZuoshou: ia[3],
+            })
+        })
+    }
     
     data.GRID0.forEach(function(i, k){                              
         var _item = data.GRID0[k];
@@ -241,16 +276,18 @@ export function turn5106ToObj(data, HKStockExchangeRateList) {
 
         chiCangItem.todayPlHKD = chiCangItem.todayPlHKD || '--';
         chiCangItem.todayPl = chiCangItem.todayPl || '--';
-
         chiCangItem.ratio = chiCangItem.ratio || '--';
-
         chiCangItem.isUplistShow = chiCangItem.isUplistShow || false;
-
         chiCangItem.domKey = chiCangItem.code + '|' + chiCangItem.wtAccountType + '|' + chiCangItem.account + '|' + k;
-
         chiCangItem.selfUpNum = ''
-
         chiCangItem.isActive = true;
+        
+        data60arr.forEach(item60 => {
+            if (item60.code == chiCangItem.code) {
+                chiCangItem.markShijia = item60.markShijia;
+                chiCangItem.markZuoshou = item60.markZuoshou;
+            } 
+        })
         arr.push(chiCangItem);
         
     });
@@ -303,20 +340,36 @@ export function getTodayPl(chicangList, exchangeRateHKDtoUSD, HKStockExchangeRat
     return chicangList
 }
 
+export function isInvalidNum (num) {
+    if(num === undefined || num === '' || isNaN(num) || parseFloat(num) === 0 || !num){
+        return true;
+    }
+    return false;
+}
+
 export function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchangeRateList) {
     // 不计算当日参考盈亏
     let computeObj = notComputeTodayPl(chiCangItem)
-    let unusualAssetPrice = !chiCangItem.assetPrice || isNaN(chiCangItem.assetPrice) || !parseFloat(chiCangItem.assetPrice)
-    let unusualPrePrice = !chiCangItem.preDrPrice || isNaN(chiCangItem.preDrPrice) || !parseFloat(chiCangItem.preDrPrice)
-    if( unusualAssetPrice || unusualPrePrice || !computeObj.isCompute){
+    let unusualAssetPrice = isInvalidNum(chiCangItem.assetPrice)
+    let unusualPrePrice = isInvalidNum(chiCangItem.preDrPrice)
+    let markZuoshou = isInvalidNum(chiCangItem.markZuoshou)
+    let markShijia = isInvalidNum(chiCangItem.markShijia)
+    let unusualShijia = isInvalidNum(chiCangItem.shiJia)
+    if(markShijia || markZuoshou || unusualAssetPrice || unusualPrePrice || unusualShijia || !computeObj.isCompute){
         chiCangItem.todayPl = '--';
         chiCangItem.todayPlHKD = '--';
         if (!computeObj.isCompute) {
             chiCangItem.todayPlEX = `${computeObj.text}`
         } else if (unusualAssetPrice) {
-            chiCangItem.todayPlEX = `当前最新价异常，不进行计算: ${chiCangItem.assetPrice}`
+            chiCangItem.todayPlEX = `柜台市值价异常，不进行计算: ${chiCangItem.assetPrice}`
         } else if (unusualPrePrice) {
-            chiCangItem.todayPlEX = `前收盘价异常，不进行计算: ${chiCangItem.preDrPrice}`
+            chiCangItem.todayPlEX = `柜台前收盘价异常，不进行计算: ${chiCangItem.preDrPrice}`
+        } else if (unusualShijia) {
+            chiCangItem.todayPlEX = `柜台最新价异常，不进行计算: ${chiCangItem.shiJia}` 
+        } else if (markShijia) {
+            chiCangItem.todayPlEX = `行情最新价异常，不进行计算: ${chiCangItem.markShijia}` 
+        } else if (markZuoshou) {
+            chiCangItem.todayPlEX = `行情昨收价异常，不进行计算: ${chiCangItem.markZuoshou}` 
         }
         return;
     }
@@ -376,7 +429,7 @@ export function getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD, HKStockExchang
         chiCangItem.todayPlEX = `
             当日参考盈亏 = 昨日持有到现在的股票盈亏+今日新买入的股票到现在的盈亏+今日卖出的股票到卖出时点的盈亏<br/>
             昨日持有到现在的股票盈亏: (持有股票-新买入的股票数)*(最新价-前收盘价) : (${chiCangItem.chiCang} - ${chiCangItem.realBuyAmount}) * (${chiCangItem.assetPrice} - ${chiCangItem.preDrPrice}) = ${todayHoldPl}<br/>
-            今日新买入的股票到现在的盈亏: 今日买入的股票数量 *市值价 - 今日买入的股票均价: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} = ${todayBuyPl}<br/>
+            今日新买入的股票到现在的盈亏: 今日买入的股票数量 *市值价 - 今日买入的股票价格: ${chiCangItem.realBuyAmount} * ${chiCangItem.assetPrice} - ${chiCangItem.realBuyBalance} = ${todayBuyPl}<br/>
             今日卖出的股票到卖出时点的盈亏: 今日卖出金额 - (今日卖出股票均价 * 前收盘价)): ${chiCangItem.realSellBalance} - ${chiCangItem.realSellAmount} * ${chiCangItem.preDrPrice} = ${todaySellPl}<br/>
             当日参考盈亏 = ${todayHoldPl} + ${todayBuyPl} + ${todaySellPl} = ${chiCangItem.todayPl}
         `

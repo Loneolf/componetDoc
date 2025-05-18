@@ -366,7 +366,8 @@
     const isIndeterminate = ref(false)
     // 全选按钮是否选中
     const checkAll = ref(false)
-
+    let isA5 = false
+    let athe60 = {}
     onMounted(() => {
         // parseBtn()
     })
@@ -417,6 +418,26 @@
             ElMessage.error('请粘贴全部数据')
             return
         }
+
+        if (value.includes('webViewData')) {
+            let res = JSON.parse(value)
+            console.log('aaaaaaextractres', res)
+            for (const key in res) {
+                if (key === 'data60117' || key === 'data605106') {
+                    athe60[key] = res[key]
+                }
+                let oprateItem = allOpratedata.value.find(item => {
+                    // console.log('aaaaforkey', item.action, res[key].action, key)
+                    return item.action === res[key].ACTION
+                })
+                if (oprateItem) {
+                    oprateItem.showText = JSON.stringify(res[key], null, 4)
+                }
+            }
+            console.log('aaaaaaextract', JSON.parse(JSON.stringify(allOpratedata.value)))
+            return
+        }
+
         // 分割请求与应答，将请求移除，保留应答的部分
         const firstSplit = value.split('请求');
         const result = [];
@@ -550,10 +571,16 @@
                             return o.stock_code == chiCangItem.code && Amp.hsExchangeTypeMap[o.exchange_type] == chiCangItem.wtAccountType;
                         });
                         if(obj){
-                            if (chiCangItem.preDrPrice - obj.pre_dr_price!= 0) {
+                            if (chiCangItem.preDrPrice - obj.pre_dr_price != 0) {
                                 upInfo += `前收盘价格更新：${chiCangItem.preDrPrice} -> ${obj.pre_dr_price}<br/>` 
                             }
                             chiCangItem.preDrPrice = obj.pre_dr_price;
+                            if (isA5) {
+                                chiCangItem.assetPrice = obj.asset_price;
+                                if (chiCangItem.assetPrice - obj.asset_price != 0) {
+                                    upInfo += `A5市值价更新：${chiCangItem.assetPrice} -> ${obj.asset_price}<br/>`
+                                }
+                            }
                         }
                     }
                     DealMainData.getTodayPlItem(chiCangItem, exchangeRateHKDtoUSD.value, HKStockExchangeRateList.value)
@@ -629,7 +656,10 @@
                 try {
                     // 将字符串转化为json对象
                     if (item.showText) {
-                        item.data = strToJson(item.showText) 
+                        item.data = strToJson(item.showText)
+                        if (item.data.APEX_A5_SPECFLAG == '1') {
+                            isA5 = true;
+                        }
                     } else {
                         item.data = ''
                     }
@@ -662,16 +692,15 @@
                 }
             } 
         })
-
         // 处理117数据，转化为对象
         let data117 = getActionData('117', 'all')
-        data117.dealData = DealMainData.turn117ToObj(data117.data, exchangeRateHKDtoUSD.value)
+        data117.dealData = DealMainData.turn117ToObj(data117.data, exchangeRateHKDtoUSD.value, athe60['data60117'])
         INDEXO.value = data117.dealData.INDEX
 
         // 处理5106数据，转化为对象
         let data5106 = getActionData('5106', 'all')
         if (data5106.showText) {
-            data5106.dealData = DealMainData.turn5106ToObj(data5106.data, HKStockExchangeRateList.value)
+            data5106.dealData = DealMainData.turn5106ToObj(data5106.data, HKStockExchangeRateList.value, athe60['data605106'])
             data117.dealData.data = data117.dealData.data.concat(data5106.dealData.data)
         }
 
