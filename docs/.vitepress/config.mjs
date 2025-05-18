@@ -61,7 +61,7 @@ export default defineConfig({
 		nav: [
 			{ text: "组件", link: "/componet/TimeBar/readme", activeMatch: "/componet/" },
 			{ text: "工具", link: "/tools/parseHold", activeMatch: "/tools/" },
-			{ text: "文档", link: "/fun/time", activeMatch: "/fun/" },
+			{ text: "文档", link: "/fun/time", activeMatch: "/fun" },
 			{ text: "建议与反馈", link: '/FeedBack' },
 		],
 
