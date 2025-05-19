@@ -15,7 +15,7 @@ console.log(process.env.base)
 export default defineConfig({
 	title: "文档库",
 	description: "组件库",
-	head: [['link', { rel: 'icon',  type: 'image/png', href: 'favicon.png' }]],
+	head: [['link', { rel: 'icon',  type: 'image/png', href: '/doc/favicon.png' }]],
 	base: process.env.base || "/doc/",
 
 	returnToTopLabel: '返回顶部', // 自定义返回顶部文字
