@@ -1,3 +1,5 @@
+import { funSidebar } from "../funAutoMd/funSidebar.js";
+
 export default {
 	"/componet/": [
 		{
@@ -44,7 +46,6 @@ export default {
 	],
 	"/tools/": [
 		{
-			// text: "Examples",
 			items: [
 				{
 					text: "持仓数据解析",
@@ -91,7 +92,6 @@ export default {
 	],
 	"/fun/": [
 		{
-			// text: "方法文档",
 			items: [
 				{
 					text: "TZT.js",
@@ -109,6 +109,7 @@ export default {
 					text: "其它",
 					link: "/fun/util",
 				},
+				...funSidebar,
 			],
 		},
 	],

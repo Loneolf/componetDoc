@@ -233,7 +233,7 @@ function getDiff(newData, oldData) {
 function write(data, p) {
     fs.writeFile(
         p || path.resolve(path.resolve(), upc.outFile),
-        JSON.stringify(data),
+        JSON.stringify(data, null, 4),
         (error) => {
             if (error) {
                 console.log("写入文件错误", error);

@@ -43,7 +43,6 @@ export function format (num, dig,index) {
 }
 export function unit (num, digit,index) {
     var dig = digit || 0;
-    // var dig = 2; //德邦要求保留3位
     if (num == '' || typeof num == void 0) {
         return '';
     }

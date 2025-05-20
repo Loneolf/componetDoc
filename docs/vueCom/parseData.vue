@@ -42,7 +42,7 @@
                         max-height="800" 
                         :data="showData"
                         :row-config="{isCurrent: true, isHover: true}"
-                        :scroll-y="{enabled: true, gt: 0}"
+                        :scroll-y="{enabled: true, gt: 10}"
                     >
                         <vxe-column type="seq" width="50" fixed="left"></vxe-column>
                         <vxe-column 

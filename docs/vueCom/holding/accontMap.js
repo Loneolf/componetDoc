@@ -86,7 +86,8 @@ export const opratedata = [
         title: '数据提取',
         action: 'all',
         data: "",
-        showText: isMock? mockData.mockAllData : "",
+        // showText: isMock? mockData.mockAllData : "",
+        showText: isMock? JSON.stringify(mockData.mockAllData2, null, 4) : "",
         showParse: true,
     },
     {
