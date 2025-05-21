@@ -1,9 +1,11 @@
 {
   "type": "module",
   "devDependencies": {
+    "acorn": "^8.14.1",
     "cos-nodejs-sdk-v5": "^2.14.6",
     "cross-env": "^7.0.3",
     "less": "^4.2.1",
+    "recast": "^0.23.11",
     "sass": "^1.82.0",
     "vite-plugin-raw": "^1.0.3",
     "vitepress": "^1.5.0"
@@ -18,6 +20,8 @@
     "updoc": "cross-env upType=doc up=full node ./upcdn/upCDN.js",
     "upcomponet": "cross-env upType=componet up=increment node ./upcdn/upCDN.js",
     "upcomponetfull": "cross-env upType=componet up=full node ./upcdn/upCDN.js",
+    "jsdoc2md": "npm run jsturn && npm run jsdoc",
+    "jsturn": "node ./docs/funAutoMd/commonjs-to-es6.js",
     "jsdoc": "node ./docs/funAutoMd/turnUtil.js"
   },
   "dependencies": {

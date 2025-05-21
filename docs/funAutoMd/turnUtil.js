@@ -3,13 +3,13 @@ import fs from 'fs';
 import path from 'path';
 
 // 定义输入输出路径
-const inputDir = 'docs/funAutoMd/source';
+const inputDir = 'docs/funAutoMd/testout';
 const outputDir = 'docs/fun/autoMd';
 const sidbarBase = '/fun/autoMd/'
 
 const fileNameMap = {
-    'math': '方法集',
-    'str': '字符集',
+    'common': '通用函数',
+    'commonData': '通用请求数据',
 }
 
 // 获取所有 JS 文件路径
