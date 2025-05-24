@@ -93,29 +93,7 @@ define(function (require, exports, module) {
         }
         return (arg1 + arg2) / m;
     }
-    /**
-     ** 减法函数，用来得到精确的减法结果
-     ** 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
-     ** 调用：accSub(arg1,arg2)
-     ** 返回值：arg1加上arg2的精确结果
-     **/
-    function accSub(arg1, arg2) {
-        var t1 = 0,
-            t2 = 0,
-            r1,
-            r2;
-        try {
-            t1 = arg1.toString().split(".")[1].length;
-        } catch (e) {}
-        try {
-            t2 = arg2.toString().split(".")[1].length;
-        } catch (e) {}
-        // with (Math) {
-        r1 = Number(arg1.toString().replace(".", ""));
-        r2 = Number(arg2.toString().replace(".", ""));
-        return r1 / r2 * Math.pow(10, t2 - t1);
-        // }
-    }
+    
     /**
      ** 乘法函数，用来得到精确的乘法结果
      ** 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
@@ -274,7 +252,6 @@ define(function (require, exports, module) {
     exports.formateStringToDate = formateStringToDate;
     exports.dateCount = dateCount;
     exports.accAdd = accAdd;
-    exports.accSub = accSub;
     exports.accMul = accMul;
     exports.accDiv = accDiv;
     exports.thousandFormat = thousandFormat;

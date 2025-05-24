@@ -8,7 +8,7 @@
 
 **函数体**
 ```javascript
-function feedBack(message, SDKLog) {
+export function feedBack(message, SDKLog) {
     if (typeof message != 'string') {
         return;
     }
@@ -46,7 +46,7 @@ function feedBack(message, SDKLog) {
 
 **函数体**
 ```javascript
-function isTradeDate(fnSuc) {
+export function isTradeDate(fnSuc) {
     var oSendData = {
         action: '41083',
         ReqlinkType: 2

@@ -10,7 +10,7 @@
 
 **函数体**
 ```javascript
-function formateDateToString(dateObject, split) {
+export function formateDateToString(dateObject, split) {
     if (typeof split == 'undefined') {
         split = '';
     }
@@ -31,7 +31,7 @@ function formateDateToString(dateObject, split) {
 
 **函数体**
 ```javascript
-function formateStringToDate(dateString) {
+export function formateStringToDate(dateString) {
     var ds = dateString.slice(0, 4) + '-' + dateString.slice(4, 6) + '-' + dateString.slice(6, 8);
     return new Date(ds);
 }
@@ -46,7 +46,7 @@ function formateStringToDate(dateString) {
 
 **函数体**
 ```javascript
-function dateCount(expireNum, nowNum) {
+export function dateCount(expireNum, nowNum) {
     var expireDate = new Date(expireNum);
     var nowDate;
     if (typeof nowNum == 'undefined') {
@@ -75,7 +75,7 @@ function dateCount(expireNum, nowNum) {
 
 **函数体**
 ```javascript
-function accAdd(arg1, arg2) {
+export function accAdd(arg1, arg2) {
     var r1, r2, m, c;
     try {
         r1 = arg1.toString().split(".")[1].length;
@@ -105,34 +105,6 @@ function accAdd(arg1, arg2) {
     return (arg1 + arg2) / m;
 }
 ```
-## accSub
-* 减法函数，用来得到精确的减法结果
-* 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
-* 调用：accSub(arg1,arg2)
-* 返回值：arg1加上arg2的精确结果
-
-
-
-**函数体**
-```javascript
-function accSub(arg1, arg2) {
-    var t1 = 0,
-        t2 = 0,
-        r1,
-        r2;
-    try {
-        t1 = arg1.toString().split(".")[1].length;
-    } catch (e) {}
-    try {
-        t2 = arg2.toString().split(".")[1].length;
-    } catch (e) {}
-    // with (Math) {
-    r1 = Number(arg1.toString().replace(".", ""));
-    r2 = Number(arg2.toString().replace(".", ""));
-    return r1 / r2 * Math.pow(10, t2 - t1);
-    // }
-}
-```
 ## accMul
 * 乘法函数，用来得到精确的乘法结果
 * 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
@@ -143,7 +115,7 @@ function accSub(arg1, arg2) {
 
 **函数体**
 ```javascript
-function accMul(arg1, arg2) {
+export function accMul(arg1, arg2) {
     var m = 0,
         s1 = arg1.toString(),
         s2 = arg2.toString();
@@ -166,7 +138,7 @@ function accMul(arg1, arg2) {
 
 **函数体**
 ```javascript
-function accDiv(arg1, arg2) {
+export function accDiv(arg1, arg2) {
     var t1 = 0,
         t2 = 0,
         r1,
@@ -196,7 +168,7 @@ function accDiv(arg1, arg2) {
 
 **函数体**
 ```javascript
-function isTradeDate(dateObject, nonTradingDate) {
+export function isTradeDate(dateObject, nonTradingDate) {
     var dateString = formateDateToString(dateObject, '');
     if (nonTradingDate.indexOf(dateString) !== -1) {
         return false;
@@ -215,7 +187,7 @@ function isTradeDate(dateObject, nonTradingDate) {
 
 **函数体**
 ```javascript
-function abbreviation(string, length = 17) {
+export function abbreviation(string, length = 17) {
     if (string.length <= length) {
         return string;
     }
@@ -231,7 +203,7 @@ function abbreviation(string, length = 17) {
 
 **函数体**
 ```javascript
-function compare(pro) {
+export function compare(pro) {
     var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
     return function (obj1, obj2) {
@@ -257,7 +229,7 @@ function compare(pro) {
 
 **函数体**
 ```javascript
-function getDiffDays(date1Str, date2Str) {
+export function getDiffDays(date1Str, date2Str) {
     var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
     var date2 = new Date(date2Str.substring(0, 4), parseInt(date2Str.substring(4, 6)) - 1, date2Str.substring(6));
 
@@ -278,7 +250,7 @@ function getDiffDays(date1Str, date2Str) {
 
 **函数体**
 ```javascript
-function getLastTradingDay(nonTradingDays, serverTime) {
+export function getLastTradingDay(nonTradingDays, serverTime) {
     var today = new Date();
     if(serverTime && serverTime[0]) {
         today = formateStringToDate(serverTime[0]);

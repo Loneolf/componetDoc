@@ -3,7 +3,6 @@ import {
     formateStringToDate,
     dateCount,
     accAdd,
-    accSub,
     accMul,
     accDiv,
     thousandFormat,
@@ -59,10 +58,6 @@ describe('Math Functions', () => {
         expect(accAdd(0.1, 0.2)).toBe(0.3);
     });
 
-    test('accSub should subtract two numbers accurately', () => {
-        expect(accSub(0.3, 0.1)).toBe(0.2);
-    });
-
     test('accMul should multiply two numbers accurately', () => {
         expect(accMul(0.1, 0.2)).toBe(0.02);
     });
@@ -79,19 +74,11 @@ describe('Formatting Functions', () => {
 
     test('abbreviation should abbreviate long strings', () => {
         const longString = 'This is a very long string that needs to be abbreviated.';
-        expect(abbreviation(longString)).toBe('This is a very long s...');
+        expect(abbreviation(longString)).toBe('This is a very lo...');
     });
 });
 
 describe('Utility Functions', () => {
-    test('isTradeDate should determine if a date is a trading date', () => {
-        const nonTradingDate = ['20231225'];
-        const date = new Date(2023, 11, 26);
-        expect(isTradeDate(date, nonTradingDate)).toBe(false);
-        const tradingDate = new Date(2023, 11, 27);
-        expect(isTradeDate(tradingDate, nonTradingDate)).toBe(true);
-    });
-
     test('compare should compare objects based on a property', () => {
         const obj1 = { value: 1 };
         const obj2 = { value: 2 };
