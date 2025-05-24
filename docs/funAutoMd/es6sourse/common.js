@@ -2,6 +2,7 @@
  * 日期转字符串
  * @param {Date} dateObject 
  * @param {String} split 
+ * @returns {String} split为-  则为YYYY-MM-DD，不传默认为''为YYYYMMDD
  */
 function formateDateToString(dateObject, split) {
     if (typeof split == 'undefined') {
@@ -17,7 +18,7 @@ function formateDateToString(dateObject, split) {
 
 /**
  * 字符串转日期
- * @param {String} YYYYMMDD dateString 
+ * @param {YYYYMMDD} dateString 
  */
 function formateStringToDate(dateString) {
     var ds = dateString.slice(0, 4) + '-' + dateString.slice(4, 6) + '-' + dateString.slice(6, 8);
@@ -26,8 +27,8 @@ function formateStringToDate(dateString) {
 
 /**
  * 倒计时
- * @param {*} expireNum 倒计时时间戳
- * @param {*} nowNum 现在时间戳
+ * @param {expireNum} * 倒计时时间戳
+ * @param {nowNum} * 现在时间戳
  */
 function dateCount(expireNum, nowNum) {
     var expireDate = new Date(expireNum);
@@ -161,8 +162,8 @@ function thousandFormat(num) {
 
 /**
  * 前端判断是否为交易日期
- * @param {Date} dateObject 
- * @param {Array} [] nonTradingDate 
+ * @param {dateObject} Date  
+ * @param {nonTradingDate} Array  
  * 
  * @returns Boolean
  */
@@ -178,10 +179,9 @@ function isTradeDate(dateObject, nonTradingDate) {
 /**
  * 字符串超长缩写
  * @param {string}  字符串
+ * @param {length}  保留长度
  */
-function abbreviation(string) {
-    var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 17;
-
+function abbreviation(string, length = 17) {
     if (string.length <= length) {
         return string;
     }
@@ -190,7 +190,7 @@ function abbreviation(string) {
 
 /**
  * 比较函数
- * @param {*} pro 
+ * @param {pro} any  
  */
 function compare(pro) {
     var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -218,6 +218,7 @@ function getIosVersion() {
         return -1;
     }
 }
+
 // 判断客户端iOS
 function isIOS() {
     var u = navigator.userAgent;
@@ -226,8 +227,8 @@ function isIOS() {
 
 /**
  * 计算两个日期的间隔
- * @param {String} date1Str 
- * @param {String} date2Str 
+ * @param {date1Str} String  
+ * @param {date2Str} String  
  */
 function getDiffDays(date1Str, date2Str) {
     var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
@@ -240,9 +241,9 @@ function getDiffDays(date1Str, date2Str) {
 }
 
 /**
- * @param {Array} nonTradingDays 
- * @param {Array} serverTime 
- * @returns {string}
+ * @param {nonTradingDays} Array  
+ * @param {serverTime} Array  
+ * @returns Date
  */
 function getLastTradingDay(nonTradingDays, serverTime) {
     var today = new Date();
@@ -260,18 +261,18 @@ function getLastTradingDay(nonTradingDays, serverTime) {
     return lastTradingDay;
 }
 
-// export const formateDateToString = formateDateToString;
-// export const formateStringToDate = formateStringToDate;
-// export const dateCount = dateCount;
-// export const accAdd = accAdd;
-// export const accSub = accSub;
-// export const accMul = accMul;
-// export const accDiv = accDiv;
-// export const thousandFormat = thousandFormat;
-// export const isTradeDate = isTradeDate;
-// export const abbreviation = abbreviation;
-// export const compare = compare;
-// export const getIosVersion = getIosVersion;
-// export const isIOS = isIOS;
-// export const getDiffDays = getDiffDays;
-// export const getLastTradingDay = getLastTradingDay;
+export const formateDateToString = formateDateToString;
+export const formateStringToDate = formateStringToDate;
+export const dateCount = dateCount;
+export const accAdd = accAdd;
+export const accSub = accSub;
+export const accMul = accMul;
+export const accDiv = accDiv;
+export const thousandFormat = thousandFormat;
+export const isTradeDate = isTradeDate;
+export const abbreviation = abbreviation;
+export const compare = compare;
+export const getIosVersion = getIosVersion;
+export const isIOS = isIOS;
+export const getDiffDays = getDiffDays;
+export const getLastTradingDay = getLastTradingDay;

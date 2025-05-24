@@ -59,5 +59,5 @@ function isTradeDate(fnSuc) {
     });
 }
 
-// export const feedBack = feedBack;
-// export const isTradeDate = isTradeDate;
+export const feedBack = feedBack;
+export const isTradeDate = isTradeDate;

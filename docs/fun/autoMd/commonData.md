@@ -1,29 +1,70 @@
-## Functions
-
-<dl>
-<dt><a href="#feedBack">feedBack(message, SDKLog)</a></dt>
-<dd><p>用户反馈接口</p>
-</dd>
-<dt><a href="#isTradeDate">isTradeDate()</a></dt>
-<dd><p>判断是否非交易日</p>
-</dd>
-</dl>
-
-<a name="feedBack"></a>
-
-## feedBack(message, SDKLog)
+## feedBack
 用户反馈接口
 
-**Kind**: global function  
+**参数**
+- `message` (_String_) - 
+- `SDKLog` (_String_) - 
 
-| Param | Type |
-| --- | --- |
-| message | <code>String</code> | 
-| SDKLog | <code>String</code> | 
 
-<a name="isTradeDate"></a>
-
-## isTradeDate()
+**函数体**
+```javascript
+function feedBack(message, SDKLog) {
+    if (typeof message != 'string') {
+        return;
+    }
+    if (typeof SDKLog != 'string') {
+        SDKLog = '';
+    }
+    var deviveInfo = '';
+    if (typeof cNative != 'undefined') {
+        deviveInfo = cNative.getDeviceInfo();
+    }
+    var oSend = {
+        action: 49001,
+        function: '11001',
+        SDKLog: SDKLog,
+        message: message.slice(0, 100),
+        deviceInfo: typeof deviveInfo == 'string' ? deviveInfo : ''
+    };
+    try {
+        $.getData({
+            oSendData: oSend,
+            fnSuccess: function fnSuccess(oSend) {
+                console.log('提交成功', oSend);
+            },
+            fnFail: function fnFail(oSend) {
+                console.error(oSend);
+            }
+        });
+    } catch (e) {}
+}
+```
+## isTradeDate
 判断是否非交易日
 
-**Kind**: global function  
+
+
+**函数体**
+```javascript
+function isTradeDate(fnSuc) {
+    var oSendData = {
+        action: '41083',
+        ReqlinkType: 2
+    };
+    $.getData({
+        oSendData: oSendData,
+        fnSuccess: function fnSuccess(oData) {
+            var IS_TRADE_DATE = oData.IS_TRADE_DATE;
+            if (IS_TRADE_DATE === '1') {
+                fnSuc && fnSuc(true);
+            } else {
+                fnSuc && fnSuc(false);
+            }
+        },
+        oConfig: function oConfig(data) {
+            //默认为交易日
+            fnSuc && fnSuc(true);
+        }
+    });
+}
+```

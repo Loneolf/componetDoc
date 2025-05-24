@@ -1,0 +1,25 @@
+{{#each this}}
+## {{name}}
+{{#if description}}
+{{description}}
+{{/if}}
+
+{{#if params}}
+**参数**
+{{#each params}}
+- `{{name}}` (_{{type.names}}_{{#if optional}}, 可选_{{/if}}) - {{description}}
+{{/each}}
+{{/if}}
+
+{{#if returns}}
+**返回值**
+- _{{returns.0.type.names}}_ : {{returns.0.description}}
+{{/if}}
+
+**函数体**
+{{#if code}}
+```javascript
+{{{code}}}
+```
+{{/if}}
+{{/each}}
