@@ -77,7 +77,7 @@ async function generateDocs() {
             // 删除临时文件
             await fs.promises.unlink(tempFilePath);
             
-            // console.log('output', output)
+            console.log(`md文档已生成: ${file.sidebarPath}.md`)
             // 将生成的 Markdown 写入文件
             fs.writeFileSync(file.outPath, output);
         }
