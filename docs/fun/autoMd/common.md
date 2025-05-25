@@ -2,8 +2,11 @@
 日期转字符串
 
 **参数**
-- `dateObject` (_Date_) - 
-- `split` (_String_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| dateObject | `Date`|
+| split | `String`|
 
 **返回值**
 - _String_ : split为-  则为YYYY-MM-DD，不传默认为&#x27;&#x27;为YYYYMMDD
@@ -31,7 +34,10 @@ export function formateDateToString(dateObject, split) {
 字符串转日期
 
 **参数**
-- `dateString` (_YYYYMMDD_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| dateString | `YYYYMMDD`|
 
 
 **引用及使用**
@@ -50,8 +56,11 @@ export function formateStringToDate(dateString) {
 倒计时
 
 **参数**
-- `*` (_expireNum_) - 倒计时时间戳
-- `*` (_nowNum_) - 现在时间戳
+| 参数 | 参数类型 | 描述 |
+|------|------|------|
+| * | `expireNum` | 倒计时时间戳 |
+| * | `nowNum` | 现在时间戳 |
+
 
 
 **引用及使用**
@@ -190,8 +199,11 @@ export function accDiv(arg1, arg2) {
 前端判断是否为交易日期
 
 **参数**
-- `Date` (_dateObject_) - 
-- `Array` (_nonTradingDate_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| Date | `dateObject`|
+| Array | `nonTradingDate`|
 
 **返回值**
 - __ : Boolean
@@ -216,8 +228,11 @@ export function isTradeDate(dateObject, nonTradingDate) {
 字符串超长缩写
 
 **参数**
-- `字符串` (_string_) - 
-- `保留长度` (_length_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| 字符串 | `string`|
+| 保留长度 | `length`|
 
 
 **引用及使用**
@@ -238,7 +253,10 @@ export function abbreviation(string, length = 17) {
 比较函数
 
 **参数**
-- `any` (_pro_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| any | `pro`|
 
 
 **引用及使用**
@@ -268,8 +286,11 @@ export function compare(pro) {
 计算两个日期的间隔
 
 **参数**
-- `String` (_date1Str_) - 
-- `String` (_date2Str_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| String | `date1Str`|
+| String | `date2Str`|
 
 
 **引用及使用**
@@ -292,8 +313,11 @@ export function getDiffDays(date1Str, date2Str) {
 ## getLastTradingDay
 
 **参数**
-- `Array` (_nonTradingDays_) - 
-- `Array` (_serverTime_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| Array | `nonTradingDays`|
+| Array | `serverTime`|
 
 **返回值**
 - __ : Date

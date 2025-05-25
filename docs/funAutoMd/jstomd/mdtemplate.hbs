@@ -6,9 +6,21 @@
 
 {{#if params}}
 **参数**
+{{#if needDescription}}
+| 参数 | 参数类型 | 描述 |
+|------|------|------|
 {{#each params}}
-- `{{name}}` (_{{type.names}}_{{#if optional}}, 可选_{{/if}}) - {{description}}
+| {{name}} | `{{type.names}}` | {{description}} |
 {{/each}}
+{{/if}}
+
+{{#if notDescription}}
+| 参数 | 参数类型 |
+|------|------|
+{{#each params}}
+| {{name}} | `{{type.names}}`|
+{{/each}}
+{{/if}}
 {{/if}}
 
 {{#if returns}}

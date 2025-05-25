@@ -71,7 +71,7 @@ async function generateDocs() {
 
             addInfo(templateData)
 
-            console.log('templateData', JSON.stringify(templateData[7], null, 2)); // 查看第一个文档对象
+            console.log('templateData', JSON.stringify(templateData[0], null, 2)); // 查看第一个文档对象
 
             const output = await jsdoc2md.render({ 
                 // files: tempFilePath,
@@ -104,5 +104,7 @@ function addInfo(templateData) {
         let fileName = item.meta?.filename.replace(/\.temp|\.js/g, '')
         item.cpath = `var util = require('vue/utils/${fileName}')`
         item.use = `util.${item.name}...`
+        item.needDescription = item.params?.some(param => param.description && param.description.trim() !== '');
+        item.notDescription = !item.needDescription;
     });
 }

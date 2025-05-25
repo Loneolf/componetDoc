@@ -2,8 +2,11 @@
 用户反馈接口
 
 **参数**
-- `message` (_String_) - 
-- `SDKLog` (_String_) - 
+
+| 参数 | 参数类型 |
+|------|------|
+| message | `String`|
+| SDKLog | `String`|
 
 
 **引用及使用**
