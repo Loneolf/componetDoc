@@ -6,6 +6,11 @@
 - `SDKLog` (_String_) - 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/commonData')
+util.feedBack...
+```
 **函数体**
 ```javascript
 export function feedBack(message, SDKLog) {
@@ -44,6 +49,11 @@ export function feedBack(message, SDKLog) {
 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/commonData')
+util.isTradeDate...
+```
 **函数体**
 ```javascript
 export function isTradeDate(fnSuc) {

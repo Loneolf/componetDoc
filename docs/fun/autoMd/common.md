@@ -8,6 +8,11 @@
 **返回值**
 - _String_ : split为-  则为YYYY-MM-DD，不传默认为&#x27;&#x27;为YYYYMMDD
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.formateDateToString...
+```
 **函数体**
 ```javascript
 export function formateDateToString(dateObject, split) {
@@ -29,6 +34,11 @@ export function formateDateToString(dateObject, split) {
 - `dateString` (_YYYYMMDD_) - 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.formateStringToDate...
+```
 **函数体**
 ```javascript
 export function formateStringToDate(dateString) {
@@ -44,6 +54,11 @@ export function formateStringToDate(dateString) {
 - `*` (_nowNum_) - 现在时间戳
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.dateCount...
+```
 **函数体**
 ```javascript
 export function dateCount(expireNum, nowNum) {
@@ -73,6 +88,11 @@ export function dateCount(expireNum, nowNum) {
 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.accAdd...
+```
 **函数体**
 ```javascript
 export function accAdd(arg1, arg2) {
@@ -113,6 +133,11 @@ export function accAdd(arg1, arg2) {
 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.accMul...
+```
 **函数体**
 ```javascript
 export function accMul(arg1, arg2) {
@@ -136,6 +161,11 @@ export function accMul(arg1, arg2) {
 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.accDiv...
+```
 **函数体**
 ```javascript
 export function accDiv(arg1, arg2) {
@@ -166,6 +196,11 @@ export function accDiv(arg1, arg2) {
 **返回值**
 - __ : Boolean
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.isTradeDate...
+```
 **函数体**
 ```javascript
 export function isTradeDate(dateObject, nonTradingDate) {
@@ -185,6 +220,11 @@ export function isTradeDate(dateObject, nonTradingDate) {
 - `保留长度` (_length_) - 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.abbreviation...
+```
 **函数体**
 ```javascript
 export function abbreviation(string, length = 17) {
@@ -201,6 +241,11 @@ export function abbreviation(string, length = 17) {
 - `any` (_pro_) - 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.compare...
+```
 **函数体**
 ```javascript
 export function compare(pro) {
@@ -227,6 +272,11 @@ export function compare(pro) {
 - `String` (_date2Str_) - 
 
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.getDiffDays...
+```
 **函数体**
 ```javascript
 export function getDiffDays(date1Str, date2Str) {
@@ -248,6 +298,11 @@ export function getDiffDays(date1Str, date2Str) {
 **返回值**
 - __ : Date
 
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.getLastTradingDay...
+```
 **函数体**
 ```javascript
 export function getLastTradingDay(nonTradingDays, serverTime) {

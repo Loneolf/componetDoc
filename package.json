@@ -27,7 +27,7 @@
     "updoc": "cross-env upType=doc up=full node ./upcdn/upCDN.js",
     "upcomponet": "cross-env upType=componet up=increment node ./upcdn/upCDN.js",
     "upcomponetfull": "cross-env upType=componet up=full node ./upcdn/upCDN.js",
-    "jsdoc2md": "npm run jsturn && npm run jsdoc && npm run test",
+    "jsdoc2md": "npm run jsturn && npm run jsdoc",
     "jsturn": "node ./docs/funAutoMd/commonjs-to-es6.js",
     "jsdoc": "node ./docs/funAutoMd/jstomd/index.js",
     "test": "jest"

@@ -31,6 +31,9 @@ const files = fs.readdirSync(inputDir)
     }
 });
 
+// 调用函数开始生成文档
+generateDocs();
+
 
 // 异步函数来处理文件并生成文档
 async function generateDocs() {
@@ -66,7 +69,9 @@ async function generateDocs() {
             // 解析源代码并提取函数体
             await extractFunctionBodies(templateData);
 
-            // console.log('templateData', JSON.stringify(templateData[7], null, 2)); // 查看第一个文档对象
+            addInfo(templateData)
+
+            console.log('templateData', JSON.stringify(templateData[7], null, 2)); // 查看第一个文档对象
 
             const output = await jsdoc2md.render({ 
                 // files: tempFilePath,
@@ -94,5 +99,10 @@ async function generateDocs() {
     }
 }
 
-// 调用函数开始生成文档
-generateDocs();
+function addInfo(templateData) {
+    templateData?.forEach(item => {
+        let fileName = item.meta?.filename.replace(/\.temp|\.js/g, '')
+        item.cpath = `var util = require('vue/utils/${fileName}')`
+        item.use = `util.${item.name}...`
+    });
+}

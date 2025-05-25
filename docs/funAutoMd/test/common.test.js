@@ -6,7 +6,6 @@ import {
     accMul,
     accDiv,
     thousandFormat,
-    isTradeDate,
     abbreviation,
     compare,
     getIosVersion,
