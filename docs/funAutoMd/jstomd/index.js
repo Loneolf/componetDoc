@@ -100,11 +100,15 @@ async function generateDocs() {
 }
 
 function addInfo(templateData) {
-    templateData?.forEach(item => {
+    templateData?.forEach((item, index) => {
         let fileName = item.meta?.filename.replace(/\.temp|\.js/g, '')
+        if (index === 0) {
+            item.title = fileNameMap[fileName] || fileName || ''
+        }
         item.cpath = `var util = require('vue/utils/${fileName}')`
         item.use = `util.${item.name}...`
         item.needDescription = item.params?.some(param => param.description && param.description.trim() !== '');
         item.notDescription = !item.needDescription;
+        item.code = item.code?.replace('export ', '')
     });
 }

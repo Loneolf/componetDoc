@@ -1,5 +1,8 @@
 {{#each this}}
-## {{name}}
+{{#if title}}
+# {{title}}
+{{/if}}
+## {{name}} {{description}}
 {{#if description}}
 {{description}}
 {{/if}}

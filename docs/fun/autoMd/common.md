@@ -1,4 +1,5 @@
-## formateDateToString
+# 通用函数
+## formateDateToString 日期转字符串
 日期转字符串
 
 **参数**
@@ -18,7 +19,7 @@ util.formateDateToString...
 ```
 **函数体**
 ```javascript
-export function formateDateToString(dateObject, split) {
+function formateDateToString(dateObject, split) {
     if (typeof split == 'undefined') {
         split = '';
     }
@@ -30,7 +31,7 @@ export function formateDateToString(dateObject, split) {
     return '' + fullYear + split + month + split + day;
 }
 ```
-## formateStringToDate
+## formateStringToDate 字符串转日期
 字符串转日期
 
 **参数**
@@ -47,12 +48,12 @@ util.formateStringToDate...
 ```
 **函数体**
 ```javascript
-export function formateStringToDate(dateString) {
+function formateStringToDate(dateString) {
     var ds = dateString.slice(0, 4) + '-' + dateString.slice(4, 6) + '-' + dateString.slice(6, 8);
     return new Date(ds);
 }
 ```
-## dateCount
+## dateCount 倒计时
 倒计时
 
 **参数**
@@ -70,7 +71,7 @@ util.dateCount...
 ```
 **函数体**
 ```javascript
-export function dateCount(expireNum, nowNum) {
+function dateCount(expireNum, nowNum) {
     var expireDate = new Date(expireNum);
     var nowDate;
     if (typeof nowNum == 'undefined') {
@@ -89,7 +90,10 @@ export function dateCount(expireNum, nowNum) {
     return date + '天' + hour + '时' + min + '分';
 }
 ```
-## accAdd
+## accAdd * 加法函数，用来得到精确的加法结果
+* 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
+* 调用：accAdd(arg1,arg2)
+* 返回值：arg1加上arg2的精确结果
 * 加法函数，用来得到精确的加法结果
 * 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
 * 调用：accAdd(arg1,arg2)
@@ -104,7 +108,7 @@ util.accAdd...
 ```
 **函数体**
 ```javascript
-export function accAdd(arg1, arg2) {
+function accAdd(arg1, arg2) {
     var r1, r2, m, c;
     try {
         r1 = arg1.toString().split(".")[1].length;
@@ -134,7 +138,10 @@ export function accAdd(arg1, arg2) {
     return (arg1 + arg2) / m;
 }
 ```
-## accMul
+## accMul * 乘法函数，用来得到精确的乘法结果
+* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
+* 调用：accMul(arg1,arg2)
+* 返回值：arg1乘以 arg2的精确结果
 * 乘法函数，用来得到精确的乘法结果
 * 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
 * 调用：accMul(arg1,arg2)
@@ -149,7 +156,7 @@ util.accMul...
 ```
 **函数体**
 ```javascript
-export function accMul(arg1, arg2) {
+function accMul(arg1, arg2) {
     var m = 0,
         s1 = arg1.toString(),
         s2 = arg2.toString();
@@ -162,7 +169,10 @@ export function accMul(arg1, arg2) {
     return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 }
 ```
-## accDiv
+## accDiv * 除法函数，用来得到精确的除法结果
+* 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
+* 调用：accDiv(arg1,arg2)
+* 返回值：arg1除以arg2的精确结果
 * 除法函数，用来得到精确的除法结果
 * 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
 * 调用：accDiv(arg1,arg2)
@@ -177,7 +187,7 @@ util.accDiv...
 ```
 **函数体**
 ```javascript
-export function accDiv(arg1, arg2) {
+function accDiv(arg1, arg2) {
     var t1 = 0,
         t2 = 0,
         r1,
@@ -195,7 +205,7 @@ export function accDiv(arg1, arg2) {
     // }
 }
 ```
-## isTradeDate
+## isTradeDate 前端判断是否为交易日期
 前端判断是否为交易日期
 
 **参数**
@@ -215,7 +225,7 @@ util.isTradeDate...
 ```
 **函数体**
 ```javascript
-export function isTradeDate(dateObject, nonTradingDate) {
+function isTradeDate(dateObject, nonTradingDate) {
     var dateString = formateDateToString(dateObject, '');
     if (nonTradingDate.indexOf(dateString) !== -1) {
         return false;
@@ -224,7 +234,7 @@ export function isTradeDate(dateObject, nonTradingDate) {
     return day !== 6 && day !== 0;
 }
 ```
-## abbreviation
+## abbreviation 字符串超长缩写
 字符串超长缩写
 
 **参数**
@@ -242,14 +252,14 @@ util.abbreviation...
 ```
 **函数体**
 ```javascript
-export function abbreviation(string, length = 17) {
+function abbreviation(string, length = 17) {
     if (string.length <= length) {
         return string;
     }
     return string.slice(0, length) + '...';
 }
 ```
-## compare
+## compare 比较函数
 比较函数
 
 **参数**
@@ -266,7 +276,7 @@ util.compare...
 ```
 **函数体**
 ```javascript
-export function compare(pro) {
+function compare(pro) {
     var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
     return function (obj1, obj2) {
@@ -282,7 +292,7 @@ export function compare(pro) {
     };
 }
 ```
-## getDiffDays
+## getDiffDays 计算两个日期的间隔
 计算两个日期的间隔
 
 **参数**
@@ -300,7 +310,7 @@ util.getDiffDays...
 ```
 **函数体**
 ```javascript
-export function getDiffDays(date1Str, date2Str) {
+function getDiffDays(date1Str, date2Str) {
     var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
     var date2 = new Date(date2Str.substring(0, 4), parseInt(date2Str.substring(4, 6)) - 1, date2Str.substring(6));
 
@@ -310,7 +320,7 @@ export function getDiffDays(date1Str, date2Str) {
     return diffDays;
 }
 ```
-## getLastTradingDay
+## getLastTradingDay 
 
 **参数**
 
@@ -329,7 +339,7 @@ util.getLastTradingDay...
 ```
 **函数体**
 ```javascript
-export function getLastTradingDay(nonTradingDays, serverTime) {
+function getLastTradingDay(nonTradingDays, serverTime) {
     var today = new Date();
     if(serverTime && serverTime[0]) {
         today = formateStringToDate(serverTime[0]);

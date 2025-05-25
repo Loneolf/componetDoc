@@ -1,4 +1,5 @@
-## feedBack
+# 通用请求数据
+## feedBack 用户反馈接口
 用户反馈接口
 
 **参数**
@@ -16,7 +17,7 @@ util.feedBack...
 ```
 **函数体**
 ```javascript
-export function feedBack(message, SDKLog) {
+function feedBack(message, SDKLog) {
     if (typeof message != 'string') {
         return;
     }
@@ -47,7 +48,7 @@ export function feedBack(message, SDKLog) {
     } catch (e) {}
 }
 ```
-## isTradeDate
+## isTradeDate 判断是否非交易日
 判断是否非交易日
 
 
@@ -59,7 +60,7 @@ util.isTradeDate...
 ```
 **函数体**
 ```javascript
-export function isTradeDate(fnSuc) {
+function isTradeDate(fnSuc) {
     var oSendData = {
         action: '41083',
         ReqlinkType: 2
