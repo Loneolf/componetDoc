@@ -11,6 +11,7 @@ define(function (require, exports, module) {
      * 日期转字符串
      * @param {Date} dateObject 
      * @param {String} split 
+     * @returns {String} split为-  则为YYYY-MM-DD，不传默认为''为YYYYMMDD
      */
     function formateDateToString(dateObject, split) {
         if (typeof split == 'undefined') {
@@ -26,7 +27,7 @@ define(function (require, exports, module) {
 
     /**
      * 字符串转日期
-     * @param {String YYYYMMDD} dateString 
+     * @param {YYYYMMDD} dateString 
      */
     function formateStringToDate(dateString) {
         var ds = dateString.slice(0, 4) + '-' + dateString.slice(4, 6) + '-' + dateString.slice(6, 8);
@@ -35,8 +36,8 @@ define(function (require, exports, module) {
 
     /**
      * 倒计时
-     * @param {*} expireNum 倒计时时间戳
-     * @param {*} nowNum 现在时间戳
+     * @param {expireNum} * 倒计时时间戳
+     * @param {nowNum} * 现在时间戳
      */
     function dateCount(expireNum, nowNum) {
         var expireDate = new Date(expireNum);
@@ -92,29 +93,7 @@ define(function (require, exports, module) {
         }
         return (arg1 + arg2) / m;
     }
-    /**
-     ** 减法函数，用来得到精确的减法结果
-     ** 说明：javascript的减法结果会有误差，在两个浮点数相减的时候会比较明显。这个函数返回较为精确的减法结果。
-     ** 调用：accSub(arg1,arg2)
-     ** 返回值：arg1加上arg2的精确结果
-     **/
-    function accSub(arg1, arg2) {
-        var t1 = 0,
-            t2 = 0,
-            r1,
-            r2;
-        try {
-            t1 = arg1.toString().split(".")[1].length;
-        } catch (e) {}
-        try {
-            t2 = arg2.toString().split(".")[1].length;
-        } catch (e) {}
-        // with (Math) {
-        r1 = Number(arg1.toString().replace(".", ""));
-        r2 = Number(arg2.toString().replace(".", ""));
-        return r1 / r2 * Math.pow(10, t2 - t1);
-        // }
-    }
+    
     /**
      ** 乘法函数，用来得到精确的乘法结果
      ** 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
@@ -170,8 +149,8 @@ define(function (require, exports, module) {
 
     /**
      * 前端判断是否为交易日期
-     * @param {Date} dateObject 
-     * @param {[]} nonTradingDate 
+     * @param {dateObject} Date  
+     * @param {nonTradingDate} Array  
      * 
      * @returns Boolean
      */
@@ -186,12 +165,10 @@ define(function (require, exports, module) {
 
     /**
      * 字符串超长缩写
-     * @param {字符串} string 
-     * @param {保留长度} length 
+     * @param {string}  字符串
+     * @param {length}  保留长度
      */
-    function abbreviation(string) {
-        var length = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 17;
-
+    function abbreviation(string, length = 17) {
         if (string.length <= length) {
             return string;
         }
@@ -200,7 +177,7 @@ define(function (require, exports, module) {
 
     /**
      * 比较函数
-     * @param {*} pro 
+     * @param {pro} any  
      */
     function compare(pro) {
         var desc = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
@@ -228,6 +205,7 @@ define(function (require, exports, module) {
             return -1;
         }
     }
+
     // 判断客户端iOS
     function isIOS() {
         var u = navigator.userAgent;
@@ -236,8 +214,8 @@ define(function (require, exports, module) {
 
     /**
      * 计算两个日期的间隔
-     * @param {String} date1Str 
-     * @param {String} date2Str 
+     * @param {date1Str} String  
+     * @param {date2Str} String  
      */
     function getDiffDays(date1Str, date2Str) {
         var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
@@ -250,9 +228,9 @@ define(function (require, exports, module) {
     }
 
     /**
-     * @param {Array} nonTradingDays 
-     * @param {Array} serverTime 
-     * @returns 
+     * @param {nonTradingDays} Array  
+     * @param {serverTime} Array  
+     * @returns Date
      */
     function getLastTradingDay(nonTradingDays, serverTime) {
         var today = new Date();
@@ -274,7 +252,6 @@ define(function (require, exports, module) {
     exports.formateStringToDate = formateStringToDate;
     exports.dateCount = dateCount;
     exports.accAdd = accAdd;
-    exports.accSub = accSub;
     exports.accMul = accMul;
     exports.accDiv = accDiv;
     exports.thousandFormat = thousandFormat;

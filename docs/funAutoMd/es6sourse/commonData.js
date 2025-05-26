@@ -3,7 +3,7 @@
  * @param {String} message 
  * @param {String} SDKLog 
  */
-function feedBack(message, SDKLog) {
+export function feedBack(message, SDKLog) {
     if (typeof message != 'string') {
         return;
     }
@@ -37,7 +37,7 @@ function feedBack(message, SDKLog) {
 /**
  * 判断是否非交易日
  */
-function isTradeDate(fnSuc) {
+export function isTradeDate(fnSuc) {
     var oSendData = {
         action: '41083',
         ReqlinkType: 2
@@ -58,6 +58,3 @@ function isTradeDate(fnSuc) {
         }
     });
 }
-
-// export const feedBack = feedBack;
-// export const isTradeDate = isTradeDate;
