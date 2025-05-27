@@ -18,4 +18,3 @@ yarn.lock
 .eslintcache
 *.tgz
 myConfig.js
-component.json
