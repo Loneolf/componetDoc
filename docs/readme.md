@@ -116,7 +116,7 @@ export default {
 ## md文档编写规范及如何使用Vue组件
 [官方文档](https://markdown.com.cn/)
 
-## 单元测试及函数住宿规范
+## 单元测试及函数注释规范
 单元测试主要用了jest，起语法建议参考[jest实践指南](https://github.yanhaixiang.com/jest-tutorial/)
 
 ## 项目主要所用的技术栈
