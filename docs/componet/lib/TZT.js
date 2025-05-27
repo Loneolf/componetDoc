@@ -2280,7 +2280,6 @@
                             isaction = false;
                         }
                         //CITICSPiwik Start页面统计添加
-                        //var u="//piwik.citicsinfo.com/piwik/";
 						//var piwikTracker = Piwik.getTracker(u+'piwik.php', 1);
 						//piwikTracker.trackEvent('交易', '交易_买入', '', 1);
                         if(traObj.action == "12310") {
