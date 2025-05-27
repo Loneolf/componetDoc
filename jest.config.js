@@ -5,4 +5,5 @@ export default {
 	testPathIgnorePatterns: ["/node_modules/"],
     collectCoverage: true,
     coverageDirectory: "coverage",
+	coverageDirectory: 'docs/componet/coverage',
 };

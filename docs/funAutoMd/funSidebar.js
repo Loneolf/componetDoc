@@ -4,7 +4,7 @@ export const funSidebar = [
         "link": "/fun/autoMd/common"
     },
     {
-        "text": "通用请求数据",
-        "link": "/fun/autoMd/commonData"
+        "text": "其它函数",
+        "link": "/fun/autoMd/other"
     }
 ]

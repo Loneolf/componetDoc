@@ -1,4 +1,15 @@
 # 通用函数
+
+<ClientOnly>
+  <DrawerTestDoc url='https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/coverage/lcov-report/common.js.html'/>
+</ClientOnly>
+
+<script setup>
+  import DrawerTestDoc from '../../vueCom/drawerTestDoc.vue';
+</script>
+
+
+
 ## formateDateToString 日期转字符串
 日期转字符串
 
@@ -29,8 +40,12 @@ function formateDateToString(dateObject, split) {
     var d = dateObject.getDate();
     var day = d >= 10 ? d : '0' + d;
     return '' + fullYear + split + month + split + day;
-}
+}
 ```
+
+
+
+
 ## formateStringToDate 字符串转日期
 字符串转日期
 
@@ -51,8 +66,12 @@ util.formateStringToDate...
 function formateStringToDate(dateString) {
     var ds = dateString.slice(0, 4) + '-' + dateString.slice(4, 6) + '-' + dateString.slice(6, 8);
     return new Date(ds);
-}
+}
 ```
+
+
+
+
 ## dateCount 倒计时
 倒计时
 
@@ -88,16 +107,14 @@ function dateCount(expireNum, nowNum) {
         return '';
     }
     return date + '天' + hour + '时' + min + '分';
-}
+}
 ```
-## accAdd * 加法函数，用来得到精确的加法结果
-* 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
-* 调用：accAdd(arg1,arg2)
-* 返回值：arg1加上arg2的精确结果
-* 加法函数，用来得到精确的加法结果
-* 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。
-* 调用：accAdd(arg1,arg2)
-* 返回值：arg1加上arg2的精确结果
+
+
+
+
+## accAdd * 加法函数，用来得到精确的加法结果* 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。* 调用：accAdd(arg1,arg2)* 返回值：arg1加上arg2的精确结果
+* 加法函数，用来得到精确的加法结果* 说明：javascript的加法结果会有误差，在两个浮点数相加的时候会比较明显。这个函数返回较为精确的加法结果。* 调用：accAdd(arg1,arg2)* 返回值：arg1加上arg2的精确结果
 
 
 
@@ -136,16 +153,14 @@ function accAdd(arg1, arg2) {
         arg2 = Number(arg2.toString().replace(".", ""));
     }
     return (arg1 + arg2) / m;
-}
+}
 ```
-## accMul * 乘法函数，用来得到精确的乘法结果
-* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-* 调用：accMul(arg1,arg2)
-* 返回值：arg1乘以 arg2的精确结果
-* 乘法函数，用来得到精确的乘法结果
-* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。
-* 调用：accMul(arg1,arg2)
-* 返回值：arg1乘以 arg2的精确结果
+
+
+
+
+## accMul * 乘法函数，用来得到精确的乘法结果* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。* 调用：accMul(arg1,arg2)* 返回值：arg1乘以 arg2的精确结果
+* 乘法函数，用来得到精确的乘法结果* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。* 调用：accMul(arg1,arg2)* 返回值：arg1乘以 arg2的精确结果
 
 
 
@@ -167,16 +182,14 @@ function accMul(arg1, arg2) {
         m += s2.split(".")[1].length;
     } catch (e) {}
     return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
-}
+}
 ```
-## accDiv * 除法函数，用来得到精确的除法结果
-* 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
-* 调用：accDiv(arg1,arg2)
-* 返回值：arg1除以arg2的精确结果
-* 除法函数，用来得到精确的除法结果
-* 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。
-* 调用：accDiv(arg1,arg2)
-* 返回值：arg1除以arg2的精确结果
+
+
+
+
+## accDiv * 除法函数，用来得到精确的除法结果* 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。* 调用：accDiv(arg1,arg2)* 返回值：arg1除以arg2的精确结果
+* 除法函数，用来得到精确的除法结果* 说明：javascript的除法结果会有误差，在两个浮点数相除的时候会比较明显。这个函数返回较为精确的除法结果。* 调用：accDiv(arg1,arg2)* 返回值：arg1除以arg2的精确结果
 
 
 
@@ -203,8 +216,39 @@ function accDiv(arg1, arg2) {
     r2 = Number(arg2.toString().replace(".", ""));
     return r1 / r2 * Math.pow(10, t2 - t1);
     // }
-}
+}
 ```
+
+
+
+
+## thousandFormat 格式化数字，用来每三位加逗号
+格式化数字，用来每三位加逗号
+
+**参数**
+
+| 参数 | 参数类型 |
+|------|------|
+| 数字 | `num`|
+
+**返回值**
+- _String_ : 格式化数字的结果
+
+**引用及使用**
+```javascript
+var util = require('vue/utils/common')
+util.thousandFormat...
+```
+**函数体**
+```javascript
+function thousandFormat(num) {
+    return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+```
+
+
+
+
 ## isTradeDate 前端判断是否为交易日期
 前端判断是否为交易日期
 
@@ -232,8 +276,12 @@ function isTradeDate(dateObject, nonTradingDate) {
     }
     var day = dateObject.getDay();
     return day !== 6 && day !== 0;
-}
+}
 ```
+
+
+
+
 ## abbreviation 字符串超长缩写
 字符串超长缩写
 
@@ -257,8 +305,12 @@ function abbreviation(string, length = 17) {
         return string;
     }
     return string.slice(0, length) + '...';
-}
+}
 ```
+
+
+
+
 ## compare 比较函数
 比较函数
 
@@ -290,8 +342,12 @@ function compare(pro) {
             return 0;
         }
     };
-}
+}
 ```
+
+
+
+
 ## getDiffDays 计算两个日期的间隔
 计算两个日期的间隔
 
@@ -318,8 +374,12 @@ function getDiffDays(date1Str, date2Str) {
     var diffDays = diffTime / (1000 * 60 * 60 * 24);
 
     return diffDays;
-}
+}
 ```
+
+
+
+
 ## getLastTradingDay 
 
 **参数**

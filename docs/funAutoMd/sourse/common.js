@@ -136,13 +136,11 @@ define(function (require, exports, module) {
         // }
     }
 
-    /*
-     ** 格式化数字，用来每三位加逗号
-     ** 说明：格式化数字
-     ** 调用：thousandSepformat(arg)
-     ** 返回值：格式化数字的结果
+    /**
+     * 格式化数字，用来每三位加逗号
+     * @param {num} 数字
+     * @returns {String} 格式化数字的结果
      */
-
     function thousandFormat(num) {
         return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }

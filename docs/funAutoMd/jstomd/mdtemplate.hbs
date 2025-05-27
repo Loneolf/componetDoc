@@ -2,6 +2,19 @@
 {{#if title}}
 # {{title}}
 {{/if}}
+
+{{#if testDoc}}
+<ClientOnly>
+  <DrawerTestDoc url='{{testDoc}}'/>
+</ClientOnly>
+
+<script setup>
+  import DrawerTestDoc from '../../vueCom/drawerTestDoc.vue';
+</script>
+{{/if}}
+
+
+
 ## {{name}} {{description}}
 {{#if description}}
 {{description}}

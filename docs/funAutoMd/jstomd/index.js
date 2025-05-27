@@ -11,7 +11,7 @@ const sidbarBase = '/fun/autoMd/'
 
 const fileNameMap = {
     'common': '通用函数',
-    'commonData': '通用请求数据',
+    'other': '其它函数',
 }
 
 
@@ -70,8 +70,8 @@ async function generateDocs() {
             await extractFunctionBodies(templateData);
 
             addInfo(templateData)
-
-            console.log('templateData', JSON.stringify(templateData[0], null, 2)); // 查看第一个文档对象
+            console.log('templateData', templateData.length); // 查看第一个文档对象
+            // console.log('templateData', JSON.stringify(templateData[0], null, 2)); // 查看第一个文档对象
 
             const output = await jsdoc2md.render({ 
                 // files: tempFilePath,
@@ -104,6 +104,7 @@ function addInfo(templateData) {
         let fileName = item.meta?.filename.replace(/\.temp|\.js/g, '')
         if (index === 0) {
             item.title = fileNameMap[fileName] || fileName || ''
+            item.testDoc = `https://qing-1258827329.cos.ap-beijing.myqcloud.com/componet/coverage/lcov-report/${fileName}.js.html`
         }
         item.cpath = `var util = require('vue/utils/${fileName}')`
         item.use = `util.${item.name}...`
