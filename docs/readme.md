@@ -28,7 +28,7 @@
 │   │       ├── img  # 图片静态资源
 │   │       ├── config  # 模拟数据，配置等
 │   │       ├── fun.js  # 接口请求函数
-│   │       ├── index.js.js  # 组件入口文件，主要逻辑
+│   │       ├── index.js  # 组件入口文件，主要逻辑
 │   │       ├── template.html  # 组件模板文件，主要结构
 │   │       └── demo  # 组件demo
 │   │           ├── demo.html  # demo入口文件
@@ -79,12 +79,21 @@ npm run upcomponetfull
 # 根据文档注释自动生成MD文档
 npm run jsdoc2md
 
-# 启动测试用例并自动发布测试更新测试报告到文档
+# 将commonJS格式的源代码转换为ES6格式的源代码
+npm run jsturn
+
+# 将ES6格式的源代码转换为MD格式的文档
+npm run jsdoc
+
+# 启动测试用例, 并自动发布测试报告，更新测试报告到文档
 npm run test
 
+# 发布测试报告，更新测试报告到对应文档
+npm run testDoc
 ```
 
 ## 配置说明
+[vitepres官方文档](https://vitepress.dev/zh/)
 ```
 // .vitepress/config.js
 export default {
@@ -114,14 +123,55 @@ export default {
 ```
 
 ## md文档编写规范及如何使用Vue组件
-[官方文档](https://markdown.com.cn/)
+> 在 VitePress 中，每个 Markdown 文件都被编译成 HTML，而且将其作为 Vue 单文件组件处理。这意味着可以在 Markdown 中使用任何 Vue 功能，包括动态模板、使用 Vue 组件或通过添加 `<script>` 标签为页面的 Vue 组件添加逻辑。
+
+[md官方文档](https://markdown.com.cn/)
+
+[md使用Vue组件](https://vitepress.dev/zh/guide/using-vue#templating)
+
 
 ## 单元测试及函数注释规范
-单元测试主要用了jest，起语法建议参考[jest实践指南](https://github.yanhaixiang.com/jest-tutorial/)
+单元测试主要用了jest，其语法建议参考[jest实践指南](https://github.yanhaixiang.com/jest-tutorial/)
+
+### 函数注释规范
+```js
+/**
+ * 函数的一句话描述
+ * 
+ * 详细描述函数的功能、实现逻辑、使用场景等，可包含多行。
+ * 例如：该函数用于处理复杂的业务逻辑，通过组合多个子功能实现特定需求。
+ * 
+ * @param {类型} 参数名 - 参数的描述信息，可包含参数的作用、取值范围等
+ * @param {类型} [可选参数名] - 可选参数用方括号标记，描述信息
+ * @param {类型} [参数名=默认值] - 带默认值的参数，描述信息
+ * 
+ * @returns {返回类型} 返回值的描述信息，说明返回值的含义和格式
+ * 
+ * @throws {错误类型} 当出现某种特定条件时抛出的异常，例如参数不合法
+ * 
+ * @example
+ * // 示例代码，展示函数的典型用法
+ * const result = functionName(argument1, argument2);
+ * console.log(result);
+ * 
+ * @see {@link 相关函数名} - 对相关函数的引用
+ * @see {@link https://example.com|外部参考文档} - 外部参考链接
+ * 
+ * @since 1.0.0 - 函数首次出现的版本
+ * @deprecated 2.0.0 - 从2.0.0版本开始已弃用，建议使用新函数替代
+ * 
+ * @author 作者姓名 - 函数的主要开发者
+ * @copyright 2023 公司名称 - 版权信息
+ */
+function functionName(parameter1, optionalParameter = defaultValue) {
+  // 函数实现
+}
+```
 
 ## 项目主要所用的技术栈
 - vitepress 
 - vue3
+- vuex4 状态管理
 - @vueuse/core vue3常用方法库（虚拟列表）
 - element-plus 组件库
 - vxe-table 表格组件
