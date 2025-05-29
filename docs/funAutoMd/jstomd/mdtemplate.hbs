@@ -1,0 +1,59 @@
+{{#each this}}
+{{#if title}}
+# {{title}}
+{{/if}}
+
+{{#if testDoc}}
+<ClientOnly>
+  <DrawerTestDoc url='{{testDoc}}'/>
+</ClientOnly>
+
+<script setup>
+  import DrawerTestDoc from '../../vueCom/drawerTestDoc.vue';
+</script>
+{{/if}}
+
+
+## {{name}} {{description}}
+{{#if description}}
+{{description}}
+{{/if}}
+
+{{#if params}}
+**参数**
+{{#if needDescription}}
+| 参数 | 参数类型 | 描述 |
+|------|------|------|
+{{#each params}}
+| {{name}} | `{{type.names}}` | {{description}} |
+{{/each}}
+{{/if}}
+
+{{#if notDescription}}
+| 参数 | 参数类型 |
+|------|------|
+{{#each params}}
+| {{name}} | `{{type.names}}`|
+{{/each}}
+{{/if}}
+{{/if}}
+
+{{#if returns}}
+**返回值**
+- _{{returns.0.type.names}}_ : {{returns.0.description}}
+{{/if}}
+
+{{#if cpath}}
+**引用及使用**
+```javascript
+{{{cpath}}}
+{{{use}}}
+```
+{{/if}}
+**函数体**
+{{#if code}}
+```javascript
+{{{code}}}
+```
+{{/if}}
+{{/each}}

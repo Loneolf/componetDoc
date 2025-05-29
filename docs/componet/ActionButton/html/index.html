@@ -1,7 +1,0 @@
-<div class="action-btn">
-    <div class="safe-area">
-        <van-button :color="item.color?item.color:'linear-gradient(90deg, #FF3542 30%, #FF8989 100%)'" round :style="{color:item.textColor?item.textColor:'#fff',width:item.width}" :plain="item.plain" block @click="handleClick(item)" v-for="item in btnConfig" v-if="!$slots.default">{{item.text}}</van-button>
-        <slot></slot>
-    </div>
-    
-</div>

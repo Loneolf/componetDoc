@@ -62,6 +62,7 @@ export default defineConfig({
 			{ text: "组件", link: "/componet/TimeBar/readme", activeMatch: "/componet/" },
 			{ text: "工具", link: "/tools/parseHold", activeMatch: "/tools/" },
 			{ text: "文档", link: "/fun/time", activeMatch: "/fun" },
+			{ text: "关于本站", link: "/readme"},
 			{ text: "建议与反馈", link: '/FeedBack' },
 		],
 

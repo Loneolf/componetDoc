@@ -40,7 +40,6 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD, data60) {
     
     let data60arr = [];
     if (data60?.GRID0?.length > 0) {
-        data60.GRID0.shift();
         data60.GRID0.forEach(item => {
             let ia = item.split('|')
             data60arr.push({
@@ -198,7 +197,6 @@ export function turn5106ToObj(data, HKStockExchangeRateList, data60) {
 
     let data60arr = [];
     if (data60?.GRID0?.length > 0) {
-        data60.GRID0.shift();
         data60.GRID0.forEach(item => {
             let ia = item.split('|')
             data60arr.push({

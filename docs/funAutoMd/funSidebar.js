@@ -1,10 +1,10 @@
 export const funSidebar = [
     {
-        "text": "方法集",
-        "link": "/fun/autoMd/math"
+        "text": "通用函数",
+        "link": "/fun/autoMd/common"
     },
     {
-        "text": "字符集",
-        "link": "/fun/autoMd/str"
+        "text": "其它函数",
+        "link": "/fun/autoMd/other"
     }
 ]
