@@ -30,6 +30,7 @@
     "jsdoc2md": "npm run jsturn && npm run jsdoc",
     "jsturn": "node ./docs/funAutoMd/commonjs-to-es6.js",
     "jsdoc": "node ./docs/funAutoMd/jstomd/index.js",
+    "testw": "jest --watch --testPathPattern=docs/funAutoMd/",
     "test": "jest && npm run testDoc",
     "testDoc": "npm run upcomponet && npm run jsdoc"
   },
