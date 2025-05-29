@@ -15,7 +15,7 @@
     "recast": "^0.23.11",
     "sass": "^1.82.0",
     "vite-plugin-raw": "^1.0.3",
-    "vitepress": "^1.5.0"
+    "vitepress": "^1.6.3"
   },
   "scripts": {
     "start": "pnpm dev",

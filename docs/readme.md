@@ -46,7 +46,7 @@
 │   │   ├── sourse/  # commonjs格式的源代码
 │   │   └── test/ # 测试用例
 │   ├── tools/  # 工具文档
-│   ├── vueCom/  # Vue组件，大部分是工具组件，还有通用组件，流入侧边栏抽屉(文档中的测试报告等)，反馈组件等，Vue组件目前均在该目录下添加
+│   ├── vueCom/  # Vue组件，大部分是工具组件，还有通用组件，例如侧边栏抽屉(文档中的测试报告等)，反馈组件等，Vue组件目前均在该目录下添加
 │   ├── index.md  # 文档网站首页md
 │   └──  README.md  # 文档网站 README 指南
 ...
@@ -58,7 +58,7 @@
 # 安装依赖
 npm install
 
-# 启动开发服务器
+# 启动开发服务器 (需要node版本18及以上)
 npm run dev || npm run serve || npm run start
 
 # 构建生产版本
