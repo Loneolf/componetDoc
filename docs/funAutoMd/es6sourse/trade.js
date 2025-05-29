@@ -1,3 +1,5 @@
+var formateDateToString = require('./date').formateDateToString;
+
 /** 判断是否是顶点 
  *  @param {object} data 接口数据
  */
@@ -26,6 +28,7 @@ export function isTradeDate(dateObject, nonTradingDate) {
 }
 
 /**
+ * 获取上一个交易日期
  * @param {Array} nonTradingDays 
  * @param {Array} serverTime 
  * @returns {Array}

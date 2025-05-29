@@ -1,6 +1,8 @@
 'use strict';
 
 define(function (require, exports, module) {
+    var formateDateToString = require('./date').formateDateToString;
+
     /** 判断是否是顶点 
      *  @param {object} data 接口数据
      */
@@ -29,6 +31,7 @@ define(function (require, exports, module) {
     }
 
     /**
+     * 获取上一个交易日期
      * @param {Array} nonTradingDays 
      * @param {Array} serverTime 
      * @returns {Array}

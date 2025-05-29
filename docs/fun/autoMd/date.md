@@ -130,6 +130,37 @@ function getNearTime(time, includeTody) {
 
 
 
+## getDiffDays 计算两个日期的间隔天数
+计算两个日期的间隔天数
+
+**参数**
+
+| 参数 | 参数类型 |
+|------|------|
+| date1Str | `String`|
+| date2Str | `String`|
+
+
+**引用及使用**
+```javascript
+var util = require('vue/utils/date')
+util.getDiffDays...
+```
+**函数体**
+```javascript
+function getDiffDays(date1Str, date2Str) {
+    var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
+    var date2 = new Date(date2Str.substring(0, 4), parseInt(date2Str.substring(4, 6)) - 1, date2Str.substring(6));
+
+    var diffTime = date2.getTime() - date1.getTime();
+    var diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    return diffDays;
+}
+```
+
+
+
 ## getDiffDate 返回对应的时间戳和转换的文字日期
 返回对应的时间戳和转换的文字日期
 
@@ -141,7 +172,7 @@ function getNearTime(time, includeTody) {
 
 
 **返回值**
-- _Object_ : 
+- _Object_ : 返回一个对象：
 
 **引用及使用**
 ```javascript
@@ -231,5 +262,35 @@ function dateCount(expireNum, nowNum) {
         return '';
     }
     return date + '天' + hour + '时' + min + '分';
+}
+```
+
+
+
+## getMonthBeginEndDate 获取传入日期对应月份的起始、结束日期
+获取传入日期对应月份的起始、结束日期
+
+**参数**
+| 参数 | 参数类型 | 描述 |
+|------|------|------|
+| dateObject | `Date` | 需要转换的 Date |
+
+
+**返回值**
+- _object_ : 返回一个对象
+
+**引用及使用**
+```javascript
+var util = require('vue/utils/date')
+util.getMonthBeginEndDate...
+```
+**函数体**
+```javascript
+function getMonthBeginEndDate(date) {
+    var monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+    return {
+        beginDate: getDiffDate(monthEnd, monthEnd.getDate() - 1),
+        endDate: getDiffDate(monthEnd, 0)
+    }
 }
 ```

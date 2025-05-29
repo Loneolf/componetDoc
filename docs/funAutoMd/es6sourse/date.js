@@ -1,7 +1,7 @@
 /**
  * 日期转字符串
  * @param {Date} dateObject 需要转换的 Date
- * @param {String} split 年月日的间隔符（默认为空：20150531）
+ * @param {String} [split = ""] 年月日的间隔符（默认为空：20150531）
  * @returns {String} dateStr
  */
 export function formateDateToString(dateObject, split) {
@@ -85,10 +85,25 @@ export function getNearTime(time, includeTody) {
 }
 
 /**
+ * 计算两个日期的间隔天数
+ * @param {String} date1Str 
+ * @param {String} date2Str 
+ */
+export function getDiffDays(date1Str, date2Str) {
+    var date1 = new Date(date1Str.substring(0, 4), parseInt(date1Str.substring(4, 6)) - 1, date1Str.substring(6));
+    var date2 = new Date(date2Str.substring(0, 4), parseInt(date2Str.substring(4, 6)) - 1, date2Str.substring(6));
+
+    var diffTime = date2.getTime() - date1.getTime();
+    var diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    return diffDays;
+}
+
+/**
  * 返回对应的时间戳和转换的文字日期
  * @param {Date} time 传入的时间戳或日期数据
  * @param {Number} diff 与传入时间戳的差值(天数)
- * @returns {Object}  
+ * @returns {Object}  返回一个对象：
  */
 export function getDiffDate(time, diff) {
     if (!diff) diff = 0;
@@ -104,7 +119,7 @@ export function getDiffDate(time, diff) {
 /**
  * 日期格式补齐两位
  * @param {YYYYMMDD} timeText 日期格式 eg: 2015-5-31
- * @param {String} operate 年月日间隔符默认“-”
+ * @param {String} [operate = "-"] 年月日间隔符默认“-”
  * @returns {YYYYMMDD} 返回补齐后的日期：2015-05-31
  */
 export function addTimeZero(timeText, operate) {
@@ -138,4 +153,17 @@ export function dateCount(expireNum, nowNum) {
         return '';
     }
     return date + '天' + hour + '时' + min + '分';
+}
+
+/**
+ * 获取传入日期对应月份的起始、结束日期
+ * @param {Date} dateObject 需要转换的 Date
+ * @returns {object} 返回一个对象
+ */
+export function getMonthBeginEndDate(date) {
+    var monthEnd = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+    return {
+        beginDate: getDiffDate(monthEnd, monthEnd.getDate() - 1),
+        endDate: getDiffDate(monthEnd, 0)
+    }
 }

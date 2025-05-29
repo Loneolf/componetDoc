@@ -1,7 +1,7 @@
 /**
  * 节流
  * @param {function} fn 节流要执行的函数
- * @param {number} interval 时间间隔(默认 500毫秒)
+ * @param {number} [interval = 500] 时间间隔(默认 500毫秒)
  * @returns {function}  
  */
 export function throttle(fn, interval) {
@@ -28,7 +28,7 @@ export function throttle(fn, interval) {
 /**
  * 防抖
  * @param {function} fn 节流要执行的函数
- * @param {number} interval 时间间隔(默认 500毫秒)
+ * @param {number} [interval = 500] 时间间隔(默认 500毫秒)
  * @returns {function}  
  */
 export function debounce(fn, delay) {

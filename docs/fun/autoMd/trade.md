@@ -70,7 +70,8 @@ function isTradeDate(dateObject, nonTradingDate) {
 
 
 
-## getLastTradingDay 
+## getLastTradingDay 获取上一个交易日期
+获取上一个交易日期
 
 **参数**
 

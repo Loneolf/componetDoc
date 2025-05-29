@@ -6,23 +6,53 @@
             "time": "2025-05-15T06:06:45.306Z",
             "originPath": "docs\\componet\\util.js"
         },
+        "componet/ActionButton/readme.md": {
+            "filePath": "componet/ActionButton/readme.md",
+            "size": 3097,
+            "time": "2025-05-28T06:29:15.687Z",
+            "originPath": "docs\\componet\\ActionButton\\readme.md"
+        },
         "componet/BtnGroup/readme.md": {
             "filePath": "componet/BtnGroup/readme.md",
             "size": 3106,
             "time": "2025-05-15T06:06:45.256Z",
             "originPath": "docs\\componet\\BtnGroup\\readme.md"
         },
-        "componet/search/config.js": {
-            "filePath": "componet/search/config.js",
-            "size": 14867,
-            "time": "2025-05-15T06:06:45.299Z",
-            "originPath": "docs\\componet\\search\\config.js"
+        "componet/coverage/clover.xml": {
+            "filePath": "componet/coverage/clover.xml",
+            "size": 19989,
+            "time": "2025-05-29T09:21:40.322Z",
+            "originPath": "docs\\componet\\coverage\\clover.xml"
+        },
+        "componet/coverage/coverage-final.json": {
+            "filePath": "componet/coverage/coverage-final.json",
+            "size": 59486,
+            "time": "2025-05-29T09:21:40.215Z",
+            "originPath": "docs\\componet\\coverage\\coverage-final.json"
+        },
+        "componet/coverage/lcov.info": {
+            "filePath": "componet/coverage/lcov.info",
+            "size": 8318,
+            "time": "2025-05-29T09:21:40.302Z",
+            "originPath": "docs\\componet\\coverage\\lcov.info"
         },
         "componet/Empty/readme.md": {
             "filePath": "componet/Empty/readme.md",
             "size": 1764,
             "time": "2025-05-15T06:06:45.261Z",
             "originPath": "docs\\componet\\Empty\\readme.md"
+        },
+        "componet/InputField/readme.md": {
+            "filePath": "componet/InputField/readme.md",
+            "size": 2695,
+            "time": "2025-05-28T06:29:15.689Z",
+            "originPath": "docs\\componet\\InputField\\readme.md"
+        },
+        "componet/search/config.js": {
+            "filePath": "componet/search/config.js",
+            "size": 14867,
+            "time": "2025-05-15T06:06:45.299Z",
+            "originPath": "docs\\componet\\search\\config.js"
         },
         "componet/search/fun.js": {
             "filePath": "componet/search/fun.js",
@@ -36,35 +66,23 @@
             "time": "2025-05-15T06:06:45.305Z",
             "originPath": "docs\\componet\\search\\index.js"
         },
-        "componet/search/template.html": {
-            "filePath": "componet/search/template.html",
-            "size": 2111,
-            "time": "2025-05-15T06:06:45.306Z",
-            "originPath": "docs\\componet\\search\\template.html"
-        },
         "componet/search/readme.md": {
             "filePath": "componet/search/readme.md",
             "size": 2205,
             "time": "2025-05-15T06:06:45.305Z",
             "originPath": "docs\\componet\\search\\readme.md"
         },
-        "componet/ActionButton/readme.md": {
-            "filePath": "componet/ActionButton/readme.md",
-            "size": 3097,
-            "time": "2025-05-28T06:29:15.687Z",
-            "originPath": "docs\\componet\\ActionButton\\readme.md"
+        "componet/search/template.html": {
+            "filePath": "componet/search/template.html",
+            "size": 2111,
+            "time": "2025-05-15T06:06:45.306Z",
+            "originPath": "docs\\componet\\search\\template.html"
         },
-        "componet/InputField/readme.md": {
-            "filePath": "componet/InputField/readme.md",
-            "size": 2695,
-            "time": "2025-05-28T06:29:15.689Z",
-            "originPath": "docs\\componet\\InputField\\readme.md"
-        },
-        "componet/lib/f2.min.js": {
-            "filePath": "componet/lib/f2.min.js",
-            "size": 150936,
-            "time": "2025-05-15T06:06:45.287Z",
-            "originPath": "docs\\componet\\lib\\f2.min.js"
+        "componet/Steps/readme.md": {
+            "filePath": "componet/Steps/readme.md",
+            "size": 1952,
+            "time": "2025-05-28T06:29:15.690Z",
+            "originPath": "docs\\componet\\Steps\\readme.md"
         },
         "componet/lib/base.min.css": {
             "filePath": "componet/lib/base.min.css",
@@ -72,11 +90,11 @@
             "time": "2025-05-15T06:06:45.286Z",
             "originPath": "docs\\componet\\lib\\base.min.css"
         },
-        "componet/lib/jquery-1.11.3.min.js": {
-            "filePath": "componet/lib/jquery-1.11.3.min.js",
-            "size": 95962,
-            "time": "2025-05-15T06:06:45.289Z",
-            "originPath": "docs\\componet\\lib\\jquery-1.11.3.min.js"
+        "componet/lib/f2.min.js": {
+            "filePath": "componet/lib/f2.min.js",
+            "size": 150936,
+            "time": "2025-05-15T06:06:45.287Z",
+            "originPath": "docs\\componet\\lib\\f2.min.js"
         },
         "componet/lib/helloLoading.css": {
             "filePath": "componet/lib/helloLoading.css",
@@ -90,17 +108,17 @@
             "time": "2025-05-15T06:06:45.289Z",
             "originPath": "docs\\componet\\lib\\remFlex.js"
         },
+        "componet/lib/jquery-1.11.3.min.js": {
+            "filePath": "componet/lib/jquery-1.11.3.min.js",
+            "size": 95962,
+            "time": "2025-05-15T06:06:45.289Z",
+            "originPath": "docs\\componet\\lib\\jquery-1.11.3.min.js"
+        },
         "componet/lib/sea.js": {
             "filePath": "componet/lib/sea.js",
             "size": 6066,
             "time": "2025-05-15T06:06:45.289Z",
             "originPath": "docs\\componet\\lib\\sea.js"
-        },
-        "componet/lib/seajs-css.min.js": {
-            "filePath": "componet/lib/seajs-css.min.js",
-            "size": 2649,
-            "time": "2025-05-15T06:06:45.290Z",
-            "originPath": "docs\\componet\\lib\\seajs-css.min.js"
         },
         "componet/lib/seajs-text.js": {
             "filePath": "componet/lib/seajs-text.js",
@@ -108,11 +126,11 @@
             "time": "2025-05-15T06:06:45.290Z",
             "originPath": "docs\\componet\\lib\\seajs-text.js"
         },
-        "componet/lib/util.js": {
-            "filePath": "componet/lib/util.js",
-            "size": 296,
-            "time": "2025-05-15T06:06:45.293Z",
-            "originPath": "docs\\componet\\lib\\util.js"
+        "componet/lib/seajs-css.min.js": {
+            "filePath": "componet/lib/seajs-css.min.js",
+            "size": 2649,
+            "time": "2025-05-15T06:06:45.290Z",
+            "originPath": "docs\\componet\\lib\\seajs-css.min.js"
         },
         "componet/lib/TZT.js": {
             "filePath": "componet/lib/TZT.js",
@@ -120,23 +138,17 @@
             "time": "2025-05-29T05:43:54.312Z",
             "originPath": "docs\\componet\\lib\\TZT.js"
         },
+        "componet/lib/util.js": {
+            "filePath": "componet/lib/util.js",
+            "size": 296,
+            "time": "2025-05-15T06:06:45.293Z",
+            "originPath": "docs\\componet\\lib\\util.js"
+        },
         "componet/lib/vconsole.min.js": {
             "filePath": "componet/lib/vconsole.min.js",
             "size": 91482,
             "time": "2025-05-15T06:06:45.297Z",
             "originPath": "docs\\componet\\lib\\vconsole.min.js"
-        },
-        "componet/lib/vue.min.js": {
-            "filePath": "componet/lib/vue.min.js",
-            "size": 86457,
-            "time": "2025-05-15T06:06:45.298Z",
-            "originPath": "docs\\componet\\lib\\vue.min.js"
-        },
-        "componet/coverage/clover.xml": {
-            "filePath": "componet/coverage/clover.xml",
-            "size": 19617,
-            "time": "2025-05-29T08:40:32.604Z",
-            "originPath": "docs\\componet\\coverage\\clover.xml"
         },
         "componet/lib/vue@2.6.12.min.js": {
             "filePath": "componet/lib/vue@2.6.12.min.js",
@@ -144,29 +156,11 @@
             "time": "2025-05-15T06:06:45.299Z",
             "originPath": "docs\\componet\\lib\\vue@2.6.12.min.js"
         },
-        "componet/coverage/coverage-final.json": {
-            "filePath": "componet/coverage/coverage-final.json",
-            "size": 58466,
-            "time": "2025-05-29T08:40:32.510Z",
-            "originPath": "docs\\componet\\coverage\\coverage-final.json"
-        },
-        "componet/coverage/lcov.info": {
-            "filePath": "componet/coverage/lcov.info",
-            "size": 8143,
-            "time": "2025-05-29T08:40:32.588Z",
-            "originPath": "docs\\componet\\coverage\\lcov.info"
-        },
-        "componet/Steps/readme.md": {
-            "filePath": "componet/Steps/readme.md",
-            "size": 1952,
-            "time": "2025-05-28T06:29:15.690Z",
-            "originPath": "docs\\componet\\Steps\\readme.md"
-        },
-        "componet/TimeBar/readme.md": {
-            "filePath": "componet/TimeBar/readme.md",
-            "size": 3323,
-            "time": "2025-05-15T06:06:45.273Z",
-            "originPath": "docs\\componet\\TimeBar\\readme.md"
+        "componet/lib/vue.min.js": {
+            "filePath": "componet/lib/vue.min.js",
+            "size": 86457,
+            "time": "2025-05-15T06:06:45.298Z",
+            "originPath": "docs\\componet\\lib\\vue.min.js"
         },
         "componet/TimeBar/index.js": {
             "filePath": "componet/TimeBar/index.js",
@@ -174,17 +168,17 @@
             "time": "2025-05-15T06:06:45.272Z",
             "originPath": "docs\\componet\\TimeBar\\index.js"
         },
+        "componet/TimeBar/readme.md": {
+            "filePath": "componet/TimeBar/readme.md",
+            "size": 3323,
+            "time": "2025-05-15T06:06:45.273Z",
+            "originPath": "docs\\componet\\TimeBar\\readme.md"
+        },
         "componet/TimeBar/template.html": {
             "filePath": "componet/TimeBar/template.html",
             "size": 712,
             "time": "2025-05-15T06:06:45.273Z",
             "originPath": "docs\\componet\\TimeBar\\template.html"
-        },
-        "componet/TradeCalendar/readme.md": {
-            "filePath": "componet/TradeCalendar/readme.md",
-            "size": 2625,
-            "time": "2025-05-28T06:29:15.694Z",
-            "originPath": "docs\\componet\\TradeCalendar\\readme.md"
         },
         "componet/TimeSelect/index.js": {
             "filePath": "componet/TimeSelect/index.js",
@@ -204,89 +198,11 @@
             "time": "2025-05-15T06:06:45.276Z",
             "originPath": "docs\\componet\\TimeSelect\\readme.md"
         },
-        "componet/BtnGroup/css/index.css": {
-            "filePath": "componet/BtnGroup/css/index.css",
-            "size": 1000,
-            "time": "2025-05-15T06:06:45.254Z",
-            "originPath": "docs\\componet\\BtnGroup\\css\\index.css"
-        },
-        "componet/BtnGroup/js/index.js": {
-            "filePath": "componet/BtnGroup/js/index.js",
-            "size": 1906,
-            "time": "2025-05-15T06:06:45.256Z",
-            "originPath": "docs\\componet\\BtnGroup\\js\\index.js"
-        },
-        "componet/BtnGroup/demo/demo.js": {
-            "filePath": "componet/BtnGroup/demo/demo.js",
-            "size": 1154,
-            "time": "2025-05-15T06:06:45.255Z",
-            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.js"
-        },
-        "componet/BtnGroup/demo/demo.html": {
-            "filePath": "componet/BtnGroup/demo/demo.html",
-            "size": 2110,
-            "time": "2025-05-15T06:06:45.254Z",
-            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.html"
-        },
-        "componet/Empty/demo/demo.html": {
-            "filePath": "componet/Empty/demo/demo.html",
-            "size": 1737,
-            "time": "2025-05-15T06:06:45.258Z",
-            "originPath": "docs\\componet\\Empty\\demo\\demo.html"
-        },
-        "componet/BtnGroup/html/index.html": {
-            "filePath": "componet/BtnGroup/html/index.html",
-            "size": 541,
-            "time": "2025-05-15T06:06:45.255Z",
-            "originPath": "docs\\componet\\BtnGroup\\html\\index.html"
-        },
-        "componet/Empty/demo/demo.js": {
-            "filePath": "componet/Empty/demo/demo.js",
-            "size": 336,
-            "time": "2025-05-15T06:06:45.258Z",
-            "originPath": "docs\\componet\\Empty\\demo\\demo.js"
-        },
-        "componet/Empty/html/template.html": {
-            "filePath": "componet/Empty/html/template.html",
-            "size": 244,
-            "time": "2025-05-15T06:06:45.259Z",
-            "originPath": "docs\\componet\\Empty\\html\\template.html"
-        },
-        "componet/Empty/css/empty.css": {
-            "filePath": "componet/Empty/css/empty.css",
-            "size": 356,
-            "time": "2025-05-15T06:06:45.257Z",
-            "originPath": "docs\\componet\\Empty\\css\\empty.css"
-        },
-        "componet/Empty/img/empty.png": {
-            "filePath": "componet/Empty/img/empty.png",
-            "size": 69817,
-            "time": "2025-05-15T06:06:45.260Z",
-            "originPath": "docs\\componet\\Empty\\img\\empty.png"
-        },
-        "componet/search/demo/demo.html": {
-            "filePath": "componet/search/demo/demo.html",
-            "size": 2117,
-            "time": "2025-05-15T06:06:45.302Z",
-            "originPath": "docs\\componet\\search\\demo\\demo.html"
-        },
-        "componet/Empty/js/empty.js": {
-            "filePath": "componet/Empty/js/empty.js",
-            "size": 521,
-            "time": "2025-05-15T06:06:45.261Z",
-            "originPath": "docs\\componet\\Empty\\js\\empty.js"
-        },
-        "componet/search/demo/demo.js": {
-            "filePath": "componet/search/demo/demo.js",
-            "size": 466,
-            "time": "2025-05-15T06:06:45.302Z",
-            "originPath": "docs\\componet\\search\\demo\\demo.js"
-        },
-        "componet/search/css/index.css": {
-            "filePath": "componet/search/css/index.css",
-            "size": 3458,
-            "time": "2025-05-15T06:06:45.300Z",
-            "originPath": "docs\\componet\\search\\css\\index.css"
+        "componet/TradeCalendar/readme.md": {
+            "filePath": "componet/TradeCalendar/readme.md",
+            "size": 2625,
+            "time": "2025-05-28T06:29:15.694Z",
+            "originPath": "docs\\componet\\TradeCalendar\\readme.md"
         },
         "componet/ActionButton/demo/demo.html": {
             "filePath": "componet/ActionButton/demo/demo.html",
@@ -300,17 +216,11 @@
             "time": "2025-05-15T06:06:45.250Z",
             "originPath": "docs\\componet\\ActionButton\\demo\\demo.js"
         },
-        "componet/search/img/clear.png": {
-            "filePath": "componet/search/img/clear.png",
-            "size": 960,
-            "time": "2025-05-15T06:06:45.303Z",
-            "originPath": "docs\\componet\\search\\img\\clear.png"
-        },
-        "componet/search/img/noData.png": {
-            "filePath": "componet/search/img/noData.png",
-            "size": 69817,
-            "time": "2025-05-15T06:06:45.304Z",
-            "originPath": "docs\\componet\\search\\img\\noData.png"
+        "componet/ActionButton/css/index.css": {
+            "filePath": "componet/ActionButton/css/index.css",
+            "size": 551,
+            "time": "2025-05-15T06:06:45.249Z",
+            "originPath": "docs\\componet\\ActionButton\\css\\index.css"
         },
         "componet/ActionButton/demo2/demo.html": {
             "filePath": "componet/ActionButton/demo2/demo.html",
@@ -318,23 +228,11 @@
             "time": "2025-05-15T06:06:45.251Z",
             "originPath": "docs\\componet\\ActionButton\\demo2\\demo.html"
         },
-        "componet/search/img/seachIcon.png": {
-            "filePath": "componet/search/img/seachIcon.png",
-            "size": 1834,
-            "time": "2025-05-15T06:06:45.304Z",
-            "originPath": "docs\\componet\\search\\img\\seachIcon.png"
-        },
         "componet/ActionButton/demo2/demo.js": {
             "filePath": "componet/ActionButton/demo2/demo.js",
             "size": 890,
             "time": "2025-05-15T06:06:45.251Z",
             "originPath": "docs\\componet\\ActionButton\\demo2\\demo.js"
-        },
-        "componet/ActionButton/css/index.css": {
-            "filePath": "componet/ActionButton/css/index.css",
-            "size": 551,
-            "time": "2025-05-15T06:06:45.249Z",
-            "originPath": "docs\\componet\\ActionButton\\css\\index.css"
         },
         "componet/ActionButton/html/index.html": {
             "filePath": "componet/ActionButton/html/index.html",
@@ -342,23 +240,11 @@
             "time": "2025-05-15T06:06:45.252Z",
             "originPath": "docs\\componet\\ActionButton\\html\\index.html"
         },
-        "componet/InputField/html/template.html": {
-            "filePath": "componet/InputField/html/template.html",
-            "size": 1558,
-            "time": "2025-05-15T06:06:45.263Z",
-            "originPath": "docs\\componet\\InputField\\html\\template.html"
-        },
-        "componet/InputField/demo/demo.html": {
-            "filePath": "componet/InputField/demo/demo.html",
-            "size": 2031,
-            "time": "2025-05-15T06:06:45.262Z",
-            "originPath": "docs\\componet\\InputField\\demo\\demo.html"
-        },
-        "componet/InputField/css/index.css": {
-            "filePath": "componet/InputField/css/index.css",
-            "size": 1917,
-            "time": "2025-05-15T06:06:45.262Z",
-            "originPath": "docs\\componet\\InputField\\css\\index.css"
+        "componet/BtnGroup/css/index.css": {
+            "filePath": "componet/BtnGroup/css/index.css",
+            "size": 1000,
+            "time": "2025-05-15T06:06:45.254Z",
+            "originPath": "docs\\componet\\BtnGroup\\css\\index.css"
         },
         "componet/ActionButton/js/index.js": {
             "filePath": "componet/ActionButton/js/index.js",
@@ -366,23 +252,179 @@
             "time": "2025-05-15T06:06:45.252Z",
             "originPath": "docs\\componet\\ActionButton\\js\\index.js"
         },
-        "componet/InputField/demo/demo.js": {
-            "filePath": "componet/InputField/demo/demo.js",
-            "size": 424,
-            "time": "2025-05-15T06:06:45.263Z",
-            "originPath": "docs\\componet\\InputField\\demo\\demo.js"
+        "componet/BtnGroup/demo/demo.html": {
+            "filePath": "componet/BtnGroup/demo/demo.html",
+            "size": 2110,
+            "time": "2025-05-15T06:06:45.254Z",
+            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.html"
         },
-        "componet/InputField/js/index.js": {
-            "filePath": "componet/InputField/js/index.js",
-            "size": 10580,
-            "time": "2025-05-15T06:06:45.264Z",
-            "originPath": "docs\\componet\\InputField\\js\\index.js"
+        "componet/BtnGroup/html/index.html": {
+            "filePath": "componet/BtnGroup/html/index.html",
+            "size": 541,
+            "time": "2025-05-15T06:06:45.255Z",
+            "originPath": "docs\\componet\\BtnGroup\\html\\index.html"
         },
-        "componet/lib/swiper/swiper.min.css": {
-            "filePath": "componet/lib/swiper/swiper.min.css",
-            "size": 19450,
-            "time": "2025-05-15T06:06:45.291Z",
-            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.css"
+        "componet/BtnGroup/demo/demo.js": {
+            "filePath": "componet/BtnGroup/demo/demo.js",
+            "size": 1154,
+            "time": "2025-05-15T06:06:45.255Z",
+            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.js"
+        },
+        "componet/BtnGroup/js/index.js": {
+            "filePath": "componet/BtnGroup/js/index.js",
+            "size": 1906,
+            "time": "2025-05-15T06:06:45.256Z",
+            "originPath": "docs\\componet\\BtnGroup\\js\\index.js"
+        },
+        "componet/coverage/lcov-report/block-navigation.js": {
+            "filePath": "componet/coverage/lcov-report/block-navigation.js",
+            "size": 2655,
+            "time": "2025-05-29T09:21:40.246Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\block-navigation.js"
+        },
+        "componet/coverage/lcov-report/base.css": {
+            "filePath": "componet/coverage/lcov-report/base.css",
+            "size": 5394,
+            "time": "2025-05-29T09:21:40.244Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\base.css"
+        },
+        "componet/coverage/lcov-report/common.js.html": {
+            "filePath": "componet/coverage/lcov-report/common.js.html",
+            "size": 34128,
+            "time": "2025-05-29T09:21:40.276Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\common.js.html"
+        },
+        "componet/coverage/lcov-report/calculate.js.html": {
+            "filePath": "componet/coverage/lcov-report/calculate.js.html",
+            "size": 14896,
+            "time": "2025-05-29T09:21:40.269Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\calculate.js.html"
+        },
+        "componet/coverage/lcov-report/date.js.html": {
+            "filePath": "componet/coverage/lcov-report/date.js.html",
+            "size": 24854,
+            "time": "2025-05-29T09:21:40.280Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\date.js.html"
+        },
+        "componet/coverage/lcov-report/favicon.png": {
+            "filePath": "componet/coverage/lcov-report/favicon.png",
+            "size": 445,
+            "time": "2025-05-29T09:21:40.248Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\favicon.png"
+        },
+        "componet/coverage/lcov-report/index.html": {
+            "filePath": "componet/coverage/lcov-report/index.html",
+            "size": 10500,
+            "time": "2025-05-29T09:21:40.263Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\index.html"
+        },
+        "componet/coverage/lcov-report/numbers.js.html": {
+            "filePath": "componet/coverage/lcov-report/numbers.js.html",
+            "size": 3958,
+            "time": "2025-05-29T09:21:40.283Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\numbers.js.html"
+        },
+        "componet/coverage/lcov-report/optimization.js.html": {
+            "filePath": "componet/coverage/lcov-report/optimization.js.html",
+            "size": 8388,
+            "time": "2025-05-29T09:21:40.286Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\optimization.js.html"
+        },
+        "componet/coverage/lcov-report/other.js.html": {
+            "filePath": "componet/coverage/lcov-report/other.js.html",
+            "size": 27299,
+            "time": "2025-05-29T09:21:40.291Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\other.js.html"
+        },
+        "componet/coverage/lcov-report/prettify.css": {
+            "filePath": "componet/coverage/lcov-report/prettify.css",
+            "size": 676,
+            "time": "2025-05-29T09:21:40.256Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.css"
+        },
+        "componet/coverage/lcov-report/sort-arrow-sprite.png": {
+            "filePath": "componet/coverage/lcov-report/sort-arrow-sprite.png",
+            "size": 138,
+            "time": "2025-05-29T09:21:40.251Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\sort-arrow-sprite.png"
+        },
+        "componet/coverage/lcov-report/prettify.js": {
+            "filePath": "componet/coverage/lcov-report/prettify.js",
+            "size": 17590,
+            "time": "2025-05-29T09:21:40.258Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.js"
+        },
+        "componet/coverage/lcov-report/sorter.js": {
+            "filePath": "componet/coverage/lcov-report/sorter.js",
+            "size": 6181,
+            "time": "2025-05-29T09:21:40.253Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\sorter.js"
+        },
+        "componet/coverage/lcov-report/trade.js.html": {
+            "filePath": "componet/coverage/lcov-report/trade.js.html",
+            "size": 9045,
+            "time": "2025-05-29T09:21:40.297Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\trade.js.html"
+        },
+        "componet/coverage/lcov-report/stringFun.js.html": {
+            "filePath": "componet/coverage/lcov-report/stringFun.js.html",
+            "size": 4424,
+            "time": "2025-05-29T09:21:40.294Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\stringFun.js.html"
+        },
+        "componet/coverage/lcov-report/urlFun.js.html": {
+            "filePath": "componet/coverage/lcov-report/urlFun.js.html",
+            "size": 13396,
+            "time": "2025-05-29T09:21:40.301Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\urlFun.js.html"
+        },
+        "componet/coverage/lcov-report/userEnv.js.html": {
+            "filePath": "componet/coverage/lcov-report/userEnv.js.html",
+            "size": 5161,
+            "time": "2025-05-29T09:21:40.304Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\userEnv.js.html"
+        },
+        "componet/Empty/css/empty.css": {
+            "filePath": "componet/Empty/css/empty.css",
+            "size": 356,
+            "time": "2025-05-15T06:06:45.257Z",
+            "originPath": "docs\\componet\\Empty\\css\\empty.css"
+        },
+        "componet/Empty/html/template.html": {
+            "filePath": "componet/Empty/html/template.html",
+            "size": 244,
+            "time": "2025-05-15T06:06:45.259Z",
+            "originPath": "docs\\componet\\Empty\\html\\template.html"
+        },
+        "componet/Empty/demo/demo.html": {
+            "filePath": "componet/Empty/demo/demo.html",
+            "size": 1737,
+            "time": "2025-05-15T06:06:45.258Z",
+            "originPath": "docs\\componet\\Empty\\demo\\demo.html"
+        },
+        "componet/Empty/img/empty.png": {
+            "filePath": "componet/Empty/img/empty.png",
+            "size": 69817,
+            "time": "2025-05-15T06:06:45.260Z",
+            "originPath": "docs\\componet\\Empty\\img\\empty.png"
+        },
+        "componet/Empty/demo/demo.js": {
+            "filePath": "componet/Empty/demo/demo.js",
+            "size": 336,
+            "time": "2025-05-15T06:06:45.258Z",
+            "originPath": "docs\\componet\\Empty\\demo\\demo.js"
+        },
+        "componet/Empty/js/empty.js": {
+            "filePath": "componet/Empty/js/empty.js",
+            "size": 521,
+            "time": "2025-05-15T06:06:45.261Z",
+            "originPath": "docs\\componet\\Empty\\js\\empty.js"
+        },
+        "componet/InputField/css/index.css": {
+            "filePath": "componet/InputField/css/index.css",
+            "size": 1917,
+            "time": "2025-05-15T06:06:45.262Z",
+            "originPath": "docs\\componet\\InputField\\css\\index.css"
         },
         "componet/InputField/img/add.png": {
             "filePath": "componet/InputField/img/add.png",
@@ -396,131 +438,77 @@
             "time": "2025-05-15T06:06:45.264Z",
             "originPath": "docs\\componet\\InputField\\img\\minus.png"
         },
-        "componet/lib/swiper/swiper.min.js": {
-            "filePath": "componet/lib/swiper/swiper.min.js",
-            "size": 114417,
-            "time": "2025-05-15T06:06:45.292Z",
-            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.js"
+        "componet/InputField/demo/demo.html": {
+            "filePath": "componet/InputField/demo/demo.html",
+            "size": 2031,
+            "time": "2025-05-15T06:06:45.262Z",
+            "originPath": "docs\\componet\\InputField\\demo\\demo.html"
         },
-        "componet/coverage/lcov-report/base.css": {
-            "filePath": "componet/coverage/lcov-report/base.css",
-            "size": 5394,
-            "time": "2025-05-29T08:40:32.536Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\base.css"
+        "componet/InputField/js/index.js": {
+            "filePath": "componet/InputField/js/index.js",
+            "size": 10580,
+            "time": "2025-05-15T06:06:45.264Z",
+            "originPath": "docs\\componet\\InputField\\js\\index.js"
         },
-        "componet/coverage/lcov-report/block-navigation.js": {
-            "filePath": "componet/coverage/lcov-report/block-navigation.js",
-            "size": 2655,
-            "time": "2025-05-29T08:40:32.539Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\block-navigation.js"
+        "componet/InputField/demo/demo.js": {
+            "filePath": "componet/InputField/demo/demo.js",
+            "size": 424,
+            "time": "2025-05-15T06:06:45.263Z",
+            "originPath": "docs\\componet\\InputField\\demo\\demo.js"
         },
-        "componet/coverage/lcov-report/common.js.html": {
-            "filePath": "componet/coverage/lcov-report/common.js.html",
-            "size": 34128,
-            "time": "2025-05-29T08:40:32.565Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\common.js.html"
+        "componet/search/css/index.css": {
+            "filePath": "componet/search/css/index.css",
+            "size": 3458,
+            "time": "2025-05-15T06:06:45.300Z",
+            "originPath": "docs\\componet\\search\\css\\index.css"
         },
-        "componet/coverage/lcov-report/calculate.js.html": {
-            "filePath": "componet/coverage/lcov-report/calculate.js.html",
-            "size": 14896,
-            "time": "2025-05-29T08:40:32.560Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\calculate.js.html"
+        "componet/InputField/html/template.html": {
+            "filePath": "componet/InputField/html/template.html",
+            "size": 1558,
+            "time": "2025-05-15T06:06:45.263Z",
+            "originPath": "docs\\componet\\InputField\\html\\template.html"
         },
-        "componet/coverage/lcov-report/date.js.html": {
-            "filePath": "componet/coverage/lcov-report/date.js.html",
-            "size": 20878,
-            "time": "2025-05-29T08:40:32.568Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\date.js.html"
+        "componet/search/demo/demo.html": {
+            "filePath": "componet/search/demo/demo.html",
+            "size": 2117,
+            "time": "2025-05-15T06:06:45.302Z",
+            "originPath": "docs\\componet\\search\\demo\\demo.html"
         },
-        "componet/coverage/lcov-report/index.html": {
-            "filePath": "componet/coverage/lcov-report/index.html",
-            "size": 10495,
-            "time": "2025-05-29T08:40:32.554Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\index.html"
+        "componet/search/demo/demo.js": {
+            "filePath": "componet/search/demo/demo.js",
+            "size": 466,
+            "time": "2025-05-15T06:06:45.302Z",
+            "originPath": "docs\\componet\\search\\demo\\demo.js"
         },
-        "componet/coverage/lcov-report/optimization.js.html": {
-            "filePath": "componet/coverage/lcov-report/optimization.js.html",
-            "size": 8372,
-            "time": "2025-05-29T08:40:32.573Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\optimization.js.html"
+        "componet/search/img/clear.png": {
+            "filePath": "componet/search/img/clear.png",
+            "size": 960,
+            "time": "2025-05-15T06:06:45.303Z",
+            "originPath": "docs\\componet\\search\\img\\clear.png"
         },
-        "componet/coverage/lcov-report/favicon.png": {
-            "filePath": "componet/coverage/lcov-report/favicon.png",
-            "size": 445,
-            "time": "2025-05-29T08:40:32.540Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\favicon.png"
+        "componet/search/img/seachIcon.png": {
+            "filePath": "componet/search/img/seachIcon.png",
+            "size": 1834,
+            "time": "2025-05-15T06:06:45.304Z",
+            "originPath": "docs\\componet\\search\\img\\seachIcon.png"
         },
-        "componet/coverage/lcov-report/numbers.js.html": {
-            "filePath": "componet/coverage/lcov-report/numbers.js.html",
-            "size": 3958,
-            "time": "2025-05-29T08:40:32.570Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\numbers.js.html"
+        "componet/search/img/noData.png": {
+            "filePath": "componet/search/img/noData.png",
+            "size": 69817,
+            "time": "2025-05-15T06:06:45.304Z",
+            "originPath": "docs\\componet\\search\\img\\noData.png"
         },
-        "componet/coverage/lcov-report/other.js.html": {
-            "filePath": "componet/coverage/lcov-report/other.js.html",
-            "size": 27299,
-            "time": "2025-05-29T08:40:32.577Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\other.js.html"
+        "componet/Steps/img/right_icon.png": {
+            "filePath": "componet/Steps/img/right_icon.png",
+            "size": 524,
+            "time": "2025-05-15T06:06:45.267Z",
+            "originPath": "docs\\componet\\Steps\\img\\right_icon.png"
         },
-        "componet/coverage/lcov-report/prettify.css": {
-            "filePath": "componet/coverage/lcov-report/prettify.css",
-            "size": 676,
-            "time": "2025-05-29T08:40:32.547Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.css"
-        },
-        "componet/coverage/lcov-report/prettify.js": {
-            "filePath": "componet/coverage/lcov-report/prettify.js",
-            "size": 17590,
-            "time": "2025-05-29T08:40:32.549Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.js"
-        },
-        "componet/coverage/lcov-report/sort-arrow-sprite.png": {
-            "filePath": "componet/coverage/lcov-report/sort-arrow-sprite.png",
-            "size": 138,
-            "time": "2025-05-29T08:40:32.542Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\sort-arrow-sprite.png"
-        },
-        "componet/coverage/lcov-report/stringFun.js.html": {
-            "filePath": "componet/coverage/lcov-report/stringFun.js.html",
-            "size": 4424,
-            "time": "2025-05-29T08:40:32.580Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\stringFun.js.html"
-        },
-        "componet/coverage/lcov-report/sorter.js": {
-            "filePath": "componet/coverage/lcov-report/sorter.js",
-            "size": 6181,
-            "time": "2025-05-29T08:40:32.544Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\sorter.js"
-        },
-        "componet/coverage/lcov-report/userEnv.js.html": {
-            "filePath": "componet/coverage/lcov-report/userEnv.js.html",
-            "size": 5161,
-            "time": "2025-05-29T08:40:32.589Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\userEnv.js.html"
-        },
-        "componet/coverage/lcov-report/urlFun.js.html": {
-            "filePath": "componet/coverage/lcov-report/urlFun.js.html",
-            "size": 13396,
-            "time": "2025-05-29T08:40:32.587Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\urlFun.js.html"
-        },
-        "componet/lib/vant/index@2.12.css": {
-            "filePath": "componet/lib/vant/index@2.12.css",
-            "size": 144359,
-            "time": "2025-05-15T06:06:45.294Z",
-            "originPath": "docs\\componet\\lib\\vant\\index@2.12.css"
-        },
-        "componet/coverage/lcov-report/trade.js.html": {
-            "filePath": "componet/coverage/lcov-report/trade.js.html",
-            "size": 8539,
-            "time": "2025-05-29T08:40:32.584Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\trade.js.html"
-        },
-        "componet/lib/vant/vant@2.12.min.js": {
-            "filePath": "componet/lib/vant/vant@2.12.min.js",
-            "size": 273304,
-            "time": "2025-05-15T06:06:45.296Z",
-            "originPath": "docs\\componet\\lib\\vant\\vant@2.12.min.js"
+        "componet/Steps/css/index.css": {
+            "filePath": "componet/Steps/css/index.css",
+            "size": 1693,
+            "time": "2025-05-15T06:06:45.265Z",
+            "originPath": "docs\\componet\\Steps\\css\\index.css"
         },
         "componet/Steps/demo/demo.html": {
             "filePath": "componet/Steps/demo/demo.html",
@@ -534,23 +522,11 @@
             "time": "2025-05-15T06:06:45.266Z",
             "originPath": "docs\\componet\\Steps\\demo\\demo.js"
         },
-        "componet/Steps/css/index.css": {
-            "filePath": "componet/Steps/css/index.css",
-            "size": 1693,
-            "time": "2025-05-15T06:06:45.265Z",
-            "originPath": "docs\\componet\\Steps\\css\\index.css"
-        },
         "componet/Steps/html/template.html": {
             "filePath": "componet/Steps/html/template.html",
             "size": 610,
             "time": "2025-05-15T06:06:45.267Z",
             "originPath": "docs\\componet\\Steps\\html\\template.html"
-        },
-        "componet/Steps/img/right_icon.png": {
-            "filePath": "componet/Steps/img/right_icon.png",
-            "size": 524,
-            "time": "2025-05-15T06:06:45.267Z",
-            "originPath": "docs\\componet\\Steps\\img\\right_icon.png"
         },
         "componet/Steps/js/index.js": {
             "filePath": "componet/Steps/js/index.js",
@@ -558,23 +534,17 @@
             "time": "2025-05-15T06:06:45.268Z",
             "originPath": "docs\\componet\\Steps\\js\\index.js"
         },
-        "componet/TimeBar/assets/index.css": {
-            "filePath": "componet/TimeBar/assets/index.css",
-            "size": 863,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\index.css"
+        "componet/lib/vant/index@2.12.css": {
+            "filePath": "componet/lib/vant/index@2.12.css",
+            "size": 144359,
+            "time": "2025-05-15T06:06:45.294Z",
+            "originPath": "docs\\componet\\lib\\vant\\index@2.12.css"
         },
-        "componet/TimeBar/assets/downLine.png": {
-            "filePath": "componet/TimeBar/assets/downLine.png",
-            "size": 390,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\downLine.png"
-        },
-        "componet/TimeBar/assets/index.scss": {
-            "filePath": "componet/TimeBar/assets/index.scss",
-            "size": 733,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\index.scss"
+        "componet/lib/vant/vant@2.12.min.js": {
+            "filePath": "componet/lib/vant/vant@2.12.min.js",
+            "size": 273304,
+            "time": "2025-05-15T06:06:45.296Z",
+            "originPath": "docs\\componet\\lib\\vant\\vant@2.12.min.js"
         },
         "componet/TimeBar/demo/demo.html": {
             "filePath": "componet/TimeBar/demo/demo.html",
@@ -588,17 +558,65 @@
             "time": "2025-05-15T06:06:45.272Z",
             "originPath": "docs\\componet\\TimeBar\\demo\\demo.js"
         },
-        "componet/TradeCalendar/demo/demo.js": {
-            "filePath": "componet/TradeCalendar/demo/demo.js",
-            "size": 867,
-            "time": "2025-05-28T06:29:15.692Z",
-            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.js"
+        "componet/lib/swiper/swiper.min.css": {
+            "filePath": "componet/lib/swiper/swiper.min.css",
+            "size": 19450,
+            "time": "2025-05-15T06:06:45.291Z",
+            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.css"
         },
-        "componet/TradeCalendar/demo/demo.html": {
-            "filePath": "componet/TradeCalendar/demo/demo.html",
-            "size": 1867,
-            "time": "2025-05-28T06:29:15.691Z",
-            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.html"
+        "componet/lib/swiper/swiper.min.js": {
+            "filePath": "componet/lib/swiper/swiper.min.js",
+            "size": 114417,
+            "time": "2025-05-15T06:06:45.292Z",
+            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.js"
+        },
+        "componet/TimeBar/assets/downLine.png": {
+            "filePath": "componet/TimeBar/assets/downLine.png",
+            "size": 390,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\downLine.png"
+        },
+        "componet/TimeSelect/demo/demo.html": {
+            "filePath": "componet/TimeSelect/demo/demo.html",
+            "size": 2112,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.html"
+        },
+        "componet/TimeSelect/demo/demo.js": {
+            "filePath": "componet/TimeSelect/demo/demo.js",
+            "size": 1402,
+            "time": "2025-05-15T06:06:45.276Z",
+            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.js"
+        },
+        "componet/TimeBar/assets/index.css": {
+            "filePath": "componet/TimeBar/assets/index.css",
+            "size": 863,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\index.css"
+        },
+        "componet/TimeSelect/assets/index.css": {
+            "filePath": "componet/TimeSelect/assets/index.css",
+            "size": 4309,
+            "time": "2025-05-15T06:06:45.274Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\index.css"
+        },
+        "componet/TimeSelect/assets/lineLeft.png": {
+            "filePath": "componet/TimeSelect/assets/lineLeft.png",
+            "size": 404,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\lineLeft.png"
+        },
+        "componet/TimeBar/assets/index.scss": {
+            "filePath": "componet/TimeBar/assets/index.scss",
+            "size": 733,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\index.scss"
+        },
+        "componet/TimeSelect/assets/lineRight.png": {
+            "filePath": "componet/TimeSelect/assets/lineRight.png",
+            "size": 444,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\lineRight.png"
         },
         "componet/TradeCalendar/css/index.css": {
             "filePath": "componet/TradeCalendar/css/index.css",
@@ -618,11 +636,11 @@
             "time": "2025-05-28T06:29:15.694Z",
             "originPath": "docs\\componet\\TradeCalendar\\js\\index.js"
         },
-        "componet/TradeCalendar/img/gray-selected.png": {
-            "filePath": "componet/TradeCalendar/img/gray-selected.png",
-            "size": 1575,
-            "time": "2025-05-15T06:06:45.281Z",
-            "originPath": "docs\\componet\\TradeCalendar\\img\\gray-selected.png"
+        "componet/TradeCalendar/demo/demo.html": {
+            "filePath": "componet/TradeCalendar/demo/demo.html",
+            "size": 1867,
+            "time": "2025-05-28T06:29:15.691Z",
+            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.html"
         },
         "componet/TradeCalendar/img/arrow-down.png": {
             "filePath": "componet/TradeCalendar/img/arrow-down.png",
@@ -630,11 +648,23 @@
             "time": "2025-05-15T06:06:45.280Z",
             "originPath": "docs\\componet\\TradeCalendar\\img\\arrow-down.png"
         },
+        "componet/TradeCalendar/demo/demo.js": {
+            "filePath": "componet/TradeCalendar/demo/demo.js",
+            "size": 867,
+            "time": "2025-05-28T06:29:15.692Z",
+            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.js"
+        },
         "componet/TradeCalendar/img/gray-bg.png": {
             "filePath": "componet/TradeCalendar/img/gray-bg.png",
             "size": 1199,
             "time": "2025-05-15T06:06:45.280Z",
             "originPath": "docs\\componet\\TradeCalendar\\img\\gray-bg.png"
+        },
+        "componet/TradeCalendar/img/gray-selected.png": {
+            "filePath": "componet/TradeCalendar/img/gray-selected.png",
+            "size": 1575,
+            "time": "2025-05-15T06:06:45.281Z",
+            "originPath": "docs\\componet\\TradeCalendar\\img\\gray-selected.png"
         },
         "componet/TradeCalendar/img/green-bg.png": {
             "filePath": "componet/TradeCalendar/img/green-bg.png",
@@ -659,36 +689,6 @@
             "size": 19554,
             "time": "2025-05-15T06:06:45.282Z",
             "originPath": "docs\\componet\\TradeCalendar\\img\\red-selected.png"
-        },
-        "componet/TimeSelect/assets/index.css": {
-            "filePath": "componet/TimeSelect/assets/index.css",
-            "size": 4309,
-            "time": "2025-05-15T06:06:45.274Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\index.css"
-        },
-        "componet/TimeSelect/assets/lineLeft.png": {
-            "filePath": "componet/TimeSelect/assets/lineLeft.png",
-            "size": 404,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\lineLeft.png"
-        },
-        "componet/TimeSelect/demo/demo.js": {
-            "filePath": "componet/TimeSelect/demo/demo.js",
-            "size": 1402,
-            "time": "2025-05-15T06:06:45.276Z",
-            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.js"
-        },
-        "componet/TimeSelect/demo/demo.html": {
-            "filePath": "componet/TimeSelect/demo/demo.html",
-            "size": 2112,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.html"
-        },
-        "componet/TimeSelect/assets/lineRight.png": {
-            "filePath": "componet/TimeSelect/assets/lineRight.png",
-            "size": 444,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\lineRight.png"
         }
     },
     "list": [
@@ -699,22 +699,52 @@
             "originPath": "docs\\componet\\util.js"
         },
         {
+            "filePath": "componet/ActionButton/readme.md",
+            "size": 3097,
+            "time": "2025-05-28T06:29:15.687Z",
+            "originPath": "docs\\componet\\ActionButton\\readme.md"
+        },
+        {
             "filePath": "componet/BtnGroup/readme.md",
             "size": 3106,
             "time": "2025-05-15T06:06:45.256Z",
             "originPath": "docs\\componet\\BtnGroup\\readme.md"
         },
         {
-            "filePath": "componet/search/config.js",
-            "size": 14867,
-            "time": "2025-05-15T06:06:45.299Z",
-            "originPath": "docs\\componet\\search\\config.js"
+            "filePath": "componet/coverage/clover.xml",
+            "size": 19989,
+            "time": "2025-05-29T09:21:40.322Z",
+            "originPath": "docs\\componet\\coverage\\clover.xml"
+        },
+        {
+            "filePath": "componet/coverage/coverage-final.json",
+            "size": 59486,
+            "time": "2025-05-29T09:21:40.215Z",
+            "originPath": "docs\\componet\\coverage\\coverage-final.json"
+        },
+        {
+            "filePath": "componet/coverage/lcov.info",
+            "size": 8318,
+            "time": "2025-05-29T09:21:40.302Z",
+            "originPath": "docs\\componet\\coverage\\lcov.info"
         },
         {
             "filePath": "componet/Empty/readme.md",
             "size": 1764,
             "time": "2025-05-15T06:06:45.261Z",
             "originPath": "docs\\componet\\Empty\\readme.md"
+        },
+        {
+            "filePath": "componet/InputField/readme.md",
+            "size": 2695,
+            "time": "2025-05-28T06:29:15.689Z",
+            "originPath": "docs\\componet\\InputField\\readme.md"
+        },
+        {
+            "filePath": "componet/search/config.js",
+            "size": 14867,
+            "time": "2025-05-15T06:06:45.299Z",
+            "originPath": "docs\\componet\\search\\config.js"
         },
         {
             "filePath": "componet/search/fun.js",
@@ -729,34 +759,22 @@
             "originPath": "docs\\componet\\search\\index.js"
         },
         {
-            "filePath": "componet/search/template.html",
-            "size": 2111,
-            "time": "2025-05-15T06:06:45.306Z",
-            "originPath": "docs\\componet\\search\\template.html"
-        },
-        {
             "filePath": "componet/search/readme.md",
             "size": 2205,
             "time": "2025-05-15T06:06:45.305Z",
             "originPath": "docs\\componet\\search\\readme.md"
         },
         {
-            "filePath": "componet/ActionButton/readme.md",
-            "size": 3097,
-            "time": "2025-05-28T06:29:15.687Z",
-            "originPath": "docs\\componet\\ActionButton\\readme.md"
+            "filePath": "componet/search/template.html",
+            "size": 2111,
+            "time": "2025-05-15T06:06:45.306Z",
+            "originPath": "docs\\componet\\search\\template.html"
         },
         {
-            "filePath": "componet/InputField/readme.md",
-            "size": 2695,
-            "time": "2025-05-28T06:29:15.689Z",
-            "originPath": "docs\\componet\\InputField\\readme.md"
-        },
-        {
-            "filePath": "componet/lib/f2.min.js",
-            "size": 150936,
-            "time": "2025-05-15T06:06:45.287Z",
-            "originPath": "docs\\componet\\lib\\f2.min.js"
+            "filePath": "componet/Steps/readme.md",
+            "size": 1952,
+            "time": "2025-05-28T06:29:15.690Z",
+            "originPath": "docs\\componet\\Steps\\readme.md"
         },
         {
             "filePath": "componet/lib/base.min.css",
@@ -765,10 +783,10 @@
             "originPath": "docs\\componet\\lib\\base.min.css"
         },
         {
-            "filePath": "componet/lib/jquery-1.11.3.min.js",
-            "size": 95962,
-            "time": "2025-05-15T06:06:45.289Z",
-            "originPath": "docs\\componet\\lib\\jquery-1.11.3.min.js"
+            "filePath": "componet/lib/f2.min.js",
+            "size": 150936,
+            "time": "2025-05-15T06:06:45.287Z",
+            "originPath": "docs\\componet\\lib\\f2.min.js"
         },
         {
             "filePath": "componet/lib/helloLoading.css",
@@ -783,16 +801,16 @@
             "originPath": "docs\\componet\\lib\\remFlex.js"
         },
         {
+            "filePath": "componet/lib/jquery-1.11.3.min.js",
+            "size": 95962,
+            "time": "2025-05-15T06:06:45.289Z",
+            "originPath": "docs\\componet\\lib\\jquery-1.11.3.min.js"
+        },
+        {
             "filePath": "componet/lib/sea.js",
             "size": 6066,
             "time": "2025-05-15T06:06:45.289Z",
             "originPath": "docs\\componet\\lib\\sea.js"
-        },
-        {
-            "filePath": "componet/lib/seajs-css.min.js",
-            "size": 2649,
-            "time": "2025-05-15T06:06:45.290Z",
-            "originPath": "docs\\componet\\lib\\seajs-css.min.js"
         },
         {
             "filePath": "componet/lib/seajs-text.js",
@@ -801,10 +819,10 @@
             "originPath": "docs\\componet\\lib\\seajs-text.js"
         },
         {
-            "filePath": "componet/lib/util.js",
-            "size": 296,
-            "time": "2025-05-15T06:06:45.293Z",
-            "originPath": "docs\\componet\\lib\\util.js"
+            "filePath": "componet/lib/seajs-css.min.js",
+            "size": 2649,
+            "time": "2025-05-15T06:06:45.290Z",
+            "originPath": "docs\\componet\\lib\\seajs-css.min.js"
         },
         {
             "filePath": "componet/lib/TZT.js",
@@ -813,22 +831,16 @@
             "originPath": "docs\\componet\\lib\\TZT.js"
         },
         {
+            "filePath": "componet/lib/util.js",
+            "size": 296,
+            "time": "2025-05-15T06:06:45.293Z",
+            "originPath": "docs\\componet\\lib\\util.js"
+        },
+        {
             "filePath": "componet/lib/vconsole.min.js",
             "size": 91482,
             "time": "2025-05-15T06:06:45.297Z",
             "originPath": "docs\\componet\\lib\\vconsole.min.js"
-        },
-        {
-            "filePath": "componet/lib/vue.min.js",
-            "size": 86457,
-            "time": "2025-05-15T06:06:45.298Z",
-            "originPath": "docs\\componet\\lib\\vue.min.js"
-        },
-        {
-            "filePath": "componet/coverage/clover.xml",
-            "size": 19617,
-            "time": "2025-05-29T08:40:32.604Z",
-            "originPath": "docs\\componet\\coverage\\clover.xml"
         },
         {
             "filePath": "componet/lib/vue@2.6.12.min.js",
@@ -837,28 +849,10 @@
             "originPath": "docs\\componet\\lib\\vue@2.6.12.min.js"
         },
         {
-            "filePath": "componet/coverage/coverage-final.json",
-            "size": 58466,
-            "time": "2025-05-29T08:40:32.510Z",
-            "originPath": "docs\\componet\\coverage\\coverage-final.json"
-        },
-        {
-            "filePath": "componet/coverage/lcov.info",
-            "size": 8143,
-            "time": "2025-05-29T08:40:32.588Z",
-            "originPath": "docs\\componet\\coverage\\lcov.info"
-        },
-        {
-            "filePath": "componet/Steps/readme.md",
-            "size": 1952,
-            "time": "2025-05-28T06:29:15.690Z",
-            "originPath": "docs\\componet\\Steps\\readme.md"
-        },
-        {
-            "filePath": "componet/TimeBar/readme.md",
-            "size": 3323,
-            "time": "2025-05-15T06:06:45.273Z",
-            "originPath": "docs\\componet\\TimeBar\\readme.md"
+            "filePath": "componet/lib/vue.min.js",
+            "size": 86457,
+            "time": "2025-05-15T06:06:45.298Z",
+            "originPath": "docs\\componet\\lib\\vue.min.js"
         },
         {
             "filePath": "componet/TimeBar/index.js",
@@ -867,16 +861,16 @@
             "originPath": "docs\\componet\\TimeBar\\index.js"
         },
         {
+            "filePath": "componet/TimeBar/readme.md",
+            "size": 3323,
+            "time": "2025-05-15T06:06:45.273Z",
+            "originPath": "docs\\componet\\TimeBar\\readme.md"
+        },
+        {
             "filePath": "componet/TimeBar/template.html",
             "size": 712,
             "time": "2025-05-15T06:06:45.273Z",
             "originPath": "docs\\componet\\TimeBar\\template.html"
-        },
-        {
-            "filePath": "componet/TradeCalendar/readme.md",
-            "size": 2625,
-            "time": "2025-05-28T06:29:15.694Z",
-            "originPath": "docs\\componet\\TradeCalendar\\readme.md"
         },
         {
             "filePath": "componet/TimeSelect/index.js",
@@ -897,88 +891,10 @@
             "originPath": "docs\\componet\\TimeSelect\\readme.md"
         },
         {
-            "filePath": "componet/BtnGroup/css/index.css",
-            "size": 1000,
-            "time": "2025-05-15T06:06:45.254Z",
-            "originPath": "docs\\componet\\BtnGroup\\css\\index.css"
-        },
-        {
-            "filePath": "componet/BtnGroup/js/index.js",
-            "size": 1906,
-            "time": "2025-05-15T06:06:45.256Z",
-            "originPath": "docs\\componet\\BtnGroup\\js\\index.js"
-        },
-        {
-            "filePath": "componet/BtnGroup/demo/demo.js",
-            "size": 1154,
-            "time": "2025-05-15T06:06:45.255Z",
-            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.js"
-        },
-        {
-            "filePath": "componet/BtnGroup/demo/demo.html",
-            "size": 2110,
-            "time": "2025-05-15T06:06:45.254Z",
-            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.html"
-        },
-        {
-            "filePath": "componet/Empty/demo/demo.html",
-            "size": 1737,
-            "time": "2025-05-15T06:06:45.258Z",
-            "originPath": "docs\\componet\\Empty\\demo\\demo.html"
-        },
-        {
-            "filePath": "componet/BtnGroup/html/index.html",
-            "size": 541,
-            "time": "2025-05-15T06:06:45.255Z",
-            "originPath": "docs\\componet\\BtnGroup\\html\\index.html"
-        },
-        {
-            "filePath": "componet/Empty/demo/demo.js",
-            "size": 336,
-            "time": "2025-05-15T06:06:45.258Z",
-            "originPath": "docs\\componet\\Empty\\demo\\demo.js"
-        },
-        {
-            "filePath": "componet/Empty/html/template.html",
-            "size": 244,
-            "time": "2025-05-15T06:06:45.259Z",
-            "originPath": "docs\\componet\\Empty\\html\\template.html"
-        },
-        {
-            "filePath": "componet/Empty/css/empty.css",
-            "size": 356,
-            "time": "2025-05-15T06:06:45.257Z",
-            "originPath": "docs\\componet\\Empty\\css\\empty.css"
-        },
-        {
-            "filePath": "componet/Empty/img/empty.png",
-            "size": 69817,
-            "time": "2025-05-15T06:06:45.260Z",
-            "originPath": "docs\\componet\\Empty\\img\\empty.png"
-        },
-        {
-            "filePath": "componet/search/demo/demo.html",
-            "size": 2117,
-            "time": "2025-05-15T06:06:45.302Z",
-            "originPath": "docs\\componet\\search\\demo\\demo.html"
-        },
-        {
-            "filePath": "componet/Empty/js/empty.js",
-            "size": 521,
-            "time": "2025-05-15T06:06:45.261Z",
-            "originPath": "docs\\componet\\Empty\\js\\empty.js"
-        },
-        {
-            "filePath": "componet/search/demo/demo.js",
-            "size": 466,
-            "time": "2025-05-15T06:06:45.302Z",
-            "originPath": "docs\\componet\\search\\demo\\demo.js"
-        },
-        {
-            "filePath": "componet/search/css/index.css",
-            "size": 3458,
-            "time": "2025-05-15T06:06:45.300Z",
-            "originPath": "docs\\componet\\search\\css\\index.css"
+            "filePath": "componet/TradeCalendar/readme.md",
+            "size": 2625,
+            "time": "2025-05-28T06:29:15.694Z",
+            "originPath": "docs\\componet\\TradeCalendar\\readme.md"
         },
         {
             "filePath": "componet/ActionButton/demo/demo.html",
@@ -993,16 +909,10 @@
             "originPath": "docs\\componet\\ActionButton\\demo\\demo.js"
         },
         {
-            "filePath": "componet/search/img/clear.png",
-            "size": 960,
-            "time": "2025-05-15T06:06:45.303Z",
-            "originPath": "docs\\componet\\search\\img\\clear.png"
-        },
-        {
-            "filePath": "componet/search/img/noData.png",
-            "size": 69817,
-            "time": "2025-05-15T06:06:45.304Z",
-            "originPath": "docs\\componet\\search\\img\\noData.png"
+            "filePath": "componet/ActionButton/css/index.css",
+            "size": 551,
+            "time": "2025-05-15T06:06:45.249Z",
+            "originPath": "docs\\componet\\ActionButton\\css\\index.css"
         },
         {
             "filePath": "componet/ActionButton/demo2/demo.html",
@@ -1011,22 +921,10 @@
             "originPath": "docs\\componet\\ActionButton\\demo2\\demo.html"
         },
         {
-            "filePath": "componet/search/img/seachIcon.png",
-            "size": 1834,
-            "time": "2025-05-15T06:06:45.304Z",
-            "originPath": "docs\\componet\\search\\img\\seachIcon.png"
-        },
-        {
             "filePath": "componet/ActionButton/demo2/demo.js",
             "size": 890,
             "time": "2025-05-15T06:06:45.251Z",
             "originPath": "docs\\componet\\ActionButton\\demo2\\demo.js"
-        },
-        {
-            "filePath": "componet/ActionButton/css/index.css",
-            "size": 551,
-            "time": "2025-05-15T06:06:45.249Z",
-            "originPath": "docs\\componet\\ActionButton\\css\\index.css"
         },
         {
             "filePath": "componet/ActionButton/html/index.html",
@@ -1035,22 +933,10 @@
             "originPath": "docs\\componet\\ActionButton\\html\\index.html"
         },
         {
-            "filePath": "componet/InputField/html/template.html",
-            "size": 1558,
-            "time": "2025-05-15T06:06:45.263Z",
-            "originPath": "docs\\componet\\InputField\\html\\template.html"
-        },
-        {
-            "filePath": "componet/InputField/demo/demo.html",
-            "size": 2031,
-            "time": "2025-05-15T06:06:45.262Z",
-            "originPath": "docs\\componet\\InputField\\demo\\demo.html"
-        },
-        {
-            "filePath": "componet/InputField/css/index.css",
-            "size": 1917,
-            "time": "2025-05-15T06:06:45.262Z",
-            "originPath": "docs\\componet\\InputField\\css\\index.css"
+            "filePath": "componet/BtnGroup/css/index.css",
+            "size": 1000,
+            "time": "2025-05-15T06:06:45.254Z",
+            "originPath": "docs\\componet\\BtnGroup\\css\\index.css"
         },
         {
             "filePath": "componet/ActionButton/js/index.js",
@@ -1059,22 +945,178 @@
             "originPath": "docs\\componet\\ActionButton\\js\\index.js"
         },
         {
-            "filePath": "componet/InputField/demo/demo.js",
-            "size": 424,
-            "time": "2025-05-15T06:06:45.263Z",
-            "originPath": "docs\\componet\\InputField\\demo\\demo.js"
+            "filePath": "componet/BtnGroup/demo/demo.html",
+            "size": 2110,
+            "time": "2025-05-15T06:06:45.254Z",
+            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.html"
         },
         {
-            "filePath": "componet/InputField/js/index.js",
-            "size": 10580,
-            "time": "2025-05-15T06:06:45.264Z",
-            "originPath": "docs\\componet\\InputField\\js\\index.js"
+            "filePath": "componet/BtnGroup/html/index.html",
+            "size": 541,
+            "time": "2025-05-15T06:06:45.255Z",
+            "originPath": "docs\\componet\\BtnGroup\\html\\index.html"
         },
         {
-            "filePath": "componet/lib/swiper/swiper.min.css",
-            "size": 19450,
-            "time": "2025-05-15T06:06:45.291Z",
-            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.css"
+            "filePath": "componet/BtnGroup/demo/demo.js",
+            "size": 1154,
+            "time": "2025-05-15T06:06:45.255Z",
+            "originPath": "docs\\componet\\BtnGroup\\demo\\demo.js"
+        },
+        {
+            "filePath": "componet/BtnGroup/js/index.js",
+            "size": 1906,
+            "time": "2025-05-15T06:06:45.256Z",
+            "originPath": "docs\\componet\\BtnGroup\\js\\index.js"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/block-navigation.js",
+            "size": 2655,
+            "time": "2025-05-29T09:21:40.246Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\block-navigation.js"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/base.css",
+            "size": 5394,
+            "time": "2025-05-29T09:21:40.244Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\base.css"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/common.js.html",
+            "size": 34128,
+            "time": "2025-05-29T09:21:40.276Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\common.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/calculate.js.html",
+            "size": 14896,
+            "time": "2025-05-29T09:21:40.269Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\calculate.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/date.js.html",
+            "size": 24854,
+            "time": "2025-05-29T09:21:40.280Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\date.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/favicon.png",
+            "size": 445,
+            "time": "2025-05-29T09:21:40.248Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\favicon.png"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/index.html",
+            "size": 10500,
+            "time": "2025-05-29T09:21:40.263Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\index.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/numbers.js.html",
+            "size": 3958,
+            "time": "2025-05-29T09:21:40.283Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\numbers.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/optimization.js.html",
+            "size": 8388,
+            "time": "2025-05-29T09:21:40.286Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\optimization.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/other.js.html",
+            "size": 27299,
+            "time": "2025-05-29T09:21:40.291Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\other.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/prettify.css",
+            "size": 676,
+            "time": "2025-05-29T09:21:40.256Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.css"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/sort-arrow-sprite.png",
+            "size": 138,
+            "time": "2025-05-29T09:21:40.251Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\sort-arrow-sprite.png"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/prettify.js",
+            "size": 17590,
+            "time": "2025-05-29T09:21:40.258Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.js"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/sorter.js",
+            "size": 6181,
+            "time": "2025-05-29T09:21:40.253Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\sorter.js"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/trade.js.html",
+            "size": 9045,
+            "time": "2025-05-29T09:21:40.297Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\trade.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/stringFun.js.html",
+            "size": 4424,
+            "time": "2025-05-29T09:21:40.294Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\stringFun.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/urlFun.js.html",
+            "size": 13396,
+            "time": "2025-05-29T09:21:40.301Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\urlFun.js.html"
+        },
+        {
+            "filePath": "componet/coverage/lcov-report/userEnv.js.html",
+            "size": 5161,
+            "time": "2025-05-29T09:21:40.304Z",
+            "originPath": "docs\\componet\\coverage\\lcov-report\\userEnv.js.html"
+        },
+        {
+            "filePath": "componet/Empty/css/empty.css",
+            "size": 356,
+            "time": "2025-05-15T06:06:45.257Z",
+            "originPath": "docs\\componet\\Empty\\css\\empty.css"
+        },
+        {
+            "filePath": "componet/Empty/html/template.html",
+            "size": 244,
+            "time": "2025-05-15T06:06:45.259Z",
+            "originPath": "docs\\componet\\Empty\\html\\template.html"
+        },
+        {
+            "filePath": "componet/Empty/demo/demo.html",
+            "size": 1737,
+            "time": "2025-05-15T06:06:45.258Z",
+            "originPath": "docs\\componet\\Empty\\demo\\demo.html"
+        },
+        {
+            "filePath": "componet/Empty/img/empty.png",
+            "size": 69817,
+            "time": "2025-05-15T06:06:45.260Z",
+            "originPath": "docs\\componet\\Empty\\img\\empty.png"
+        },
+        {
+            "filePath": "componet/Empty/demo/demo.js",
+            "size": 336,
+            "time": "2025-05-15T06:06:45.258Z",
+            "originPath": "docs\\componet\\Empty\\demo\\demo.js"
+        },
+        {
+            "filePath": "componet/Empty/js/empty.js",
+            "size": 521,
+            "time": "2025-05-15T06:06:45.261Z",
+            "originPath": "docs\\componet\\Empty\\js\\empty.js"
+        },
+        {
+            "filePath": "componet/InputField/css/index.css",
+            "size": 1917,
+            "time": "2025-05-15T06:06:45.262Z",
+            "originPath": "docs\\componet\\InputField\\css\\index.css"
         },
         {
             "filePath": "componet/InputField/img/add.png",
@@ -1089,130 +1131,76 @@
             "originPath": "docs\\componet\\InputField\\img\\minus.png"
         },
         {
-            "filePath": "componet/lib/swiper/swiper.min.js",
-            "size": 114417,
-            "time": "2025-05-15T06:06:45.292Z",
-            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.js"
+            "filePath": "componet/InputField/demo/demo.html",
+            "size": 2031,
+            "time": "2025-05-15T06:06:45.262Z",
+            "originPath": "docs\\componet\\InputField\\demo\\demo.html"
         },
         {
-            "filePath": "componet/coverage/lcov-report/base.css",
-            "size": 5394,
-            "time": "2025-05-29T08:40:32.536Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\base.css"
+            "filePath": "componet/InputField/js/index.js",
+            "size": 10580,
+            "time": "2025-05-15T06:06:45.264Z",
+            "originPath": "docs\\componet\\InputField\\js\\index.js"
         },
         {
-            "filePath": "componet/coverage/lcov-report/block-navigation.js",
-            "size": 2655,
-            "time": "2025-05-29T08:40:32.539Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\block-navigation.js"
+            "filePath": "componet/InputField/demo/demo.js",
+            "size": 424,
+            "time": "2025-05-15T06:06:45.263Z",
+            "originPath": "docs\\componet\\InputField\\demo\\demo.js"
         },
         {
-            "filePath": "componet/coverage/lcov-report/common.js.html",
-            "size": 34128,
-            "time": "2025-05-29T08:40:32.565Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\common.js.html"
+            "filePath": "componet/search/css/index.css",
+            "size": 3458,
+            "time": "2025-05-15T06:06:45.300Z",
+            "originPath": "docs\\componet\\search\\css\\index.css"
         },
         {
-            "filePath": "componet/coverage/lcov-report/calculate.js.html",
-            "size": 14896,
-            "time": "2025-05-29T08:40:32.560Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\calculate.js.html"
+            "filePath": "componet/InputField/html/template.html",
+            "size": 1558,
+            "time": "2025-05-15T06:06:45.263Z",
+            "originPath": "docs\\componet\\InputField\\html\\template.html"
         },
         {
-            "filePath": "componet/coverage/lcov-report/date.js.html",
-            "size": 20878,
-            "time": "2025-05-29T08:40:32.568Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\date.js.html"
+            "filePath": "componet/search/demo/demo.html",
+            "size": 2117,
+            "time": "2025-05-15T06:06:45.302Z",
+            "originPath": "docs\\componet\\search\\demo\\demo.html"
         },
         {
-            "filePath": "componet/coverage/lcov-report/index.html",
-            "size": 10495,
-            "time": "2025-05-29T08:40:32.554Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\index.html"
+            "filePath": "componet/search/demo/demo.js",
+            "size": 466,
+            "time": "2025-05-15T06:06:45.302Z",
+            "originPath": "docs\\componet\\search\\demo\\demo.js"
         },
         {
-            "filePath": "componet/coverage/lcov-report/optimization.js.html",
-            "size": 8372,
-            "time": "2025-05-29T08:40:32.573Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\optimization.js.html"
+            "filePath": "componet/search/img/clear.png",
+            "size": 960,
+            "time": "2025-05-15T06:06:45.303Z",
+            "originPath": "docs\\componet\\search\\img\\clear.png"
         },
         {
-            "filePath": "componet/coverage/lcov-report/favicon.png",
-            "size": 445,
-            "time": "2025-05-29T08:40:32.540Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\favicon.png"
+            "filePath": "componet/search/img/seachIcon.png",
+            "size": 1834,
+            "time": "2025-05-15T06:06:45.304Z",
+            "originPath": "docs\\componet\\search\\img\\seachIcon.png"
         },
         {
-            "filePath": "componet/coverage/lcov-report/numbers.js.html",
-            "size": 3958,
-            "time": "2025-05-29T08:40:32.570Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\numbers.js.html"
+            "filePath": "componet/search/img/noData.png",
+            "size": 69817,
+            "time": "2025-05-15T06:06:45.304Z",
+            "originPath": "docs\\componet\\search\\img\\noData.png"
         },
         {
-            "filePath": "componet/coverage/lcov-report/other.js.html",
-            "size": 27299,
-            "time": "2025-05-29T08:40:32.577Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\other.js.html"
+            "filePath": "componet/Steps/img/right_icon.png",
+            "size": 524,
+            "time": "2025-05-15T06:06:45.267Z",
+            "originPath": "docs\\componet\\Steps\\img\\right_icon.png"
         },
         {
-            "filePath": "componet/coverage/lcov-report/prettify.css",
-            "size": 676,
-            "time": "2025-05-29T08:40:32.547Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.css"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/prettify.js",
-            "size": 17590,
-            "time": "2025-05-29T08:40:32.549Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\prettify.js"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/sort-arrow-sprite.png",
-            "size": 138,
-            "time": "2025-05-29T08:40:32.542Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\sort-arrow-sprite.png"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/stringFun.js.html",
-            "size": 4424,
-            "time": "2025-05-29T08:40:32.580Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\stringFun.js.html"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/sorter.js",
-            "size": 6181,
-            "time": "2025-05-29T08:40:32.544Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\sorter.js"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/userEnv.js.html",
-            "size": 5161,
-            "time": "2025-05-29T08:40:32.589Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\userEnv.js.html"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/urlFun.js.html",
-            "size": 13396,
-            "time": "2025-05-29T08:40:32.587Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\urlFun.js.html"
-        },
-        {
-            "filePath": "componet/lib/vant/index@2.12.css",
-            "size": 144359,
-            "time": "2025-05-15T06:06:45.294Z",
-            "originPath": "docs\\componet\\lib\\vant\\index@2.12.css"
-        },
-        {
-            "filePath": "componet/coverage/lcov-report/trade.js.html",
-            "size": 8539,
-            "time": "2025-05-29T08:40:32.584Z",
-            "originPath": "docs\\componet\\coverage\\lcov-report\\trade.js.html"
-        },
-        {
-            "filePath": "componet/lib/vant/vant@2.12.min.js",
-            "size": 273304,
-            "time": "2025-05-15T06:06:45.296Z",
-            "originPath": "docs\\componet\\lib\\vant\\vant@2.12.min.js"
+            "filePath": "componet/Steps/css/index.css",
+            "size": 1693,
+            "time": "2025-05-15T06:06:45.265Z",
+            "originPath": "docs\\componet\\Steps\\css\\index.css"
         },
         {
             "filePath": "componet/Steps/demo/demo.html",
@@ -1227,22 +1215,10 @@
             "originPath": "docs\\componet\\Steps\\demo\\demo.js"
         },
         {
-            "filePath": "componet/Steps/css/index.css",
-            "size": 1693,
-            "time": "2025-05-15T06:06:45.265Z",
-            "originPath": "docs\\componet\\Steps\\css\\index.css"
-        },
-        {
             "filePath": "componet/Steps/html/template.html",
             "size": 610,
             "time": "2025-05-15T06:06:45.267Z",
             "originPath": "docs\\componet\\Steps\\html\\template.html"
-        },
-        {
-            "filePath": "componet/Steps/img/right_icon.png",
-            "size": 524,
-            "time": "2025-05-15T06:06:45.267Z",
-            "originPath": "docs\\componet\\Steps\\img\\right_icon.png"
         },
         {
             "filePath": "componet/Steps/js/index.js",
@@ -1251,22 +1227,16 @@
             "originPath": "docs\\componet\\Steps\\js\\index.js"
         },
         {
-            "filePath": "componet/TimeBar/assets/index.css",
-            "size": 863,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\index.css"
+            "filePath": "componet/lib/vant/index@2.12.css",
+            "size": 144359,
+            "time": "2025-05-15T06:06:45.294Z",
+            "originPath": "docs\\componet\\lib\\vant\\index@2.12.css"
         },
         {
-            "filePath": "componet/TimeBar/assets/downLine.png",
-            "size": 390,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\downLine.png"
-        },
-        {
-            "filePath": "componet/TimeBar/assets/index.scss",
-            "size": 733,
-            "time": "2025-05-15T06:06:45.271Z",
-            "originPath": "docs\\componet\\TimeBar\\assets\\index.scss"
+            "filePath": "componet/lib/vant/vant@2.12.min.js",
+            "size": 273304,
+            "time": "2025-05-15T06:06:45.296Z",
+            "originPath": "docs\\componet\\lib\\vant\\vant@2.12.min.js"
         },
         {
             "filePath": "componet/TimeBar/demo/demo.html",
@@ -1281,16 +1251,64 @@
             "originPath": "docs\\componet\\TimeBar\\demo\\demo.js"
         },
         {
-            "filePath": "componet/TradeCalendar/demo/demo.js",
-            "size": 867,
-            "time": "2025-05-28T06:29:15.692Z",
-            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.js"
+            "filePath": "componet/lib/swiper/swiper.min.css",
+            "size": 19450,
+            "time": "2025-05-15T06:06:45.291Z",
+            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.css"
         },
         {
-            "filePath": "componet/TradeCalendar/demo/demo.html",
-            "size": 1867,
-            "time": "2025-05-28T06:29:15.691Z",
-            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.html"
+            "filePath": "componet/lib/swiper/swiper.min.js",
+            "size": 114417,
+            "time": "2025-05-15T06:06:45.292Z",
+            "originPath": "docs\\componet\\lib\\swiper\\swiper.min.js"
+        },
+        {
+            "filePath": "componet/TimeBar/assets/downLine.png",
+            "size": 390,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\downLine.png"
+        },
+        {
+            "filePath": "componet/TimeSelect/demo/demo.html",
+            "size": 2112,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.html"
+        },
+        {
+            "filePath": "componet/TimeSelect/demo/demo.js",
+            "size": 1402,
+            "time": "2025-05-15T06:06:45.276Z",
+            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.js"
+        },
+        {
+            "filePath": "componet/TimeBar/assets/index.css",
+            "size": 863,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\index.css"
+        },
+        {
+            "filePath": "componet/TimeSelect/assets/index.css",
+            "size": 4309,
+            "time": "2025-05-15T06:06:45.274Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\index.css"
+        },
+        {
+            "filePath": "componet/TimeSelect/assets/lineLeft.png",
+            "size": 404,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\lineLeft.png"
+        },
+        {
+            "filePath": "componet/TimeBar/assets/index.scss",
+            "size": 733,
+            "time": "2025-05-15T06:06:45.271Z",
+            "originPath": "docs\\componet\\TimeBar\\assets\\index.scss"
+        },
+        {
+            "filePath": "componet/TimeSelect/assets/lineRight.png",
+            "size": 444,
+            "time": "2025-05-15T06:06:45.275Z",
+            "originPath": "docs\\componet\\TimeSelect\\assets\\lineRight.png"
         },
         {
             "filePath": "componet/TradeCalendar/css/index.css",
@@ -1311,10 +1329,10 @@
             "originPath": "docs\\componet\\TradeCalendar\\js\\index.js"
         },
         {
-            "filePath": "componet/TradeCalendar/img/gray-selected.png",
-            "size": 1575,
-            "time": "2025-05-15T06:06:45.281Z",
-            "originPath": "docs\\componet\\TradeCalendar\\img\\gray-selected.png"
+            "filePath": "componet/TradeCalendar/demo/demo.html",
+            "size": 1867,
+            "time": "2025-05-28T06:29:15.691Z",
+            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.html"
         },
         {
             "filePath": "componet/TradeCalendar/img/arrow-down.png",
@@ -1323,10 +1341,22 @@
             "originPath": "docs\\componet\\TradeCalendar\\img\\arrow-down.png"
         },
         {
+            "filePath": "componet/TradeCalendar/demo/demo.js",
+            "size": 867,
+            "time": "2025-05-28T06:29:15.692Z",
+            "originPath": "docs\\componet\\TradeCalendar\\demo\\demo.js"
+        },
+        {
             "filePath": "componet/TradeCalendar/img/gray-bg.png",
             "size": 1199,
             "time": "2025-05-15T06:06:45.280Z",
             "originPath": "docs\\componet\\TradeCalendar\\img\\gray-bg.png"
+        },
+        {
+            "filePath": "componet/TradeCalendar/img/gray-selected.png",
+            "size": 1575,
+            "time": "2025-05-15T06:06:45.281Z",
+            "originPath": "docs\\componet\\TradeCalendar\\img\\gray-selected.png"
         },
         {
             "filePath": "componet/TradeCalendar/img/green-bg.png",
@@ -1351,36 +1381,6 @@
             "size": 19554,
             "time": "2025-05-15T06:06:45.282Z",
             "originPath": "docs\\componet\\TradeCalendar\\img\\red-selected.png"
-        },
-        {
-            "filePath": "componet/TimeSelect/assets/index.css",
-            "size": 4309,
-            "time": "2025-05-15T06:06:45.274Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\index.css"
-        },
-        {
-            "filePath": "componet/TimeSelect/assets/lineLeft.png",
-            "size": 404,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\lineLeft.png"
-        },
-        {
-            "filePath": "componet/TimeSelect/demo/demo.js",
-            "size": 1402,
-            "time": "2025-05-15T06:06:45.276Z",
-            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.js"
-        },
-        {
-            "filePath": "componet/TimeSelect/demo/demo.html",
-            "size": 2112,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\demo\\demo.html"
-        },
-        {
-            "filePath": "componet/TimeSelect/assets/lineRight.png",
-            "size": 444,
-            "time": "2025-05-15T06:06:45.275Z",
-            "originPath": "docs\\componet\\TimeSelect\\assets\\lineRight.png"
         }
     ]
 }
