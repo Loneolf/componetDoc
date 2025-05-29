@@ -9,7 +9,6 @@
 </script>
 
 
-
 ## formateDateToString 日期转字符串
 日期转字符串
 
@@ -45,7 +44,6 @@ function formateDateToString(dateObject, split) {
 
 
 
-
 ## formateStringToDate 字符串转日期
 字符串转日期
 
@@ -68,7 +66,6 @@ function formateStringToDate(dateString) {
     return new Date(ds);
 }
 ```
-
 
 
 
@@ -109,7 +106,6 @@ function dateCount(expireNum, nowNum) {
     return date + '天' + hour + '时' + min + '分';
 }
 ```
-
 
 
 
@@ -158,7 +154,6 @@ function accAdd(arg1, arg2) {
 
 
 
-
 ## accMul * 乘法函数，用来得到精确的乘法结果* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。* 调用：accMul(arg1,arg2)* 返回值：arg1乘以 arg2的精确结果
 * 乘法函数，用来得到精确的乘法结果* 说明：javascript的乘法结果会有误差，在两个浮点数相乘的时候会比较明显。这个函数返回较为精确的乘法结果。* 调用：accMul(arg1,arg2)* 返回值：arg1乘以 arg2的精确结果
 
@@ -184,7 +179,6 @@ function accMul(arg1, arg2) {
     return Number(s1.replace(".", "")) * Number(s2.replace(".", "")) / Math.pow(10, m);
 }
 ```
-
 
 
 
@@ -221,7 +215,6 @@ function accDiv(arg1, arg2) {
 
 
 
-
 ## thousandFormat 格式化数字，用来每三位加逗号
 格式化数字，用来每三位加逗号
 
@@ -245,7 +238,6 @@ function thousandFormat(num) {
     return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 ```
-
 
 
 
@@ -281,7 +273,6 @@ function isTradeDate(dateObject, nonTradingDate) {
 
 
 
-
 ## abbreviation 字符串超长缩写
 字符串超长缩写
 
@@ -307,7 +298,6 @@ function abbreviation(string, length = 17) {
     return string.slice(0, length) + '...';
 }
 ```
-
 
 
 
@@ -347,7 +337,6 @@ function compare(pro) {
 
 
 
-
 ## getDiffDays 计算两个日期的间隔
 计算两个日期的间隔
 
@@ -376,7 +365,6 @@ function getDiffDays(date1Str, date2Str) {
     return diffDays;
 }
 ```
-
 
 
 

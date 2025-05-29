@@ -12,6 +12,15 @@ const sidbarBase = '/fun/autoMd/'
 const fileNameMap = {
     'common': '通用函数',
     'other': '其它函数',
+    'commonData': '通用请求数据',
+    'numbers': '通用数字处理',
+    'date': '通用日期处理',
+    'calculate': '通用计算处理',
+    'optimization': '通用优化处理',
+    'stringFun': '通用字符串处理',
+    'trade': '通用交易处理',
+    'userEnv': '通用用户环境处理',
+    'urlFun': '通用 url 处理',
 }
 
 

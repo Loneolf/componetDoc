@@ -9,7 +9,6 @@
 </script>
 
 
-
 ## toQueryString 将 JavaScript 对象转换为 URL 查询参数字符串。
 将 JavaScript 对象转换为 URL 查询参数字符串。
 
@@ -50,7 +49,6 @@ function toQueryString(obj) {
     return ret.join('&');
 }
 ```
-
 
 
 
@@ -103,7 +101,6 @@ function toQueryParams() {
 
 
 
-
 ## toQueryPair 将键值对转换为 URL 查询参数的字符串形式。
 将键值对转换为 URL 查询参数的字符串形式。
 
@@ -134,7 +131,6 @@ function toQueryPair(key, value) {
 
 
 
-
 ## zhangHongDieLv 根据传入的数值判断涨跌状态，返回对应的 CSS 类名。若数值为正数，表示上涨，返回 &#x27;f-red&#x27;；若为负数，表示下跌，返回 &#x27;f-green&#x27;；若数值为 0 或非有效数字，则返回空字符串。
 根据传入的数值判断涨跌状态，返回对应的 CSS 类名。若数值为正数，表示上涨，返回 &#x27;f-red&#x27;；若为负数，表示下跌，返回 &#x27;f-green&#x27;；若数值为 0 或非有效数字，则返回空字符串。
 
@@ -162,7 +158,6 @@ function zhangHongDieLv(orig) {
     return n > 0 ? 'f-red' : 'f-green';
 }
 ```
-
 
 
 
@@ -224,7 +219,6 @@ function getNearTime(time, includeTody) {
 
 
 
-
 ## getDiffDate 为时间字符串中的每个部分添加前导零，确保其格式统一。例如，将 &quot;2023-5-9&quot; 转换为 &quot;2023-05-09&quot;。
 为时间字符串中的每个部分添加前导零，确保其格式统一。例如，将 &quot;2023-5-9&quot; 转换为 &quot;2023-05-09&quot;。
 
@@ -259,7 +253,6 @@ function getDiffDate(time, diff) {
 
 
 
-
 ## addTimeZero 为时间字符串中的每个部分添加前导零，确保其格式统一。例如，将 &quot;2023-5-9&quot; 转换为 &quot;2023-05-09&quot;。
 为时间字符串中的每个部分添加前导零，确保其格式统一。例如，将 &quot;2023-5-9&quot; 转换为 &quot;2023-05-09&quot;。
 
@@ -289,7 +282,6 @@ function addTimeZero(timeText, operate) {
     return arr.join(operate);
 }
 ```
-
 
 
 
