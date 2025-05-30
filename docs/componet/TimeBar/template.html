@@ -1,0 +1,24 @@
+<div class="timeBarBox">
+    <div class="tabBox">
+        <div 
+            class="tabItem" 
+            v-for="item in timeArr"
+            :class="item.value == activeTab ? 'activeBar' : ''" 
+            :key="item.value"
+            @click="tabClick(item)"
+        >{{item.text}}</div>
+    </div>
+    <time-picker
+        :is-show="isShowTimeData"
+        :show-time="showNormalTime"
+        :formatter="formatter" 
+        :min-date="minDate" 
+        :max-date="maxDate" 
+        :begin-date="beginDate" 
+        :end-date="endDate" 
+        :max-diff="31"
+        :show-time="showNormalTime"
+        @confirm="onConfirm" 
+        @datechange="onDateChange"
+    ></time-picker>
+</div>

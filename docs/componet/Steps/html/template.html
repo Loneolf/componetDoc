@@ -1,0 +1,13 @@
+<div>
+    <div class="zx-steper" :style="{width:width+'rem'}">
+        <div class="zx-steper-progroess">
+            <div class="zx-steper-progroess-bar" :style="{width:widthCal}"></div>
+            <div class="zx-steper-index" :style="{left:leftCal}" @click="handleClick" v-show="showIndex">{{current}}</div>
+        </div>
+        <div class="zx-steper-navigator">
+            <div v-for="(item,index) in navigator" :key="item"  @click="handleClick">
+                <div :style="{color:index+1==current&&showIndex?'#e83333':''}">{{item}}</div>
+            </div>
+        </div>
+    </div>
+</div>

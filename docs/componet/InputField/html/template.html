@@ -1,0 +1,42 @@
+<div>
+    <div class="zx-input-field">
+        <van-popover
+            v-model="showPopover"
+            theme="dark"
+            placement="top"
+            :offset="offset"
+        >
+            <div class="zx-input-field-popover">{{popoverText}}</div>
+            <template #reference>
+                <div class="zx-input-field-control">
+                    <div class="minus zx-input-field-btn" @click="minus">
+                        <img
+                            src="../img/minus.png"
+                            alt=""
+                        />
+                        <div class="zx-input-field-step">{{step}}</div>
+                    </div>
+                    <input
+                        :placeholder="placeholder"
+                        v-model="price"
+                        @input="inputPrice"
+                        @focus="focus"
+                        @blur="blur"
+                    />
+                    <div class="plus zx-input-field-btn" @click="plus">
+                        <img
+                            src="../img/add.png"
+                            alt=""
+                        />
+                        <div class="zx-input-field-step">{{step}}</div>
+                    </div>
+                </div>
+            </template>
+        </van-popover>
+        <div class="zx-input-field-unit">{{unit}}</div>
+        <div class="zx-input-field-tips">
+            <slot name="left-tip"></slot>
+            <slot name="right-tip"></slot>
+        </div>
+    </div>
+</div>

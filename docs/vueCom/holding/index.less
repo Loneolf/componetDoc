@@ -1,0 +1,102 @@
+.parseHoldingData{
+    position: relative;
+    .oprateBtn {
+        position: absolute;
+        right: 100px;
+        top: -20px;
+    }
+    .sourceData {
+        // height: 400px;
+        padding: 20px;
+        border-right: 2px solid #cccccc;
+        display: flex;
+        flex-wrap: wrap;
+        .sourceItem {
+            margin-right: 20px;
+        }
+        textarea {
+            width: 200px;
+            height: 100px;
+            border: none;
+            // border: 1px solid #cccccc;
+            border-radius: 10px;
+            background-color: aliceblue;
+        }
+    }
+    .parseContent {
+        .accontBtn{
+            padding: 10px;
+            .accontBtnItem{
+                padding: 5px 10px;
+                cursor: pointer;
+                border-radius: 40px;
+                border: 1px solid #cccccc;
+                margin-right: 20px;
+            }
+            .accontBtnItem.active{
+                color: red;
+                border-color: red;
+            }
+        }
+        .accountItem {
+            p {
+                margin: 0;
+                font-size: 16px;
+                line-height: 20px;
+                .explan{
+                    font-size: 14px;
+                    color: #555;
+                }
+            } 
+        }
+    }
+    .listItem {
+        content-visibility: auto;
+        // contain: paint; 
+    }
+    .itemSplit{
+       margin:0 15px;
+    }
+    
+}
+
+.dark {
+    .parseHoldingData{
+        .sourceData {
+            .textarea {
+                background-color: #333333;
+           }
+        }
+        .parseContent {
+            .accountItem {
+                .explan {
+                    color: #cccccc;
+                }
+            }
+        }
+        .el-button {
+            background-color: #333333;
+            color: #ffffff;
+            border-color: #555555;
+        }
+    }
+    .el-popper {
+        background-color: #333333;
+        color: #ffffff;
+        border-color: #555555;
+        .el-popper__arrow:before {
+            background-color: #333333;
+        }
+    }
+}
+
+
+.el-popper.el-popover.el-popover--plain {
+    max-height: 600px;
+    overflow: auto;
+}
+.fontWeight{
+    font-weight: 600;
+    text-decoration: underline; 
+    font-style: italic;
+}

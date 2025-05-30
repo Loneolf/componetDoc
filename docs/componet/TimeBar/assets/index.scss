@@ -1,0 +1,36 @@
+.timeBarBox {
+    border-bottom: solid .01rem #EBEDEE;
+	.tabBox {
+		display: flex;
+		justify-content: space-between;
+		padding: 0 0.64rem;
+		height: 0.8rem;
+		line-height: 0.8rem;
+		background-color: #ffffff;
+		.tabItem {
+			position: relative;
+			color: #222222;
+			font-size: 0.3rem;
+		}
+		.activeBar {
+			font-weight: bold;
+		}
+		.activeBar::after {
+			content: "";
+			display: block;
+			position: absolute;
+			width: 0.36rem;
+			height: 0.06rem;
+			background: url("./downLine.png") no-repeat;
+			background-size: 100%;
+			bottom: 0rem;
+			left: 50%;
+			margin-left: -0.18rem;
+			z-index: 999;
+		}
+	}
+    .dateChoice{
+        border-top: solid .01rem #EBEDEE;
+        height: 1.12rem;
+    }
+}

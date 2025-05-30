@@ -1,0 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+.zx-input-field {
+    width: 4.44rem;
+    position: relative;
+}
+.zx-input-field-control {
+    width: 4.44rem;
+    height: 0.8rem;
+    border: 0.01rem solid rgba(205, 209, 213, 1);
+    border-radius: 0.08rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.zx-input-field input::-webkit-input-placeholder {
+    color: rgba(102, 102, 102, 1);
+}
+.zx-input-field input {
+    height: 0.8rem;
+    width: 2.83rem;
+    font-size: 0.28rem;
+    border: 0;
+    color:#222;
+    border-left: 0.01rem solid rgba(205, 209, 213, 1);
+    border-right: 0.01rem solid rgba(205, 209, 213, 1);
+    background: transparent;
+    outline: 0;
+    font-size: 0.32rem;
+    text-align: center;
+    line-height: 0.32rem;
+    font-weight: 500;
+    text-align: left;
+    padding-left:.16rem;
+    box-sizing: border-box;
+}
+.zx-input-field-btn {
+    width: 0.8rem;
+    flex-basis: 0.8rem;
+    height: 0.8rem;
+    text-align: center;
+    flex-shrink: 0;
+}
+.zx-input-field-btn img {
+    height: 0.48rem;
+    width: 0.48rem;
+    margin-top: 0.08rem;
+    display: block;
+    margin: 0.08rem auto 0;
+}
+.zx-input-field-step {
+    font-size: 0.2rem;
+    color: #e83333;
+    text-align: center;
+    line-height: 0.2rem;
+    font-weight: 400;
+}
+.zx-input-field-tips {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 0.64rem;
+}
+.zx-input-field-popover{
+    width:1.12rem;
+    text-align: center;
+}
+.zx-input-field-unit{
+    position: absolute;
+    top:.02rem;
+    font-size: .32rem;
+    color: #98A1A9;
+    text-align: center;
+    line-height: .76rem;
+    font-weight: 500;
+    height:.76rem;
+    width:.6rem;
+    right:.82rem;
+}
+.van-popover__content{
+    border-radius:.08rem;
+    background: rgba(0,0,0,.85);
+}
+.van-popover__arrow{
+    border-width:5px;
+}

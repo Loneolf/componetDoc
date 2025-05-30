@@ -1,0 +1,15 @@
+<div
+    class="zx-btn-group flex-a"
+    :style="{ height: height/50 + 'rem' }"
+>
+    <div
+        class="zx-btn"
+        :style="{ height: height / 50 + 'rem' ,color:item.active?activeTextColor:textColor,background:item.active?activeBackgroundColor:backgroundColor,borderColor:item.active?activeBorderColor:borderColor,width:width/50+'rem'}"
+        v-for="item in btnConfig"
+        :key="item.text"
+        @click="clickFn(item)"
+        :class="item.active ? 'active' : ''"
+    >
+        {{ item.text }}
+    </div>
+</div>
