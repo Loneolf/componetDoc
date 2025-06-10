@@ -10,6 +10,7 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD, data60) {
     if (!data?.GRID0?.length) {
         return { INDEX, data: {} }
     }
+    console.log('aaaadata60', data60)
     INDEX.STOCKCODEINDEX = data.STOCKCODEINDEX;
     INDEX.YKLINDEX = data.YKLINDEX;
     INDEX.DATEFORMINDEX = data.DATEFORMINDEX;
@@ -150,6 +151,10 @@ export function turn117ToObj(data, exchangeRateHKDtoUSD, data60) {
                chiCangItem.markZuoshou = item60.markZuoshou;
            } 
        })
+       if (!data60) {
+            chiCangItem.markShijia = chiCangItem.shiJia;
+            chiCangItem.markZuoshou = chiCangItem.preDrPrice;
+       }
        arr.push(chiCangItem);
 
     })
@@ -286,6 +291,12 @@ export function turn5106ToObj(data, HKStockExchangeRateList, data60) {
                 chiCangItem.markZuoshou = item60.markZuoshou;
             } 
         })
+
+        if (!data60) {
+            chiCangItem.markShijia = chiCangItem.shiJia;
+            chiCangItem.markZuoshou = chiCangItem.preDrPrice;
+        }
+
         arr.push(chiCangItem);
         
     });
